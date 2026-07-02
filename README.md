@@ -478,6 +478,38 @@ Three features distinguish the ABM style used here:
 
 Crucially, the models remain **stock-flow consistent**: because money is only ever transferred between agents (never created or destroyed by the matching), the redundant equation continues to hold to machine precision. The ABMs are run many times (**Monte Carlo** repetitions); charts show every run (thin grey lines) plus the mean (bold line).
 
+> ### 📦 Box — Emergence: a flock without a leader
+>
+> Watch a flock of starlings wheel across the sky and it is tempting to look for a
+> leader, or a master plan. There is neither. Each bird follows only a few simple
+> rules, looking at its nearest neighbours: **separation** (don't crowd them),
+> **alignment** (head roughly the same way as them), and **cohesion** (don't drift
+> too far from them). No bird can see the whole flock, and nowhere in these rules is
+> the word "flock" written down. Yet the flock appears — a coherent, shifting shape
+> that belongs to the group and to no individual. This is **emergence**: order at the
+> level of the whole that arises purely from local interaction, and that you could
+> never have read off a single bird.
+>
+> <figure>
+> <img src="https://github.com/marcoverpas/figures/blob/main/boids_flock.gif" width="450">
+> </figure>
+>
+> The point is easy to test: switch the interaction *off* — let each bird ignore its
+> neighbours — and the flock dissolves into a cloud of independent wanderers. The
+> pattern lived in the *interaction*, not in the birds. (This is what separates true
+> emergence from a merely intricate picture drawn by one clever formula: there, the
+> shape is written into the equation from the start; here, nobody wrote it at all.)
+>
+> **Agent-based models (ABMs)** put this idea to work in economics. Instead of writing
+> down how the *economy* behaves, we specify how many individual **agents** — here,
+> households — behave, and let them interact through markets. The aggregate quantities
+> (output, employment, wealth) are then simply the sums over agents, and macroeconomic
+> regularities *emerge* from the crowd rather than being assumed. As we will see,
+> features that no household was ever told to produce — involuntary unemployment, or an
+> aggregate demand that depends on precisely *who* was paid this period — appear all by
+> themselves, the economic counterpart of the flock.
+
+
 ### 3.2 - Model ABM-SIM
 
 Model **ABM-SIM** is Model SIM populated by $N$ households. Each household holds its own money $h_i$, forms its own disposable income $yd_i$, and has its own propensity to consume $\alpha_{1,i}$. The number of households exceeds the workers ever needed, so **unemployment emerges** rather than being assumed. One period unfolds as a sequence of "ticks":
