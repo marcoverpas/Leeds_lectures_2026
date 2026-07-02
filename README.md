@@ -289,15 +289,19 @@ $$M_s = M_{s,-1} + \Delta L \quad \text{(B.11)}$$
 
 $$r_m = r_l \quad \text{(B.12)}$$
 
-$$N = \frac{Y}{pr} \quad \text{(B.14)}$$ $
+$$N = \frac{Y}{pr} \quad \text{(B.14)}$$
 
-$w = \frac{WB}{N} \quad \text{(B.15)}$$
+$$w = \frac{WB}{N} \quad \text{(B.15)}$$
 
 $$C = \alpha_0 + \alpha_1 \cdot YD + \alpha_2 \cdot M_{h,-1} \quad \text{(B.16)}$$
 
-$$K = K_{-1} + I - DA, \qquad DA = \delta \cdot K_{-1} \quad \text{(B.17, B.18)}$$
+$$K = K_{-1} + I - DA \quad \text{(B.17)}$$
 
-$$K^t = \kappa \cdot Y_{-1}, \qquad I = \gamma \cdot (K^t - K_{-1}) + DA \quad \text{(B.19, B.20)}$$
+$$DA = \delta \cdot K_{-1} \quad \text{(B.18)}$$
+
+$$K^t = \kappa \cdot Y_{-1} \quad \text{(B.19)}$$
+
+$$I = \gamma \cdot (K^t - K_{-1}) + DA \quad \text{(B.20)}$$
 
 $$r_l = \bar{r}_l \quad \text{(B.21)}$$
 
