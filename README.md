@@ -495,6 +495,8 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > <sub><i>Boids model (Reynolds, 1987): separation, alignment and cohesion only.</i></sub>
 > </div>
 >
+> <br>
+> 
 > The point is easy to test: switch the interaction *off* — let each bird ignore its
 > neighbours — and the flock dissolves into a cloud of independent wanderers. The
 > pattern lived in the *interaction*, not in the birds. (This is what separates true
