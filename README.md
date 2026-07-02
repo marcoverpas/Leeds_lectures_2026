@@ -490,9 +490,10 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > level of the whole that arises purely from local interaction, and that you could
 > never have read off a single bird.
 >
-> <figure>
-> <img src="https://github.com/marcoverpas/figures/blob/main/boids_flock.gif" width="450">
-> </figure>
+> <div align="center">
+> <img src="https://github.com/marcoverpas/figures/blob/main/boids_flock.gif" width="450"><br>
+> <sub><i>Boids model (Reynolds, 1987): separation, alignment and cohesion only.</i></sub>
+> </div>
 >
 > The point is easy to test: switch the interaction *off* — let each bird ignore its
 > neighbours — and the flock dissolves into a cloud of independent wanderers. The
@@ -508,6 +509,10 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > features that no household was ever told to produce — involuntary unemployment, or an
 > aggregate demand that depends on precisely *who* was paid this period — appear all by
 > themselves, the economic counterpart of the flock.
+>
+> <sub>The flocking model ("Boids") is due to **Craig W. Reynolds**, "Flocks, Herds and
+> Schools: A Distributed Behavioral Model", *Computer Graphics* (SIGGRAPH '87), 21(4):
+> 25–34.</sub>
 
 
 ### 3.2 - Model ABM-SIM
