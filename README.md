@@ -43,8 +43,6 @@ All code has been developed for an `R` environment and is available in [this rep
 
 Every model below obeys the four accounting principles of SFC modelling: **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping**. In practice this means each model is built around two accounting tables -- a **balance-sheet matrix** (stocks) and a **transactions-flow matrix** (flows) -- whose rows and columns must sum to zero. Because the tables are watertight, every model contains one *redundant* (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight.
 
-Note: Throughout, scalars are written in *italics*; vectors and matrices in upright bold. The subscript "$-1$" denotes a one-period lag.
-
 ---
 
 ## 1 - Aggregate models
