@@ -125,7 +125,7 @@ $$Y^{\*} = \frac{G}{\theta}$$
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_SIM.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_SIM.png" width="900">
 </figure>
 
 The `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
@@ -212,7 +212,7 @@ $$Y^{\*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_PC.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_PC.png" width="900">
 </figure>
 
 The `R` code for this model is [`BASIC_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_PC.R).
@@ -308,7 +308,7 @@ The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). 
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_BMW.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_BMW.png" width="900">
 </figure>
 
 The `R` code for this model is [`BASIC_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_BMW.R).
@@ -385,12 +385,12 @@ where $\pi$ is the rate of growth of the consumer price index (the inflation rat
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_SIM.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_SIM.png" width="900">
 </figure>
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_SIM.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_SIM.png" width="900">
 </figure>
 
 The `R` code for this model is [`IO_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_SIM.R).
@@ -401,12 +401,12 @@ Model **IO-PC** is the same IO layer bolted onto Model PC. The only difference f
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_PC.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_PC.png" width="900">
 </figure>
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_PC.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_PC.png" width="900">
 </figure>
 
 The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R).
@@ -426,12 +426,12 @@ Aggregate investment is then $\sum_z i_z$, and the BMW loan/deposit block (B.6â€
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_BMW.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_BMW.png" width="900">
 </figure>
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_BMW.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_BMW.png" width="900">
 </figure>
 
 The `R` code for this model is [`IO_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_BMW.R).
@@ -474,7 +474,7 @@ Summing over households reproduces the aggregate SIM: mean output converges to $
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_SIM.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_SIM.png" width="900">
 </figure>
 
 The `R` code for this model is [`ABM_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_SIM.R).
@@ -485,7 +485,7 @@ Model **ABM-PC** adds PC's portfolio choice to the households. Each household st
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_PC.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_PC.png" width="900">
 </figure>
 
 The `R` code for this model is [`ABM_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_PC.R).
@@ -496,7 +496,7 @@ Model **ABM-BMW** keeps the households as the agents -- heterogeneous as both **
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_BMW.png" width="800">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_BMW.png" width="900">
 </figure>
 
 The `R` code for this model is [`ABM_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_BMW.R).
