@@ -1,4 +1,4 @@
-# Modelling Monetary Economies of Production: Integrating SFC, IO and AB Approaches
+# Leeds, July 9-10, 2026
 
 <figure>
 <img src="https://github.com/marcoverpas/figures/blob/main/cover_leeds_2026.png" width="1000">
