@@ -289,7 +289,9 @@ $$M_s = M_{s,-1} + \Delta L \quad \text{(B.11)}$$
 
 $$r_m = r_l \quad \text{(B.12)}$$
 
-$$N = \frac{Y}{pr}, \qquad w = \frac{WB}{N} \quad \text{(B.14, B.15)}$$
+$$N = \frac{Y}{pr} \quad \text{(B.14)}$$ $
+
+$w = \frac{WB}{N} \quad \text{(B.15)}$$
 
 $$C = \alpha_0 + \alpha_1 \cdot YD + \alpha_2 \cdot M_{h,-1} \quad \text{(B.16)}$$
 
