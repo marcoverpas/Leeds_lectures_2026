@@ -14,7 +14,7 @@ This repository presents **nine small macroeconomic models**, organised as a 3 �
 | **PC** (money + bonds)   | [2. Model PC](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_PC.R) | [5. Model IO-PC](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R) | [8. Model ABM-PC](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_PC.R) |
 | **BMW** (banks + capital)| [3. Model BMW](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_BMW.R) | [6. Model IO-BMW](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_BMW.R) | [9. Model ABM-BMW](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_BMW.R) |
 
-Reading across a row shows how the *same* economy can be represented at three levels of resolution: as economy-wide aggregates, as a set of interconnected **industries** (IO), and as a population of heterogenous interacting **households** (ABM). Reading down a column shows how the financial structure is progressively enriched: from a single state money (SIM), to money plus government bonds (PC), to bank loans and deposits financing fixed capital (BMW).
+Reading across a row shows how the *same* economy can be represented at three levels of resolution: as economy-wide aggregates, as a set of interconnected **industries** (IO), and as a population of heterogeneous interacting **households** (ABM). Reading down a column shows how the financial structure is progressively enriched: from a single state money (SIM), to money plus government bonds (PC), to bank loans and deposits financing fixed capital (BMW).
 
 - [1 - Aggregate models](#1---aggregate-models)
   - [1.1 - Model SIM](#11---model-sim)
@@ -163,20 +163,20 @@ Key assumptions:
 
 #### Table 2. Transactions-flow matrix
 
-|                       | Households          | Firms          | Central bank         | Government          | Row tot |
-|:----------------------|:-------------------:|:--------------:|:--------------------:|:-------------------:|:-------:|
-|                       |                     |                |                      |                     |         |
-| Consumption           | $$-C$$              | $$+C$$         |                      |                     |   0     |
-| Government expenditure |                    | $$+G$$         |                      | $$-G$$              |   0     |
-| GDP (income)          | $$+Y$$              | $$-Y$$         |                      |                     |   0     |
-| Interest payments     | $$r_{-1} B_{h,-1}$$ |                | $$r_{-1} B_{cb,-1}$$ | $$-r_{-1} B_{s,-1}$$|   0     |
-| CB profit             |                     |                | $$-r_{-1} B_{cb,-1}$$| $$r_{-1} B_{cb,-1}$$|   0     |
-| Taxes                 | $$-T$$              |                |                      | $$T$$               |   0     |
-|                       |                     |                |                      |                     |         |
-| Change in cash        | $$-\Delta H_h$$     |                | $$\Delta H_s$$       |                     |   0     |
-| Change in bonds       | $$-\Delta B_h$$     |                | $$-\Delta B_{cb}$$   | $$\Delta B_s$$      |   0     |
-|                       |                     |                |                      |                     |         |
-| Column tot.           |   0                 |  0             |   0                  |   0                 |   0     |
+|                       | Households               | Firms          | Central bank              | Government               | Row tot |
+|:----------------------|:------------------------:|:--------------:|:-------------------------:|:------------------------:|:-------:|
+|                       |                          |                |                           |                          |         |
+| Consumption           | $$-C$$                   | $$+C$$         |                           |                          |   0     |
+| Government expenditure |                         | $$+G$$         |                           | $$-G$$                   |   0     |
+| GDP (income)          | $$+Y$$                   | $$-Y$$         |                           |                          |   0     |
+| Interest payments     | $$r_{-1} \cdot B_{h,-1}$$ |               | $$r_{-1} \cdot B_{cb,-1}$$ | $$-r_{-1} \cdot B_{s,-1}$$|   0     |
+| CB profit             |                          |                | $$-r_{-1} \cdot B_{cb,-1}$$| $$r_{-1} \cdot B_{cb,-1}$$|   0     |
+| Taxes                 | $$-T$$                   |                |                           | $$T$$                    |   0     |
+|                       |                          |                |                           |                          |         |
+| Change in cash        | $$-\Delta H_h$$          |                | $$\Delta H_s$$            |                          |   0     |
+| Change in bonds       | $$-\Delta B_h$$          |                | $$-\Delta B_{cb}$$        | $$\Delta B_s$$           |   0     |
+|                       |                          |                |                           |                          |         |
+| Column tot.           |   0                      |  0             |   0                       |   0                      |   0     |
 
 The system of difference equations is:
 
@@ -265,8 +265,8 @@ Since banks and firms make no net profit, household net wealth equals the stock 
 | [ Production ]       |                           | $$[Y]$$                  |                 |                           |         |
 | Wages                | $$+WB$$                   | $$-WB$$                  |                 |                           |   0     |
 | Depreciation         |                           | $$-AF$$                  | $$+AF$$         |                           |   0     |
-| Interest on loans    |                           | $$-r_{l,-1} L_{-1}$$     |                 | $$+r_{l,-1} L_{-1}$$      |   0     |
-| Interest on deposits | $$+r_{m,-1} M_{-1}$$      |                          |                 | $$-r_{m,-1} M_{-1}$$      |   0     |
+| Interest on loans    |                           | $$-r_{l,-1} \cdot L_{-1}$$|                | $$+r_{l,-1} \cdot L_{-1}$$ |   0     |
+| Interest on deposits | $$+r_{m,-1} \cdot M_{-1}$$ |                          |                 | $$-r_{m,-1} \cdot M_{-1}$$ |   0     |
 |                      |                           |                          |                 |                           |         |
 | Change in loans      |                           |                          | $$+\Delta L$$   | $$-\Delta L$$             |   0     |
 | Change in deposits   | $$-\Delta M$$             |                          |                 | $$+\Delta M$$             |   0     |
@@ -323,7 +323,7 @@ The benchmark models above are **fully aggregated**: production is a single homo
 
 With $n$ industries, let $\mathbf{x}$ be the vector of real gross outputs, $\mathbf{d}$ the vector of real final demands, and $\mathbf{A}$ the matrix of **technical coefficients**, where $a_{ij}$ is the amount of good $i$ needed to produce one unit of good $j$. The accounting identity of production is:
 
-$$\mathbf{x} = \mathbf{A}\,\mathbf{x} + \mathbf{d} \quad \Longrightarrow \quad \mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1}\,\mathbf{d}$$
+$$\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d} \quad \Longrightarrow \quad \mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$$
 
 where $(\mathbf{I} - \mathbf{A})^{-1}$ is the **Leontief inverse**, which translates any final demand into the gross output every industry must produce to satisfy it (directly and indirectly).
 
@@ -357,7 +357,7 @@ $$\mathbf{d} = \mathbf{B}_c \cdot c + \mathbf{B}_g \cdot g \quad \text{(15)}$$
 
 Real gross output by industry (identity):
 
-$$\mathbf{x} = (\mathbf{I}-\mathbf{A})^{-1}\,\mathbf{d} \quad \text{(16)}$$
+$$\mathbf{x} = (\mathbf{I}-\mathbf{A})^{-1} \cdot \mathbf{d} \quad \text{(16)}$$
 
 Nominal GDP (identity):
 
@@ -365,7 +365,7 @@ $$Y = \mathbf{p}^T \cdot \mathbf{d} \quad \text{(1.A)}$$
 
 Unit prices of reproduction (behavioural):
 
-$$\mathbf{p}^T = \left( w \oslash \mathbf{pr}^T \right) + \left( \mathbf{p}^T \cdot \mathbf{A} \right)(1 + \mu) \quad \text{(17)}$$
+$$\mathbf{p}^T = \left( w \oslash \mathbf{pr}^T \right) + \left( \mathbf{p}^T \cdot \mathbf{A} \right) \cdot (1 + \mu) \quad \text{(17)}$$
 
 where $w$ is the (uniform) wage rate, $\mathbf{pr}$ the vector of labour productivities, and $\mu$ the (uniform) mark-up.
 
@@ -377,7 +377,7 @@ Real consumption (behavioural), where consumers do not suffer from money illusio
 
 $$c = \alpha_1 \cdot \left( \frac{YD}{p_c} - \pi \cdot \frac{H_{h,-1}}{p_c} \right) + \alpha_2 \cdot \frac{H_{h,-1}}{p_c} \quad \text{(5.A)}$$
 
-Nominal consumption and government spending become $p_c \cdot c$ and $p_g \cdot g$. The redundant equation $H_h = H_s$ still holds.
+where $\pi$ is the rate of growth of the consumer price index (the inflation rate). Nominal consumption and government spending become $p_c \cdot c$ and $p_g \cdot g$. The redundant equation $H_h = H_s$ still holds.
 
 *[Figure 8 here — consistency check and income/consumption (matching aggregate SIM)]*
 
@@ -397,7 +397,7 @@ The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_
 
 ### 2.4 - Model IO-BMW
 
-Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is **investment**: final demand now has three components — consumption, government (absent in BMW) and **investment** — so
+Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is **investment**: final demand now has two components — consumption and investment (BMW has no government) — so
 
 $$\mathbf{d} = \mathbf{B}_c \cdot c + \mathbf{B}_i \cdot i$$
 
@@ -433,7 +433,7 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 
 Model **ABM-SIM** is Model SIM populated by $N$ households. Each household holds its own money $h_i$, forms its own disposable income $yd_i$, and has its own propensity to consume $\alpha_{1,i}$. The number of households exceeds the workers ever needed, so **unemployment emerges** rather than being assumed. One period unfolds as a sequence of "ticks":
 
-1. each household plans consumption out of its last income and its money, $c_i = \alpha_{1,i}\,yd_{i,-1} + \alpha_2\,h_i$;
+1. each household plans consumption out of its last income and its money, $c_i = \alpha_{1,i} \cdot yd_{i,-1} + \alpha_2 \cdot h_i$;
 
 1. the economy needs one worker per unit of demand; a **job lottery** (with spread $s$) fills the jobs — some go unfilled;
 
