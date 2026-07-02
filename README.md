@@ -30,6 +30,7 @@ Reading across a row shows how the *same* economy can be represented at three le
   - [3.2 - Model ABM-SIM](#32---model-abm-sim)
   - [3.3 - Model ABM-PC](#33---model-abm-pc)
   - [3.4 - Model ABM-BMW](#34---model-abm-bmw)
+- [Concluding remarks](#concluding-remarks)
 - [References](#references)
 
 All code has been developed for an `R` environment and is available in [this repository](https://github.com/marcoverpas/Leeds_lectures_2026).
