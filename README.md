@@ -125,7 +125,7 @@ $$Y^{\*} = \frac{G}{\theta}$$
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/FIG1_BASIC_SIM.PNG" width="1000">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_SIM.PNG" width="1000">
 </figure>
 
 The `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
