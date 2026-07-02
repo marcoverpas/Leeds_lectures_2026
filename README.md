@@ -1,7 +1,7 @@
 # Modelling Monetary Economies of Production: Integrating SFC, IO and AB Approaches
 
 <figure>
-<img src="https://github.com/marcoverpas/figures/blob/main/cover_4.png" width="1000">
+<img src="https://github.com/marcoverpas/figures/blob/main/cover_leeds_2026.png" width="1000">
 </figure>
 
 ## Overview
