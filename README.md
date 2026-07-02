@@ -385,6 +385,11 @@ where $\pi$ is the rate of growth of the consumer price index (the inflation rat
 
 <figure>
 <img
+src="https://github.com/marcoverpas/figures/blob/main/IO_network.png" width="900">
+</figure>
+
+<figure>
+<img
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_SIM.png" width="900">
 </figure>
 
