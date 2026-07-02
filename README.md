@@ -347,7 +347,9 @@ Additional assumptions relative to SIM:
 
 Composition of real consumption and government spending (behavioural):
 
-$$\mathbf{B}_c = \bar{\mathbf{B}}_c, \qquad \mathbf{B}_g = \bar{\mathbf{B}}_g \quad \text{(13, 14)}$$
+$$\mathbf{B}_c = \bar{\mathbf{B}}_c \quad \text{(13)}$$
+
+$$\mathbf{B}_g = \bar{\mathbf{B}}_g \quad \text{(14)}$$
 
 with $\sum_j B_{cj} = \sum_j B_{gj} = 1$.
 
@@ -371,7 +373,9 @@ where $w$ is the (uniform) wage rate, $\mathbf{pr}$ the vector of labour product
 
 Average consumer and government price indices (identities):
 
-$$p_c = \mathbf{p}^T \cdot \mathbf{B}_c, \qquad p_g = \mathbf{p}^T \cdot \mathbf{B}_g \quad \text{(18, 19)}$$
+$$p_c = \mathbf{p}^T \cdot \mathbf{B}_c \quad \text{(18)}$$
+
+$$p_g = \mathbf{p}^T \cdot \mathbf{B}_g \quad \text{(19)}$$
 
 Real consumption (behavioural), where consumers do not suffer from money illusion:
 
