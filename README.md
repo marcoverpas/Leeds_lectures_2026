@@ -54,13 +54,9 @@ Model **SIM** ("**SIM**plest") is the most basic SFC model ([Godley and Lavoie, 
 Key assumptions:
 
 1. Closed economy, no ecosystem
-
 1. Three agents: households, "firms", government
-
 1. One financial asset: outside money (cash)
-
 1. No investment, no inventories, no banks, no bonds
-
 1. Fixed prices and zero net profits (all income is wages)
 
 #### Table 1. Balance-sheet matrix
@@ -123,6 +119,15 @@ In the steady state there is no saving ($C = YD$) and money holdings are stable,
 
 $$Y^{\*} = \frac{G}{\theta}$$
 
+The transactions-flow matrix can be read as a Sankey diagram. Traversed left to right -- payer, transaction, payee -- it traces every monetary flow of a single period: firms pay wages to households, who return them as consumption (to firms), taxes (to the government) and the money they save. Since each transaction has exactly one source and one destination, the two sides of every account balance.
+
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/SANKEY_SIM.png" width="800">
+</figure>
+
+Simulated over time, these one-period flows become dynamic paths. The figure below tracks the main variables and the consistency check as the economy converges to its steady state.
+
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_SIM.png" width="900">
@@ -139,15 +144,10 @@ Model **PC** ("**p**ortfolio **c**hoice") adds a second financial asset ([Godley
 Key assumptions:
 
 1. Closed economy, no ecosystem
-
 1. Four agents: households, "firms", government, central bank
-
 1. Two financial assets: government bonds and cash
-
 1. No investment and no inventories
-
 1. Fixed prices and zero net profits
-
 1. No banks, no inside money (bank deposits)
 
 #### Table 1. Balance-sheet matrix
@@ -210,6 +210,15 @@ The redundant equation is $H_h = H_s$. The steady-state income is:
 
 $$Y^{\*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
 
+The same payer → transaction → payee reading applies, now enriched with interest income and the portfolio choice between cash and government bills. The Sankey diagram shows the government financing its deficit through new bills absorbed by households and the central bank, and the central bank issuing cash against the bills it holds -- the extra financial plumbing that distinguishes PC from SIM.
+
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/SANKEY_PC.png" width="800">
+</figure>
+
+Iterated forward, these flows generate the dynamics of income, wealth and its portfolio composition reported below.
+
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_PC.png" width="900">
@@ -226,17 +235,11 @@ Model **BMW** ("**b**ank-**m**oney **w**orld") is the simplest model with privat
 Key assumptions:
 
 1. Closed economy, no ecosystem
-
 1. Three agents: households, firms, banks
-
 1. Assets/liabilities: loans, deposits, fixed capital
-
 1. Investment funded by loans and internal (amortisation) funds
-
 1. Target capital-to-output ratio
-
 1. Fixed prices and zero net profits
-
 1. No state, no outside money (cash)
 
 #### Table 1. Balance-sheet matrix
@@ -306,6 +309,15 @@ $$r_l = \bar{r}_l \quad \text{(B.21)}$$
 
 The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). Note the accelerator (B.19)–(B.20): firms target a capital stock proportional to lagged output and close a fraction $\gamma$ of the gap each period, on top of replacing depreciation.
 
+Here the four accounts -- households, firms (current), firms (capital) and banks -- appear as payers and payees, with investment and depreciation shown as flows internal to the firm sector. Because loans create deposits of equal size and the two interest legs cancel at the bank, the Sankey diagram makes the loans-and-deposits circuit, and its self-balancing character, legible at a glance.
+
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/SANKEY_BMW.png" width="800">
+</figure>
+
+Run over time, the same circuit produces the paths of output, investment, capital and deposits reported below.
+
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_BMW.png" width="900">
@@ -338,11 +350,8 @@ Model **IO-SIM** is Model SIM with a three-industry input-output core (agricultu
 Additional assumptions relative to SIM:
 
 1. Three industries; each produces one good with one technique
-
 1. Fixed technical coefficients (circulating capital)
-
 1. Prices set by reproduction conditions (cost-plus mark-up)
-
 1. The composition of consumption and government spending is exogenous
 
 Composition of real consumption and government spending (behavioural):
@@ -383,10 +392,23 @@ $$c = \alpha_1 \cdot \left( \frac{YD}{p_c} - \pi \cdot \frac{H_{h,-1}}{p_c} \rig
 
 where $\pi$ is the rate of growth of the consumer price index (the inflation rate). Nominal consumption and government spending become $p_c \cdot c$ and $p_g \cdot g$. The redundant equation $H_h = H_s$ still holds.
 
+For the input-output core the flows are best read product by product. This Sankey diagram unpacks the (nominal) use table: each product on the left fans out to the three industries that consume it as an intermediate input, plus final demand on the right -- a direct picture of how much of each sector's output is absorbed in production elsewhere versus delivered to final buyers.
+
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/SANKEY_IO.png" width="800">
+</figure>
+
+The same interdependence can be summarised more compactly as a network.
+
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/IO_network.png" width="600">
 </figure>
+
+This directed graph renders the technical-coefficients matrix itself: each node is an industry (sized by its gross output) and each weighted arrow $a_{ij}$ gives the amount of industry $i$'s product needed to make one unit of industry $j$'s, with self-loops capturing intra-industry input use. It conveys at a glance the density and asymmetry of the linkages that the Leontief inverse resolves.
+
+With the industrial structure in place, the model can be run forward. The figures below report the aggregate dynamics (matching Model SIM) and the resulting industry-level detail.
 
 <figure>
 <img
@@ -428,7 +450,6 @@ $$k^t_z = \kappa_z \cdot x_{z,-1}, \qquad i_z = \gamma \cdot (k^t_z - k_{z,-1}) 
 
 Aggregate investment is then $\sum_z i_z$, and the BMW loan/deposit block (B.6–B.21) operates on the resulting nominal magnitudes. Because the target is defined on gross output (which exceeds value added), the capital-to-output ratio $\kappa_z$ is smaller than the value used against income in the aggregate BMW. The redundant equation is again $M_h = M_s$.
 
-
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_BMW.png" width="900">
@@ -452,9 +473,7 @@ The aggregate and IO models are **top-down**: they specify economy-wide (or indu
 Three features distinguish the ABM style used here:
 
 1. **Heterogeneity.** Agents differ -- for instance, each household has its own propensity to consume.
-
 1. **Interaction and matching.** Agents meet through explicit mechanisms -- here a random *job lottery* (who is hired) and a *first-come-first-served* goods market (who gets served when output is short).
-
 1. **Sequential decisions.** Agents act one after another, out of *last* period's information, so there is no need to solve a simultaneous system by iteration.
 
 Crucially, the models remain **stock-flow consistent**: because money is only ever transferred between agents (never created or destroyed by the matching), the redundant equation continues to hold to machine precision. The ABMs are run many times (**Monte Carlo** repetitions); charts show every run (thin grey lines) plus the mean (bold line).
@@ -464,17 +483,13 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 Model **ABM-SIM** is Model SIM populated by $N$ households. Each household holds its own money $h_i$, forms its own disposable income $yd_i$, and has its own propensity to consume $\alpha_{1,i}$. The number of households exceeds the workers ever needed, so **unemployment emerges** rather than being assumed. One period unfolds as a sequence of "ticks":
 
 1. each household plans consumption out of its last income and its money, $c_i = \alpha_{1,i} \cdot yd_{i,-1} + \alpha_2 \cdot h_i$;
-
 1. the economy needs one worker per unit of demand; a **job lottery** (with spread $s$) fills the jobs -- some go unfilled;
-
 1. whoever works produces the good and is paid; goods are sold **first-come-first-served** until they run out;
-
 1. taxes are paid, and each household updates its money holdings.
 
 Summing over households reproduces the aggregate SIM: mean output converges to $G/\theta$. Two results are worth highlighting.
 
 - **Emergent unemployment.** With the hiring spread $s>0$, employment is a genuinely fluctuating, model-generated variable.
-
 - **Higher accumulated wealth.** The money stock settles *above* the frictionless SIM value. When hiring falls short, households are rationed and cannot spend all they planned; the unspent income becomes **involuntary saving**, so wealth builds up a buffer. In steady state $H \approx H_{SIM} + \text{(average rationing)}/\alpha_2$, so the more friction, the larger the money stock. Setting $s = 0$ (and no heterogeneity) recovers the textbook value exactly.
 
 <figure>
@@ -521,13 +536,8 @@ This is the challenge of the coming years. If stock-flow consistent, ecological 
 ## References
 
 - Berg, M., Hartley, B., and Richters, O. (2015). **A stock-flow consistent input-output model with applications to energy price shocks, interest rates, and heat emissions**. *New Journal of Physics*, 17, 015011.
-
 - Fevereiro, J. B. R. T., Genovese, A., Purvis, B., Valles Codina, O., and Veronese Passarella, M. (2025). **Macroeconomic Models for Assessing the Transition towards a Circular Economy: A Systematic Review**. *Ecological Economics*, 236, 108669.
-
 - Godley, W., and Lavoie, M. (2007). **Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth**. Palgrave Macmillan (chapters 3, 4 and 7).
-
 - Miller, R. E., and Blair, P. D. (2009). **Input-Output Analysis: Foundations and Extensions**. Cambridge University Press, 2nd edition (chapters 1–2).
-
 - Nikiforos, M., and Zezza, G. (2017). **Stock-flow Consistent Macroeconomic Models: A Survey**. *Journal of Economic Surveys*, 31 (5): 1204-1239.
-
 - Veronese Passarella, M. (2023). **Technical change and the monetary circuit: an input-output stock-flow consistent dynamic model**. *Quaderni del Dipartimento di Economia Politica e Statistica*, Università di Siena, n. 903.
