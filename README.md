@@ -14,7 +14,7 @@ This repository presents **nine small macroeconomic models**, organised as a 3 Ã
 | **PC** (money + bonds)   | [2. Model PC](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_PC.R) | [5. Model IO-PC](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R) | [8. Model ABM-PC](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_PC.R) |
 | **BMW** (banks + capital)| [3. Model BMW](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_BMW.R) | [6. Model IO-BMW](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_BMW.R) | [9. Model ABM-BMW](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_BMW.R) |
 
-Reading across a row shows how the *same* economy can be represented at three levels of resolution: as economy-wide aggregates, as a set of interacting **industries** (IO), and as a population of interacting **households** (ABM). Reading down a column shows how the financial structure is progressively enriched: from a single state money (SIM), to money plus government bonds (PC), to bank loans and deposits financing fixed capital (BMW).
+Reading across a row shows how the *same* economy can be represented at three levels of resolution: as economy-wide aggregates, as a set of interconnected **industries** (IO), and as a population of heterogenous interacting **households** (ABM). Reading down a column shows how the financial structure is progressively enriched: from a single state money (SIM), to money plus government bonds (PC), to bank loans and deposits financing fixed capital (BMW).
 
 - [1 - Aggregate models](#1---aggregate-models)
   - [1.1 - Model SIM](#11---model-sim)
