@@ -125,7 +125,7 @@ $$Y^{\*} = \frac{G}{\theta}$$
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_SIM.png" width="1000">
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_SIM.png" width="800">
 </figure>
 
 The `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
@@ -210,11 +210,10 @@ The redundant equation is $H_h = H_s$. The steady-state income is:
 
 $$Y^{\*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
 
-*[Figure 3 here -- consistency check]*
-
-*[Figure 4 here -- income after government spending, with steady-state value]*
-
-*[Figure 5 here -- income after an interest-rate rise (exogenous vs endogenous propensity to consume)]*
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_PC.png" width="800">
+</figure>
 
 The `R` code for this model is [`BASIC_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_PC.R).
 
@@ -307,9 +306,10 @@ $$r_l = \bar{r}_l \quad \text{(B.21)}$$
 
 The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). Note the accelerator (B.19)–(B.20): firms target a capital stock proportional to lagged output and close a fraction $\gamma$ of the gap each period, on top of replacing depreciation.
 
-*[Figure 6 here -- consistency check and evolution of national income toward the steady state]*
-
-*[Figure 7 here -- the six BMW experiments: autonomous-consumption shock, paradox of thrift, change in the capital-output ratio, interest-rate rise]*
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_BMW.png" width="800">
+</figure>
 
 The `R` code for this model is [`BASIC_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_BMW.R).
 
@@ -383,11 +383,15 @@ $$c = \alpha_1 \cdot \left( \frac{YD}{p_c} - \pi \cdot \frac{H_{h,-1}}{p_c} \rig
 
 where $\pi$ is the rate of growth of the consumer price index (the inflation rate). Nominal consumption and government spending become $p_c \cdot c$ and $p_g \cdot g$. The redundant equation $H_h = H_s$ still holds.
 
-*[Figure 8 here -- consistency check and income/consumption (matching aggregate SIM)]*
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_SIM.png" width="800">
+</figure>
 
-*[Figure 9 here -- final demand and gross output by industry]*
-
-*[Figure 10 here -- unit prices by industry and the consumer/government price indices]*
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_SIM.png" width="800">
+</figure>
 
 The `R` code for this model is [`IO_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_SIM.R).
 
@@ -395,7 +399,15 @@ The `R` code for this model is [`IO_SIM.R`](https://github.com/marcoverpas/Leeds
 
 Model **IO-PC** is the same IO layer bolted onto Model PC. The only difference from IO-SIM is the financial side inherited from PC: households now allocate wealth between cash and bonds (equations 6–11 above), income includes interest, and taxes fall on total income. The IO block (equations 13–19) is identical, and government spending is valued at $p_g \cdot g$. The redundant equation remains $H_h = H_s$, and the aggregate behaviour reproduces Model PC while adding the industrial and price detail.
 
-*[Figure 11 here -- IO-PC baseline: consistency, income/consumption, portfolio, industry detail]*
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_PC.png" width="800">
+</figure>
+
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_PC.png" width="800">
+</figure>
 
 The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R).
 
@@ -411,7 +423,16 @@ $$k^t_z = \kappa_z \cdot x_{z,-1}, \qquad i_z = \gamma \cdot (k^t_z - k_{z,-1}) 
 
 Aggregate investment is then $\sum_z i_z$, and the BMW loan/deposit block (B.6–B.21) operates on the resulting nominal magnitudes. Because the target is defined on gross output (which exceeds value added), the capital-to-output ratio $\kappa_z$ is smaller than the value used against income in the aggregate BMW. The redundant equation is again $M_h = M_s$.
 
-*[Figure 12 here -- IO-BMW baseline: consistency, income/consumption, investment/depreciation, industry outputs, prices, deposits]*
+
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_BMW.png" width="800">
+</figure>
+
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_BMW.png" width="800">
+</figure>
 
 The `R` code for this model is [`IO_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_BMW.R).
 
@@ -451,7 +472,10 @@ Summing over households reproduces the aggregate SIM: mean output converges to $
 
 - **Higher accumulated wealth.** The money stock settles *above* the frictionless SIM value. When hiring falls short, households are rationed and cannot spend all they planned; the unspent income becomes **involuntary saving**, so wealth builds up a buffer. In steady state $H \approx H_{SIM} + \text{(average rationing)}/\alpha_2$, so the more friction, the larger the money stock. Setting $s = 0$ (and no heterogeneity) recovers the textbook value exactly.
 
-*[Figure 13 here -- output, income/consumption, money stock (above the SIM value), and emergent unemployment, with Monte Carlo fan]*
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_SIM.png" width="800">
+</figure>
 
 The `R` code for this model is [`ABM_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_SIM.R).
 
@@ -459,7 +483,10 @@ The `R` code for this model is [`ABM_SIM.R`](https://github.com/marcoverpas/Leed
 
 Model **ABM-PC** adds PC's portfolio choice to the households. Each household still works (job lottery) and consumes (own propensity), but now also splits its wealth between cash and bonds and earns interest. Aggregating reproduces Model PC. Heterogeneity here has a sharper consequence: because aggregate demand depends on *which* households earn income (weighted by their individual propensities), the random order of hiring now **feeds through to the macro totals** -- the composition of income becomes a macro variable in its own right, exactly the mechanism that motivates heterogeneous-agent macroeconomics.
 
-*[Figure 14 here -- ABM-PC: aggregate paths with Monte Carlo fan; portfolio split]*
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_PC.png" width="800">
+</figure>
 
 The `R` code for this model is [`ABM_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_PC.R).
 
@@ -467,7 +494,10 @@ The `R` code for this model is [`ABM_PC.R`](https://github.com/marcoverpas/Leeds
 
 Model **ABM-BMW** keeps the households as the agents -- heterogeneous as both **workers** (job lottery with spread $s$) and **consumers** (own $\alpha_{1,i}$) -- while the **firm, capital and banking block is the standard aggregate BMW**. When hiring falls short, output is below demand, so **investment as well as consumption** is rationed. Because the investment accelerator feeds on output, the friction's recessionary bias is **amplified** (lower output → lower target capital → lower investment → lower output), so the mean output sits noticeably below the frictionless BMW level. Setting $s = 0$ (and no heterogeneity) recovers the exact deterministic BMW. The redundant equation $M_h = M_s$ holds throughout.
 
-*[Figure 15 here -- ABM-BMW: output, consumption, investment/depreciation, capital, deposits, unemployment, with Monte Carlo fan]*
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_BMW.png" width="800">
+</figure>
 
 The `R` code for this model is [`ABM_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_BMW.R).
 
