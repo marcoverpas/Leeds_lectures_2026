@@ -6,7 +6,7 @@
 
 ## Overview
 
-This repository presents **nine small macroeconomic models**, organised as a 3 × 3 grid. Three benchmark Stock-Flow Consistent (SFC) toy models from [Godley and Lavoie (2007)](#references) — **SIM**, **PC** and **BMW** — are each developed in three coding *styles*:
+This repository presents **nine small macroeconomic models**, organised as a 3 × 3 grid. Three benchmark Stock-Flow Consistent (SFC) toy models from [Godley and Lavoie (2007)](#references) -- **SIM**, **PC** and **BMW** -- are each developed in three coding *styles*:
 
 |                          | **Aggregate (original)** | **Input-Output (IO)** | **Agent-Based (ABM)** |
 |:-------------------------|:------------------------:|:---------------------:|:---------------------:|
@@ -40,7 +40,7 @@ All code has been developed for an `R` environment and is available in [this rep
 
 ## A note on SFC accounting
 
-Every model below obeys the four accounting principles of SFC modelling: **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping**. In practice this means each model is built around two accounting tables — a **balance-sheet matrix** (stocks) and a **transactions-flow matrix** (flows) — whose rows and columns must sum to zero. Because the tables are watertight, every model contains one *redundant* (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight.
+Every model below obeys the four accounting principles of SFC modelling: **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping**. In practice this means each model is built around two accounting tables -- a **balance-sheet matrix** (stocks) and a **transactions-flow matrix** (flows) -- whose rows and columns must sum to zero. Because the tables are watertight, every model contains one *redundant* (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight.
 
 Throughout, scalars are written in *italics*; vectors and matrices in upright bold. The subscript $-1$ denotes a one-period lag.
 
@@ -50,7 +50,7 @@ Throughout, scalars are written in *italics*; vectors and matrices in upright bo
 
 ### 1.1 - Model SIM
 
-Model **SIM** ("**SIM**plest") is the most basic SFC model ([Godley and Lavoie, 2007, ch. 3](#references)). It has a single financial asset — **state money (cash)** — created when the government spends and destroyed when it taxes.
+Model **SIM** ("**SIM**plest") is the most basic SFC model ([Godley and Lavoie, 2007, ch. 3](#references)). It has a single financial asset -- **state money (cash)** -- created when the government spends and destroyed when it taxes.
 
 Key assumptions:
 
@@ -124,9 +124,9 @@ In the steady state there is no saving ($C = YD$) and money holdings are stable,
 
 $$Y^{\*} = \frac{G}{\theta}$$
 
-*[Figure 1 here — consistency check: $H_h - H_s$]*
+*[Figure 1 here -- consistency check: $H_h - H_s$]*
 
-*[Figure 2 here — evolution of disposable income and consumption towards the steady state]*
+*[Figure 2 here -- evolution of disposable income and consumption towards the steady state]*
 
 The `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
 
@@ -210,11 +210,11 @@ The redundant equation is $H_h = H_s$. The steady-state income is:
 
 $$Y^{\*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
 
-*[Figure 3 here — consistency check]*
+*[Figure 3 here -- consistency check]*
 
-*[Figure 4 here — income after government spending, with steady-state value]*
+*[Figure 4 here -- income after government spending, with steady-state value]*
 
-*[Figure 5 here — income after an interest-rate rise (exogenous vs endogenous propensity to consume)]*
+*[Figure 5 here -- income after an interest-rate rise (exogenous vs endogenous propensity to consume)]*
 
 The `R` code for this model is [`BASIC_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_PC.R).
 
@@ -307,9 +307,9 @@ $$r_l = \bar{r}_l \quad \text{(B.21)}$$
 
 The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). Note the accelerator (B.19)–(B.20): firms target a capital stock proportional to lagged output and close a fraction $\gamma$ of the gap each period, on top of replacing depreciation.
 
-*[Figure 6 here — consistency check and evolution of national income toward the steady state]*
+*[Figure 6 here -- consistency check and evolution of national income toward the steady state]*
 
-*[Figure 7 here — the six BMW experiments: autonomous-consumption shock, paradox of thrift, change in the capital-output ratio, interest-rate rise]*
+*[Figure 7 here -- the six BMW experiments: autonomous-consumption shock, paradox of thrift, change in the capital-output ratio, interest-rate rise]*
 
 The `R` code for this model is [`BASIC_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_BMW.R).
 
@@ -327,7 +327,7 @@ $$\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d} \quad \Longrightarrow \q
 
 where $(\mathbf{I} - \mathbf{A})^{-1}$ is the **Leontief inverse**, which translates any final demand into the gross output every industry must produce to satisfy it (directly and indirectly).
 
-Standard IO analysis is powerful but **static**: it compares two snapshots without describing the path between them, and it says little about money and finance. **SFC modelling** is the mirror image: dynamically and financially coherent, but usually blind to inter-industry detail. **IO-SFC models** combine the two — industrial granularity from IO, dynamic and financial coherence from SFC — so that a demand-driven, monetary economy is resolved industry by industry while every stock and flow still adds up ([Berg et al. 2015](#references); [Veronese Passarella, 2023](#references); [Fevereiro et al. 2025](#references)).
+Standard IO analysis is powerful but **static**: it compares two snapshots without describing the path between them, and it says little about money and finance. **SFC modelling** is the mirror image: dynamically and financially coherent, but usually blind to inter-industry detail. **IO-SFC models** combine the two -- industrial granularity from IO, dynamic and financial coherence from SFC -- so that a demand-driven, monetary economy is resolved industry by industry while every stock and flow still adds up ([Berg et al. 2015](#references); [Veronese Passarella, 2023](#references); [Fevereiro et al. 2025](#references)).
 
 Adding an IO layer to an SFC model requires only a handful of extra equations. Prices are no longer fixed but set by **cost-plus (reproduction) conditions**, and final demand is split across industries by fixed **composition shares**. Because prices now exist, real and nominal magnitudes diverge: consumption is decided in real terms while GDP is measured in value.
 
@@ -383,11 +383,11 @@ $$c = \alpha_1 \cdot \left( \frac{YD}{p_c} - \pi \cdot \frac{H_{h,-1}}{p_c} \rig
 
 where $\pi$ is the rate of growth of the consumer price index (the inflation rate). Nominal consumption and government spending become $p_c \cdot c$ and $p_g \cdot g$. The redundant equation $H_h = H_s$ still holds.
 
-*[Figure 8 here — consistency check and income/consumption (matching aggregate SIM)]*
+*[Figure 8 here -- consistency check and income/consumption (matching aggregate SIM)]*
 
-*[Figure 9 here — final demand and gross output by industry]*
+*[Figure 9 here -- final demand and gross output by industry]*
 
-*[Figure 10 here — unit prices by industry and the consumer/government price indices]*
+*[Figure 10 here -- unit prices by industry and the consumer/government price indices]*
 
 The `R` code for this model is [`IO_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_SIM.R).
 
@@ -395,13 +395,13 @@ The `R` code for this model is [`IO_SIM.R`](https://github.com/marcoverpas/Leeds
 
 Model **IO-PC** is the same IO layer bolted onto Model PC. The only difference from IO-SIM is the financial side inherited from PC: households now allocate wealth between cash and bonds (equations 6–11 above), income includes interest, and taxes fall on total income. The IO block (equations 13–19) is identical, and government spending is valued at $p_g \cdot g$. The redundant equation remains $H_h = H_s$, and the aggregate behaviour reproduces Model PC while adding the industrial and price detail.
 
-*[Figure 11 here — IO-PC baseline: consistency, income/consumption, portfolio, industry detail]*
+*[Figure 11 here -- IO-PC baseline: consistency, income/consumption, portfolio, industry detail]*
 
 The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R).
 
 ### 2.4 - Model IO-BMW
 
-Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is **investment**: final demand now has two components — consumption and investment (BMW has no government) — so
+Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is **investment**: final demand now has two components -- consumption and investment (BMW has no government) -- so
 
 $$\mathbf{d} = \mathbf{B}_c \cdot c + \mathbf{B}_i \cdot i$$
 
@@ -411,7 +411,7 @@ $$k^t_z = \kappa_z \cdot x_{z,-1}, \qquad i_z = \gamma \cdot (k^t_z - k_{z,-1}) 
 
 Aggregate investment is then $\sum_z i_z$, and the BMW loan/deposit block (B.6–B.21) operates on the resulting nominal magnitudes. Because the target is defined on gross output (which exceeds value added), the capital-to-output ratio $\kappa_z$ is smaller than the value used against income in the aggregate BMW. The redundant equation is again $M_h = M_s$.
 
-*[Figure 12 here — IO-BMW baseline: consistency, income/consumption, investment/depreciation, industry outputs, prices, deposits]*
+*[Figure 12 here -- IO-BMW baseline: consistency, income/consumption, investment/depreciation, industry outputs, prices, deposits]*
 
 The `R` code for this model is [`IO_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_BMW.R).
 
@@ -421,13 +421,13 @@ The `R` code for this model is [`IO_BMW.R`](https://github.com/marcoverpas/Leeds
 
 ### 3.1 - The agent-based approach
 
-The aggregate and IO models are **top-down**: they specify economy-wide (or industry-wide) behavioural rules directly. **Agent-based models (ABMs)** are **bottom-up**: they specify the behaviour of many individual **agents** — here, households — and obtain the macro variables by *summing over agents*. Aggregate regularities then **emerge** from the interaction of the agents rather than being imposed.
+The aggregate and IO models are **top-down**: they specify economy-wide (or industry-wide) behavioural rules directly. **Agent-based models (ABMs)** are **bottom-up**: they specify the behaviour of many individual **agents** -- here, households -- and obtain the macro variables by *summing over agents*. Aggregate regularities then **emerge** from the interaction of the agents rather than being imposed.
 
 Three features distinguish the ABM style used here:
 
-1. **Heterogeneity.** Agents differ — for instance, each household has its own propensity to consume.
+1. **Heterogeneity.** Agents differ -- for instance, each household has its own propensity to consume.
 
-1. **Interaction and matching.** Agents meet through explicit mechanisms — here a random *job lottery* (who is hired) and a *first-come-first-served* goods market (who gets served when output is short).
+1. **Interaction and matching.** Agents meet through explicit mechanisms -- here a random *job lottery* (who is hired) and a *first-come-first-served* goods market (who gets served when output is short).
 
 1. **Sequential decisions.** Agents act one after another, out of *last* period's information, so there is no need to solve a simultaneous system by iteration.
 
@@ -439,7 +439,7 @@ Model **ABM-SIM** is Model SIM populated by $N$ households. Each household holds
 
 1. each household plans consumption out of its last income and its money, $c_i = \alpha_{1,i} \cdot yd_{i,-1} + \alpha_2 \cdot h_i$;
 
-1. the economy needs one worker per unit of demand; a **job lottery** (with spread $s$) fills the jobs — some go unfilled;
+1. the economy needs one worker per unit of demand; a **job lottery** (with spread $s$) fills the jobs -- some go unfilled;
 
 1. whoever works produces the good and is paid; goods are sold **first-come-first-served** until they run out;
 
@@ -451,23 +451,23 @@ Summing over households reproduces the aggregate SIM: mean output converges to $
 
 - **Higher accumulated wealth.** The money stock settles *above* the frictionless SIM value. When hiring falls short, households are rationed and cannot spend all they planned; the unspent income becomes **involuntary saving**, so wealth builds up a buffer. In steady state $H \approx H_{SIM} + \text{(average rationing)}/\alpha_2$, so the more friction, the larger the money stock. Setting $s = 0$ (and no heterogeneity) recovers the textbook value exactly.
 
-*[Figure 13 here — output, income/consumption, money stock (above the SIM value), and emergent unemployment, with Monte Carlo fan]*
+*[Figure 13 here -- output, income/consumption, money stock (above the SIM value), and emergent unemployment, with Monte Carlo fan]*
 
 The `R` code for this model is [`ABM_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_SIM.R).
 
 ### 3.3 - Model ABM-PC
 
-Model **ABM-PC** adds PC's portfolio choice to the households. Each household still works (job lottery) and consumes (own propensity), but now also splits its wealth between cash and bonds and earns interest. Aggregating reproduces Model PC. Heterogeneity here has a sharper consequence: because aggregate demand depends on *which* households earn income (weighted by their individual propensities), the random order of hiring now **feeds through to the macro totals** — the composition of income becomes a macro variable in its own right, exactly the mechanism that motivates heterogeneous-agent macroeconomics.
+Model **ABM-PC** adds PC's portfolio choice to the households. Each household still works (job lottery) and consumes (own propensity), but now also splits its wealth between cash and bonds and earns interest. Aggregating reproduces Model PC. Heterogeneity here has a sharper consequence: because aggregate demand depends on *which* households earn income (weighted by their individual propensities), the random order of hiring now **feeds through to the macro totals** -- the composition of income becomes a macro variable in its own right, exactly the mechanism that motivates heterogeneous-agent macroeconomics.
 
-*[Figure 14 here — ABM-PC: aggregate paths with Monte Carlo fan; portfolio split]*
+*[Figure 14 here -- ABM-PC: aggregate paths with Monte Carlo fan; portfolio split]*
 
 The `R` code for this model is [`ABM_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_PC.R).
 
 ### 3.4 - Model ABM-BMW
 
-Model **ABM-BMW** keeps the households as the agents — heterogeneous as both **workers** (job lottery with spread $s$) and **consumers** (own $\alpha_{1,i}$) — while the **firm, capital and banking block is the standard aggregate BMW**. When hiring falls short, output is below demand, so **investment as well as consumption** is rationed. Because the investment accelerator feeds on output, the friction's recessionary bias is **amplified** (lower output → lower target capital → lower investment → lower output), so the mean output sits noticeably below the frictionless BMW level. Setting $s = 0$ (and no heterogeneity) recovers the exact deterministic BMW. The redundant equation $M_h = M_s$ holds throughout.
+Model **ABM-BMW** keeps the households as the agents -- heterogeneous as both **workers** (job lottery with spread $s$) and **consumers** (own $\alpha_{1,i}$) -- while the **firm, capital and banking block is the standard aggregate BMW**. When hiring falls short, output is below demand, so **investment as well as consumption** is rationed. Because the investment accelerator feeds on output, the friction's recessionary bias is **amplified** (lower output → lower target capital → lower investment → lower output), so the mean output sits noticeably below the frictionless BMW level. Setting $s = 0$ (and no heterogeneity) recovers the exact deterministic BMW. The redundant equation $M_h = M_s$ holds throughout.
 
-*[Figure 15 here — ABM-BMW: output, consumption, investment/depreciation, capital, deposits, unemployment, with Monte Carlo fan]*
+*[Figure 15 here -- ABM-BMW: output, consumption, investment/depreciation, capital, deposits, unemployment, with Monte Carlo fan]*
 
 The `R` code for this model is [`ABM_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_BMW.R).
 
