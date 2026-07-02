@@ -485,7 +485,7 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > rules, looking at its nearest neighbours: **separation** (don't crowd them),
 > **alignment** (head roughly the same way as them), and **cohesion** (don't drift
 > too far from them). No bird can see the whole flock, and nowhere in these rules is
-> the word "flock" written down. Yet the flock appears — a coherent, shifting shape
+> the word "flock" written down. Yet the flock appears -- a coherent, shifting shape
 > that belongs to the group and to no individual. This is **emergence**: order at the
 > level of the whole that arises purely from local interaction, and that you could
 > never have read off a single bird.
@@ -497,25 +497,20 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 >
 > <br>
 > 
-> The point is easy to test: switch the interaction *off* — let each bird ignore its
-> neighbours — and the flock dissolves into a cloud of independent wanderers. The
-> pattern lived in the *interaction*, not in the birds. (This is what separates true
+> The point is easy to test: switch the interaction *off* -- let each bird ignore its
+> neighbours -- and the flock dissolves into a cloud of independent wanderers. The
+> pattern lived in the *interaction*, not in the birds. This is what separates true
 > emergence from a merely intricate picture drawn by one clever formula: there, the
-> shape is written into the equation from the start; here, nobody wrote it at all.)
+> shape is written into the equation from the start; here, nobody wrote it at all.
 >
 > **Agent-based models (ABMs)** put this idea to work in economics. Instead of writing
-> down how the *economy* behaves, we specify how many individual **agents** — here,
-> households — behave, and let them interact through markets. The aggregate quantities
+> down how the *economy* behaves, we specify how many individual **agents** -- here,
+> households and/or firms -- behave, and let them interact through markets. The aggregate quantities
 > (output, employment, wealth) are then simply the sums over agents, and macroeconomic
 > regularities *emerge* from the crowd rather than being assumed. As we will see,
-> features that no household was ever told to produce — involuntary unemployment, or an
+> features that no household was ever told to produce -- involuntary unemployment, or an
 > aggregate demand that depends on precisely *who* was paid this period — appear all by
 > themselves, the economic counterpart of the flock.
->
-> <sub>The flocking model ("Boids") is due to **Craig W. Reynolds**, "Flocks, Herds and
-> Schools: A Distributed Behavioral Model", *Computer Graphics* (SIGGRAPH '87), 21(4):
-> 25–34.</sub>
-
 
 ### 3.2 - Model ABM-SIM
 
@@ -579,4 +574,5 @@ This is the challenge of the coming years. If stock-flow consistent, ecological 
 - Godley, W., and Lavoie, M. (2007). **Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth**. Palgrave Macmillan (chapters 3, 4 and 7).
 - Miller, R. E., and Blair, P. D. (2009). **Input-Output Analysis: Foundations and Extensions**. Cambridge University Press, 2nd edition (chapters 1–2).
 - Nikiforos, M., and Zezza, G. (2017). **Stock-flow Consistent Macroeconomic Models: A Survey**. *Journal of Economic Surveys*, 31 (5): 1204-1239.
+- Reynolds, C.W. (1987). **Flocks, Herds and Schools: A Distributed Behavioral Model**. *Computer Graphics*, 21 (4): 25–34.
 - Veronese Passarella, M. (2025). **Destabilizing a Stable Economy: Minsky Meets Graziani's Monetary Circuit**. *International Journal of Political Economy*, 54 (3): 338-355
