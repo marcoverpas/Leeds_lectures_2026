@@ -123,9 +123,10 @@ In the steady state there is no saving ($C = YD$) and money holdings are stable,
 
 $$Y^{\*} = \frac{G}{\theta}$$
 
-*[Figure 1 here -- consistency check: $H_h - H_s$]*
-
-*[Figure 2 here -- evolution of disposable income and consumption towards the steady state]*
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/FIG1_BASIC_SIM.PNG" width="1000">
+</figure>
 
 The `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
 
