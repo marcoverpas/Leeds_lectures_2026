@@ -448,6 +448,26 @@ src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_PC.png" width="900
 
 The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R).
 
+
+---
+
+> ### 📦 Box 1 - Playing with the model
+>
+> One of the advantages of creating formal models using `R` is that they can be conveniently converted into online interactive models using the `Shiny` package. 
+>  
+> [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/eco_3io_sfc_model/)
+> 
+> <figure>
+> <a href="https://x52gnt-marco-passarella.shinyapps.io/eco_3io_sfc_model/" target="_blank">
+> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/laboratory.png" width="1000">
+> </a>
+> </figure>
+> <br><br>
+>
+> Click the link above (or the figure) to open the simulation laboratory for *Model ECO-3IO-PC*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
+
+---
+
 ### 2.4 - Model IO-BMW
 
 Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is **investment**: final demand now has two components - consumption and investment (BMW has no government) - so
@@ -488,7 +508,7 @@ Three features distinguish the ABM style used here:
 
 Crucially, the models remain **stock-flow consistent**: because money is only ever transferred between agents (never created or destroyed by the matching), the redundant equation continues to hold to machine precision. The ABMs are run many times (**Monte Carlo** repetitions); charts show every run (thin grey lines) plus the mean (bold line).
 
-> ### 📦 Box - Emergence: a flock without a leader
+> ### 📦 Box 2 - Emergence: a flock without a leader
 >
 > Watch a flock of starlings wheel across the sky and it is tempting to look for a
 > leader, or a master plan. There is neither. Each bird follows only a few simple
