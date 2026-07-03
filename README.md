@@ -40,11 +40,10 @@ Reading across a row shows how the *same* economy can be represented at three le
 - [References](#references)
 
 All code has been developed for an `R` environment and is available in [this repository](https://github.com/marcoverpas/Leeds_lectures_2026). Similar lectures and further material of interest are available in these companion repositories:
-
-- [Six lectures on SFC models, 2023](https://github.com/marcoverpas/Six_lectures_on_sfc_models)
-- [EAEPE Summer School 2024](https://github.com/marcoverpas/EAEPE_summer_school_2024)
-- [PhD Lectures, Macerata 2025](https://github.com/marcoverpas/PhD_Lectures_Macerata_2025)
-- [Keynote speech, Florence](https://github.com/marcoverpas/keynote_speech_Florence)
+- [Six lectures on SFC models, 2023](https://github.com/marcoverpas/Six_lectures_on_sfc_models) - a broad introduction to the whole SFC family, from the basic PC and BMW toy models to multi-country, input-output, ecological, and empirically-calibrated versions (six online lectures for the Central University of Finance and Economics, CUFE, Beijing).
+- [EAEPE Summer School, 2024](https://github.com/marcoverpas/EAEPE_summer_school_2024) - a hands-on introduction to ecological SFC models (17th EAEPE Summer School, Rome).
+- [PhD Lectures, Macerata 2025](https://github.com/marcoverpas/PhD_Lectures_Macerata_2025) - doctoral lectures linking Graziani's monetary circuit theory to SFC modelling (models PC, BMW, IO-PC and ecological IO-PC).
+- [Keynote speech, Florence, 2025](https://github.com/marcoverpas/keynote_speech_Florence) - how to extend SFC models with ecological variables (matter, energy, emissions, temperature) to analyse the low-carbon transition (Summer School on "Multiscale Modeling and Ecological Macroeconomics", University of Florence).
 
 :unlock: :copyright: *Note*: All the material in this repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1). You are encouraged to use it for non-commercial purposes, provided that proper credit is given.
 
