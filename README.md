@@ -39,7 +39,12 @@ Reading across a row shows how the *same* economy can be represented at three le
 - [Concluding remarks](#concluding-remarks)
 - [References](#references)
 
-All code has been developed for an `R` environment and is available in [this repository](https://github.com/marcoverpas/Leeds_lectures_2026).
+All code has been developed for an `R` environment and is available in [this repository](https://github.com/marcoverpas/Leeds_lectures_2026). Similar lectures and further material of interest are available in these companion repositories:
+
+- [Six lectures on SFC models, 2023](https://github.com/marcoverpas/Six_lectures_on_sfc_models)
+- [EAEPE Summer School 2024](https://github.com/marcoverpas/EAEPE_summer_school_2024)
+- [PhD Lectures, Macerata 2025](https://github.com/marcoverpas/PhD_Lectures_Macerata_2025)
+- [Keynote speech, Florence](https://github.com/marcoverpas/keynote_speech_Florence)
 
 :unlock: :copyright: *Note*: All the material in this repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1). You are encouraged to use it for non-commercial purposes, provided that proper credit is given.
 
