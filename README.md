@@ -492,8 +492,8 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 >
 > <div align="center">
 > <img src="https://github.com/marcoverpas/figures/blob/main/deterministic_vs_emergent.gif" width="720"><br>
-> <sub><i>Left: a swarm on the Lorenz attractor -- deterministic dynamics, no interaction.
-> Right: a Boids flock -- order emerging from local interaction.</i></sub>
+> <sub><i>Left: a swarm on the Lorenz attractor (deterministic dynamics, no interaction).
+> Right: a Boids flock (order emerging from local interaction).</i></sub>
 > </div>
 >
 > <br>
