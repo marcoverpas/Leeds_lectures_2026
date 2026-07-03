@@ -448,9 +448,6 @@ src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_PC.png" width="900
 
 The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R).
 
-
----
-
 > ### 📦 Box 1 - Playing with the model
 >
 > One of the advantages of creating formal models using `R` is that they can be conveniently converted into online interactive models using the `Shiny` package. 
@@ -465,8 +462,6 @@ The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_
 > <br><br>
 >
 > Click the link above (or the figure) to open the simulation laboratory for *Model ECO-3IO-PC*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
-
----
 
 ### 2.4 - Model IO-BMW
 
