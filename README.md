@@ -536,6 +536,8 @@ Summing over households reproduces the aggregate SIM: mean output converges to $
 - **Emergent unemployment.** With the hiring spread $s>0$, employment is a genuinely fluctuating, model-generated variable.
 - **Higher accumulated wealth.** The money stock settles *above* the frictionless SIM value. When hiring falls short, households are rationed and cannot spend all they planned; the unspent income becomes **involuntary saving**, so wealth builds up a buffer. In steady state $H \approx H_{SIM} + \text{(average rationing)}/\alpha_2$, so the more friction, the larger the money stock. Setting $s = 0$ (and no heterogeneity) recovers the textbook value exactly.
 
+In the figure below (as in all agent-based charts that follow), each **thin grey line is a single Monte Carlo run**, while the **bold coloured line is the average across the 50 runs**. In other words, the grey band shows how much the outcome varies from one realisation to the next, the coloured line its expected path.
+
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_SIM.png" width="900">
