@@ -140,7 +140,7 @@ Simulated over time, these one-period flows become dynamic paths. The figure bel
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_SIM.png" width="900">
+src="https://github.com/marcoverpas/figures/blob/main/SIM_anim.png" width="900">
 </figure>
 
 The `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
@@ -231,7 +231,7 @@ Iterated forward, these flows generate the dynamics of income, wealth and its po
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_PC.png" width="900">
+src="https://github.com/marcoverpas/figures/blob/main/PC_anim.png" width="900">
 </figure>
 
 The `R` code for this model is [`BASIC_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_PC.R).
@@ -330,7 +330,7 @@ Run over time, the same circuit produces the paths of output, investment, capita
 
 <figure>
 <img
-src="https://github.com/marcoverpas/figures/blob/main/Fig1_BASIC_BMW.png" width="900">
+src="https://github.com/marcoverpas/figures/blob/main/BMW_anim.png" width="900">
 </figure>
 
 The `R` code for this model is [`BASIC_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_BMW.R).
