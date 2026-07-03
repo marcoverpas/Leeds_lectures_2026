@@ -6,7 +6,7 @@
 
 ## Overview
 
-This repository presents **nine small macroeconomic models**, organised as a 3 × 3 grid. Three benchmark Stock-Flow Consistent (SFC) toy models from [Godley and Lavoie (2007)](#references) -- **SIM**, **PC** and **BMW** -- are each developed in three coding *styles*:
+This repository presents **nine small macroeconomic models**, organised as a 3 × 3 grid. Three benchmark Stock-Flow Consistent (SFC) toy models from [Godley and Lavoie (2007)](#references) - **SIM**, **PC** and **BMW** - are each developed in three coding *styles*:
 
 |                          | **Aggregate (original)** | **Input-Output (IO)** | **Agent-Based (ABM)** |
 |:-------------------------|:------------------------:|:---------------------:|:---------------------:|
@@ -41,7 +41,7 @@ All code has been developed for an `R` environment and is available in [this rep
 
 ## A note on SFC accounting
 
-Every model below obeys the four accounting principles of SFC modelling: **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping**. In practice this means each model is built around two accounting tables -- a **balance-sheet matrix** (stocks) and a **transactions-flow matrix** (flows) -- whose rows and columns must sum to zero. Because the tables are watertight, every model contains one *redundant* (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight.
+Every model below obeys the four accounting principles of SFC modelling: **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping**. In practice this means each model is built around two accounting tables - a **balance-sheet matrix** (stocks) and a **transactions-flow matrix** (flows) - whose rows and columns must sum to zero. Because the tables are watertight, every model contains one *redundant* (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight.
 
 ---
 
@@ -49,7 +49,7 @@ Every model below obeys the four accounting principles of SFC modelling: **flow 
 
 ### 1.1 - Model SIM
 
-Model **SIM** ("**SIM**plest") is the most basic SFC model ([Godley and Lavoie, 2007, ch. 3](#references)). It has a single financial asset -- **state money (cash)** -- created when the government spends and destroyed when it taxes.
+Model **SIM** ("**SIM**plest") is the most basic SFC model ([Godley and Lavoie, 2007, ch. 3](#references)). It has a single financial asset - **state money (cash)** - created when the government spends and destroyed when it taxes.
 
 Key assumptions:
 
@@ -119,7 +119,7 @@ In the steady state there is no saving ($C = YD$) and money holdings are stable,
 
 $$Y^{\*} = \frac{G}{\theta}$$
 
-The transactions-flow matrix can be read as a Sankey diagram. Traversed left to right -- payer, transaction, payee -- it traces every monetary flow of a single period: firms pay wages to households, who return them as consumption (to firms), taxes (to the government) and the money they save. Since each transaction has exactly one source and one destination, the two sides of every account balance.
+The transactions-flow matrix can be read as a Sankey diagram. Traversed left to right - payer, transaction, payee - it traces every monetary flow of a single period: firms pay wages to households, who return them as consumption (to firms), taxes (to the government) and the money they save. Since each transaction has exactly one source and one destination, the two sides of every account balance.
 
 <figure>
 <img
@@ -210,7 +210,7 @@ The redundant equation is $H_h = H_s$. The steady-state income is:
 
 $$Y^{\*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
 
-The same payer → transaction → payee reading applies, now enriched with interest income and the portfolio choice between cash and government bills. The Sankey diagram shows the government financing its deficit through new bills absorbed by households and the central bank, and the central bank issuing cash against the bills it holds -- the extra financial plumbing that distinguishes PC from SIM.
+The same payer → transaction → payee reading applies, now enriched with interest income and the portfolio choice between cash and government bills. The Sankey diagram shows the government financing its deficit through new bills absorbed by households and the central bank, and the central bank issuing cash against the bills it holds - the extra financial plumbing that distinguishes PC from SIM.
 
 <figure>
 <img
@@ -309,7 +309,7 @@ $$r_l = \bar{r}_l \quad \text{(B.21)}$$
 
 The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). Note the accelerator (B.19)–(B.20): firms target a capital stock proportional to lagged output and close a fraction $\gamma$ of the gap each period, on top of replacing depreciation.
 
-Here the four accounts -- households, firms (current), firms (capital) and banks -- appear as payers and payees, with investment and depreciation shown as flows internal to the firm sector. Because loans create deposits of equal size and the two interest legs cancel at the bank, the Sankey diagram makes the loans-and-deposits circuit, and its self-balancing character, legible at a glance.
+Here the four accounts - households, firms (current), firms (capital) and banks - appear as payers and payees, with investment and depreciation shown as flows internal to the firm sector. Because loans create deposits of equal size and the two interest legs cancel at the bank, the Sankey diagram makes the loans-and-deposits circuit, and its self-balancing character, legible at a glance.
 
 <figure>
 <img
@@ -339,7 +339,7 @@ $$\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d} \quad \Longrightarrow \q
 
 where $(\mathbf{I} - \mathbf{A})^{-1}$ is the **Leontief inverse**, which translates any final demand into the gross output every industry must produce to satisfy it (directly and indirectly).
 
-Standard IO analysis is powerful but **static**: it compares two snapshots without describing the path between them, and it says little about money and finance. **SFC modelling** is the mirror image: dynamically and financially coherent, but usually blind to inter-industry detail. **IO-SFC models** combine the two -- industrial granularity from IO, dynamic and financial coherence from SFC -- so that a demand-driven, monetary economy is resolved industry by industry while every stock and flow still adds up ([Berg et al. 2015](#references); [Veronese Passarella, 2025](#references); [Fevereiro et al. 2025](#references)).
+Standard IO analysis is powerful but **static**: it compares two snapshots without describing the path between them, and it says little about money and finance. **SFC modelling** is the mirror image: dynamically and financially coherent, but usually blind to inter-industry detail. **IO-SFC models** combine the two - industrial granularity from IO, dynamic and financial coherence from SFC - so that a demand-driven, monetary economy is resolved industry by industry while every stock and flow still adds up ([Berg et al. 2015](#references); [Veronese Passarella, 2025](#references); [Fevereiro et al. 2025](#references)).
 
 Adding an IO layer to an SFC model requires only a handful of extra equations. Prices are no longer fixed but set by **cost-plus (reproduction) conditions**, and final demand is split across industries by fixed **composition shares**. Because prices now exist, real and nominal magnitudes diverge: consumption is decided in real terms while GDP is measured in value.
 
@@ -392,7 +392,7 @@ $$c = \alpha_1 \cdot \left( \frac{YD}{p_c} - \pi \cdot \frac{H_{h,-1}}{p_c} \rig
 
 where $\pi$ is the rate of growth of the consumer price index (the inflation rate). Nominal consumption and government spending become $p_c \cdot c$ and $p_g \cdot g$. The redundant equation $H_h = H_s$ still holds.
 
-For the input-output core the flows are best read product by product. This Sankey diagram unpacks the (nominal) use table: each product on the left fans out to the three industries that consume it as an intermediate input, plus final demand on the right -- a direct picture of how much of each sector's output is absorbed in production elsewhere versus delivered to final buyers.
+For the input-output core the flows are best read product by product. This Sankey diagram unpacks the (nominal) use table: each product on the left fans out to the three industries that consume it as an intermediate input, plus final demand on the right - a direct picture of how much of each sector's output is absorbed in production elsewhere versus delivered to final buyers.
 
 <figure>
 <img
@@ -440,7 +440,7 @@ The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_
 
 ### 2.4 - Model IO-BMW
 
-Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is **investment**: final demand now has two components -- consumption and investment (BMW has no government) -- so
+Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is **investment**: final demand now has two components - consumption and investment (BMW has no government) - so
 
 $$\mathbf{d} = \mathbf{B}_c \cdot c + \mathbf{B}_i \cdot i$$
 
@@ -468,12 +468,12 @@ The `R` code for this model is [`IO_BMW.R`](https://github.com/marcoverpas/Leeds
 
 ### 3.1 - The agent-based approach
 
-The aggregate and IO models are **top-down**: they specify economy-wide (or industry-wide) behavioural rules directly. **Agent-based models (ABMs)** are **bottom-up**: they specify the behaviour of many individual **agents** -- here, households -- and obtain the macro variables by *summing over agents*. Aggregate regularities then **emerge** from the interaction of the agents rather than being imposed.
+The aggregate and IO models are **top-down**: they specify economy-wide (or industry-wide) behavioural rules directly. **Agent-based models (ABMs)** are **bottom-up**: they specify the behaviour of many individual **agents** - here, households - and obtain the macro variables by *summing over agents*. Aggregate regularities then **emerge** from the interaction of the agents rather than being imposed.
 
 Three features distinguish the ABM style used here:
 
-1. **Heterogeneity.** Agents differ -- for instance, each household has its own propensity to consume.
-1. **Interaction and matching.** Agents meet through explicit mechanisms -- here a random *job lottery* (who is hired) and a *first-come-first-served* goods market (who gets served when output is short).
+1. **Heterogeneity.** Agents differ - for instance, each household has its own propensity to consume.
+1. **Interaction and matching.** Agents meet through explicit mechanisms - here a random *job lottery* (who is hired) and a *first-come-first-served* goods market (who gets served when output is short).
 1. **Sequential decisions.** Agents act one after another, out of *last* period's information, so there is no need to solve a simultaneous system by iteration.
 
 Crucially, the models remain **stock-flow consistent**: because money is only ever transferred between agents (never created or destroyed by the matching), the redundant equation continues to hold to machine precision. The ABMs are run many times (**Monte Carlo** repetitions); charts show every run (thin grey lines) plus the mean (bold line).
@@ -485,7 +485,7 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > rules, looking at its nearest neighbours: **separation** (don't crowd them),
 > **alignment** (head roughly the same way as them), and **cohesion** (don't drift
 > too far from them). No bird can see the whole flock, and nowhere in these rules is
-> the word "flock" written down. Yet the flock appears -- a coherent, shifting shape
+> the word "flock" written down. Yet the flock appears - a coherent, shifting shape
 > that belongs to the group and to no individual. This is **emergence**: order at the
 > level of the whole that arises purely from local interaction, and that you could
 > never have read off a single bird.
@@ -501,20 +501,20 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > The two panels make the distinction concrete. On the **left**, a cloud of particles
 > each obeys the very same set of differential equations (the Lorenz system): the motion
 > is intricate, even chaotic, yet every dot is slaved to a global law and none of them
-> ever look at one another -- this is complexity, but *not* emergence, the shape was
+> ever look at one another - this is complexity, but *not* emergence, the shape was
 > written into the equations from the start. On the **right**, the birds are told nothing
 > about any global shape; they follow only local rules, and the flock self-organises. The
-> test is simple: switch the interaction *off* -- let each bird ignore its neighbours --
+> test is simple: switch the interaction *off* - let each bird ignore its neighbours --
 > and the flock dissolves into a cloud of independent wanderers. The pattern lived in the
 > *interaction*, not in the birds.
 >
 > **Agent-based models (ABMs)** put this idea to work in economics. Instead of writing
-> down how the *economy* behaves, we specify how many individual **agents** -- here,
-> households and/or firms -- behave, and let them interact through markets. The aggregate
+> down how the *economy* behaves, we specify how many individual **agents** - here,
+> households and/or firms - behave, and let them interact through markets. The aggregate
 > quantities (output, employment, wealth) are then simply the sums over agents, and
 > macroeconomic regularities *emerge* from the crowd rather than being assumed. As we will
-> see, features that no household was ever told to produce -- involuntary unemployment, or
-> an aggregate demand that depends on precisely *who* was paid this period -- appear all by
+> see, features that no household was ever told to produce - involuntary unemployment, or
+> an aggregate demand that depends on precisely *who* was paid this period - appear all by
 > themselves, the economic counterpart of the flock.
 >
 > <sub>Left panel: the Lorenz system (E. N. Lorenz, "Deterministic Nonperiodic Flow",
@@ -527,7 +527,7 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 Model **ABM-SIM** is Model SIM populated by $N$ households. Each household holds its own money $h_i$, forms its own disposable income $yd_i$, and has its own propensity to consume $\alpha_{1,i}$. The number of households exceeds the workers ever needed, so **unemployment emerges** rather than being assumed. One period unfolds as a sequence of "ticks":
 
 1. each household plans consumption out of its last income and its money, $c_i = \alpha_{1,i} \cdot yd_{i,-1} + \alpha_2 \cdot h_i$;
-1. the economy needs one worker per unit of demand; a **job lottery** (with spread $s$) fills the jobs -- some go unfilled;
+1. the economy needs one worker per unit of demand; a **job lottery** (with spread $s$) fills the jobs - some go unfilled;
 1. whoever works produces the good and is paid; goods are sold **first-come-first-served** until they run out;
 1. taxes are paid, and each household updates its money holdings.
 
@@ -547,7 +547,7 @@ The `R` code for this model is [`ABM_SIM.R`](https://github.com/marcoverpas/Leed
 
 ### 3.3 - Model ABM-PC
 
-Model **ABM-PC** adds PC's portfolio choice to the households. Each household still works (job lottery) and consumes (own propensity), but now also splits its wealth between cash and bonds and earns interest. Aggregating reproduces Model PC. Heterogeneity here has a sharper consequence: because aggregate demand depends on *which* households earn income (weighted by their individual propensities), the random order of hiring now **feeds through to the macro totals** -- the composition of income becomes a macro variable in its own right, exactly the mechanism that motivates heterogeneous-agent macroeconomics.
+Model **ABM-PC** adds PC's portfolio choice to the households. Each household still works (job lottery) and consumes (own propensity), but now also splits its wealth between cash and bonds and earns interest. Aggregating reproduces Model PC. Heterogeneity here has a sharper consequence: because aggregate demand depends on *which* households earn income (weighted by their individual propensities), the random order of hiring now **feeds through to the macro totals** - the composition of income becomes a macro variable in its own right, exactly the mechanism that motivates heterogeneous-agent macroeconomics.
 
 <figure>
 <img
@@ -558,7 +558,7 @@ The `R` code for this model is [`ABM_PC.R`](https://github.com/marcoverpas/Leeds
 
 ### 3.4 - Model ABM-BMW
 
-Model **ABM-BMW** keeps the households as the agents -- heterogeneous as both **workers** (job lottery with spread $s$) and **consumers** (own $\alpha_{1,i}$) -- while the **firm, capital and banking block is the standard aggregate BMW**. When hiring falls short, output is below demand, so **investment as well as consumption** is rationed. Because the investment accelerator feeds on output, the friction's recessionary bias is **amplified** (lower output → lower target capital → lower investment → lower output), so the mean output sits noticeably below the frictionless BMW level. Setting $s = 0$ (and no heterogeneity) recovers the exact deterministic BMW. The redundant equation $M_h = M_s$ holds throughout.
+Model **ABM-BMW** keeps the households as the agents - heterogeneous as both **workers** (job lottery with spread $s$) and **consumers** (own $\alpha_{1,i}$) - while the **firm, capital and banking block is the standard aggregate BMW**. When hiring falls short, output is below demand, so **investment as well as consumption** is rationed. Because the investment accelerator feeds on output, the friction's recessionary bias is **amplified** (lower output → lower target capital → lower investment → lower output), so the mean output sits noticeably below the frictionless BMW level. Setting $s = 0$ (and no heterogeneity) recovers the exact deterministic BMW. The redundant equation $M_h = M_s$ holds throughout.
 
 <figure>
 <img
@@ -571,13 +571,13 @@ The `R` code for this model is [`ABM_BMW.R`](https://github.com/marcoverpas/Leed
 
 ## Concluding remarks
 
-The nine models in this repository are deliberately small, and that smallness is the point. Each was built one layer at a time: an accounting skeleton first, then a behavioural closure, then -- only where the research question demanded it -- an input-output core or agent-based microfoundations. Proceeding step by step is not a pedagogical nicety but a methodological discipline. At every stage the balance-sheet and transactions-flow matrices must sum to zero, and the redundant equation must hold to machine precision. A model that fails this test is not "roughly right". It is leaking money somewhere, and any result it produces cannot be fully trusted. Consistency is the non-negotiable floor beneath everything else.
+The nine models in this repository are deliberately small, and that smallness is the point. Each was built one layer at a time: an accounting skeleton first, then a behavioural closure, then - only where the research question demanded it - an input-output core or agent-based microfoundations. Proceeding step by step is not a pedagogical nicety but a methodological discipline. At every stage the balance-sheet and transactions-flow matrices must sum to zero, and the redundant equation must hold to machine precision. A model that fails this test is not "roughly right". It is leaking money somewhere, and any result it produces cannot be fully trusted. Consistency is the non-negotiable floor beneath everything else.
 
 Complexity, by contrast, should always have to justify itself. Input-output detail earns its place when the question is about industrial interdependence, structural change, relative prices, or the propagation of a sectoral shock. Agent-based microfoundations earn their place when heterogeneity and interaction genuinely produce emergent macroeconomic behaviour (in our simple examples, the composition of income becomes a macro variable in its own right, and involuntary saving and rationing drive wealth away from its frictionless value). When the question does not require these extensions, the aggregate model is not a poorer answer but the right one. The art is matching the resolution of the model to the resolution of the question, and no finer.
 
-Lastly, allow me a few words on Artificial Intelligence (AI). AI is transforming how we develop these models. It writes and debugs code, checks consistency, ports a model from one language to another, and lets a single researcher explore in an afternoon what once took a term. This is a genuine gain. I could not have prepared these lectures so quickly without it. However, it carries a real danger: the ease of generating ever larger and more intricate models tempts us to mistake complication for insight. A model no one can fully read, whose mechanisms are buried under thousands of auto-generated lines, is a black box -- and a black box does not deepen our understanding of economic, financial, social, and environmental phenomena. It merely relocates our ignorance. AI should be used to simplify: to strip a model to its essential mechanisms, to make its logic transparent, to let us see clearly why a result holds.
+Lastly, allow me a few words on Artificial Intelligence (AI). AI is transforming how we develop these models. It writes and debugs code, checks consistency, ports a model from one language to another, and lets a single researcher explore in an afternoon what once took a term. This is a genuine gain. I could not have prepared these lectures so quickly without it. However, it carries a real danger: the ease of generating ever larger and more intricate models tempts us to mistake complication for insight. A model no one can fully read, whose mechanisms are buried under thousands of auto-generated lines, is a black box - and a black box does not deepen our understanding of economic, financial, social, and environmental phenomena. It merely relocates our ignorance. AI should be used to simplify: to strip a model to its essential mechanisms, to make its logic transparent, to let us see clearly why a result holds.
 
-This is the challenge of the coming years. If stock-flow consistent, ecological and monetary-production approaches are to outcompete neoclassical and other mainstream methods, it will not be by matching them in mathematical elaboration. It will be by offering models that are at once fully consistent, economically transparent, and no more complex than the question requires -- models a student can open, read, and understand, and that AI has helped us make simpler rather than more opaque. Kept to that standard, these tools sharpen our capacity to analyse the real economy. Abandoned to it, they only automate our confusion.
+This is the challenge of the coming years. If stock-flow consistent, ecological and monetary-production approaches are to outcompete neoclassical and other mainstream methods, it will not be by matching them in mathematical elaboration. It will be by offering models that are at once fully consistent, economically transparent, and no more complex than the question requires - models a student can open, read, and understand, and that AI has helped us make simpler rather than more opaque. Kept to that standard, these tools sharpen our capacity to analyse the real economy. Abandoned to it, they only automate our confusion.
 
 ## References
 
