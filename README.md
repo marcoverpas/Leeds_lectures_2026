@@ -6,7 +6,7 @@
 
 <div align="center">
 <figure>
-<img src="https://github.com/marcoverpas/figures/blob/main/QR_code_Leeds_2026.png" width="500">
+<img src="https://github.com/marcoverpas/figures/blob/main/QR_code_Leeds_2026.png" width="200">
 </figure>
 </div>
 
