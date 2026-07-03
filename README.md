@@ -584,5 +584,4 @@ This is the challenge of the coming years. If stock-flow consistent, ecological 
 - Godley, W., and Lavoie, M. (2007). **Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth**. Palgrave Macmillan (chapters 3, 4 and 7).
 - Miller, R. E., and Blair, P. D. (2009). **Input-Output Analysis: Foundations and Extensions**. Cambridge University Press, 2nd edition (chapters 1–2).
 - Nikiforos, M., and Zezza, G. (2017). **Stock-flow Consistent Macroeconomic Models: A Survey**. *Journal of Economic Surveys*, 31 (5): 1204-1239.
-- Reynolds, C.W. (1987). **Flocks, Herds and Schools: A Distributed Behavioral Model**. *Computer Graphics*, 21 (4): 25–34.
 - Veronese Passarella, M. (2025). **Destabilizing a Stable Economy: Minsky Meets Graziani's Monetary Circuit**. *International Journal of Political Economy*, 54 (3): 338-355
