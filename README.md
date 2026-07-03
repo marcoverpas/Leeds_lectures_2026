@@ -488,7 +488,7 @@ Three features distinguish the ABM style used here:
 
 Crucially, the models remain **stock-flow consistent**: because money is only ever transferred between agents (never created or destroyed by the matching), the redundant equation continues to hold to machine precision. The ABMs are run many times (**Monte Carlo** repetitions); charts show every run (thin grey lines) plus the mean (bold line).
 
-> ### 📦 Box — Emergence: a flock without a leader
+> ### 📦 Box - Emergence: a flock without a leader
 >
 > Watch a flock of starlings wheel across the sky and it is tempting to look for a
 > leader, or a master plan. There is neither. Each bird follows only a few simple
