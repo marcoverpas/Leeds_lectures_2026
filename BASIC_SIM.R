@@ -1,7 +1,8 @@
 # *************************************************************************
 #  Model SIM (aggregate)
 #  Source: Godley & Lavoie, Monetary Economics, chapter 3
-#  Last change: 01/07/2026
+#  Author: Marco Veronese Passarella
+#  Last change: 03/07/2026
 # *************************************************************************
 
 # Clear environment
