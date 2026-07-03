@@ -241,7 +241,7 @@ Iterated forward, these flows generate the dynamics of income, wealth and its po
 src="https://github.com/marcoverpas/figures/blob/main/PC_anim.gif" width="900">
 </figure>
 
-As an experiment, we now raise the interest rate $r$ permanently. In the animation below the grey line is the baseline and the red one -- branching off at the dashed marker -- is the shock scenario. A higher rate lifts the interest income households earn on their bonds, so disposable income, and with it national income, settle at a higher steady state $Y^{\*} = [G + r \cdot B_h^{*} \cdot (1 - \theta)] / \theta$, while households rebalance their portfolio towards bonds. Panels a)–d) reveal these adjustments period by period.
+As an experiment, we now raise the interest rate $r$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. A higher rate lifts the interest income households earn on their bonds, so disposable income, and with it national income, settle at a higher steady state $Y^{\*} = [G + r \cdot B_h^{*} \cdot (1 - \theta)] / \theta$, while households rebalance their portfolio towards bonds. Panels a)–d) reveal these adjustments period by period.
 
 <figure>
 <img
@@ -347,7 +347,7 @@ Run over time, the same circuit produces the paths of output, investment, capita
 src="https://github.com/marcoverpas/figures/blob/main/BMW_anim.gif" width="900">
 </figure>
 
-As an experiment, we raise the target capital-output ratio $\kappa$ permanently. In the animation below the grey line is the baseline and the red one -- branching off at the dashed marker -- is the shock scenario. Aiming at a larger capital stock, firms step up investment: investment jumps on impact and the capital stock climbs to a permanently higher level, pulling output and consumption up with it through the accelerator, before the economy settles at its new steady state. Panels a)–d) reveal these adjustments period by period.
+As an experiment, we raise the target capital-output ratio $\kappa$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. Aiming at a larger capital stock, firms step up investment: investment jumps on impact and the capital stock climbs to a permanently higher level, pulling output and consumption up with it through the accelerator, before the economy settles at its new steady state. Panels a)–d) reveal these adjustments period by period.
 
 <figure>
 <img
