@@ -491,26 +491,36 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > never have read off a single bird.
 >
 > <div align="center">
-> <img src="https://github.com/marcoverpas/figures/blob/main/boids_flock.gif" width="450"><br>
-> <sub><i>Boids model (Reynolds, 1987): separation, alignment and cohesion only.</i></sub>
+> <img src="https://github.com/marcoverpas/figures/blob/main/deterministic_vs_emergent.gif" width="720"><br>
+> <sub><i>Left: a swarm on the Lorenz attractor -- deterministic dynamics, no interaction.
+> Right: a Boids flock -- order emerging from local interaction. Same dots, opposite logic.</i></sub>
 > </div>
 >
 > <br>
 > 
-> The point is easy to test: switch the interaction *off* -- let each bird ignore its
-> neighbours -- and the flock dissolves into a cloud of independent wanderers. The
-> pattern lived in the *interaction*, not in the birds. This is what separates true
-> emergence from a merely intricate picture drawn by one clever formula: there, the
-> shape is written into the equation from the start; here, nobody wrote it at all.
+> The two panels make the distinction concrete. On the **left**, a cloud of particles
+> each obeys the very same set of differential equations (the Lorenz system): the motion
+> is intricate, even chaotic, yet every dot is slaved to a global law and none of them
+> ever look at one another -- this is complexity, but *not* emergence, the shape was
+> written into the equations from the start. On the **right**, the birds are told nothing
+> about any global shape; they follow only local rules, and the flock self-organises. The
+> test is simple: switch the interaction *off* -- let each bird ignore its neighbours --
+> and the flock dissolves into a cloud of independent wanderers. The pattern lived in the
+> *interaction*, not in the birds.
 >
 > **Agent-based models (ABMs)** put this idea to work in economics. Instead of writing
 > down how the *economy* behaves, we specify how many individual **agents** -- here,
-> households and/or firms -- behave, and let them interact through markets. The aggregate quantities
-> (output, employment, wealth) are then simply the sums over agents, and macroeconomic
-> regularities *emerge* from the crowd rather than being assumed. As we will see,
-> features that no household was ever told to produce -- involuntary unemployment, or an
-> aggregate demand that depends on precisely *who* was paid this period — appear all by
+> households and/or firms -- behave, and let them interact through markets. The aggregate
+> quantities (output, employment, wealth) are then simply the sums over agents, and
+> macroeconomic regularities *emerge* from the crowd rather than being assumed. As we will
+> see, features that no household was ever told to produce -- involuntary unemployment, or
+> an aggregate demand that depends on precisely *who* was paid this period -- appear all by
 > themselves, the economic counterpart of the flock.
+>
+> <sub>Left panel: the Lorenz system (E. N. Lorenz, "Deterministic Nonperiodic Flow",
+> *Journal of the Atmospheric Sciences*, 1963). Right panel: the "Boids" flocking model
+> (C. W. Reynolds, "Flocks, Herds and Schools: A Distributed Behavioral Model",
+> *Computer Graphics*, 1987).</sub>
 
 ### 3.2 - Model ABM-SIM
 
