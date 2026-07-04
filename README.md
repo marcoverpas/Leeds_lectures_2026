@@ -169,6 +169,123 @@ src="https://github.com/marcoverpas/figures/blob/main/SIM_experiment.gif" width=
 
 The `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
 
+
+### Building Model SIM in R
+
+Model SIM needs no external package: base `R` is enough. We start by clearing the workspace.
+
+```r
+# Clear environment
+rm(list = ls(all = TRUE))
+```
+
+We then fix the parameters: the propensities to consume ($\alpha_1$, $\alpha_2$), the tax rate $\theta$, and the fiscal experiment (spending switches on at 20 and, in scenario 2, rises to 30 from period 50).
+
+```r
+# Set model parameters ####
+nPeriods    <- 100         # Periods
+nScenarios  <- 2           # 1 baseline, 2 higher government spending
+alpha1      <- 0.6         # Propensity to consume out of income
+alpha2      <- 0.4         # Propensity to consume out of wealth
+theta       <- 0.2         # Tax rate on income
+Gexog       <- 20          # Government spending (once switched on)
+Gshock      <- 30          # Higher government spending (scenario 2)
+shockStart  <- 50          # Period at which spending rises (scenario 2)
+```
+
+Each variable is a matrix with one row per scenario and one column per period, initialised at zero (row 1 = baseline, row 2 = shock). Since SIM has a single asset, wealth `V` equals money `H_h`.
+
+```r
+# Create the variables as matrices [scenario, period], all starting at zero ####
+Y   <- matrix(0, nScenarios, nPeriods)  # Output / income
+C   <- matrix(0, nScenarios, nPeriods)  # Consumption
+YD  <- matrix(0, nScenarios, nPeriods)  # Disposable income
+TAX <- matrix(0, nScenarios, nPeriods)  # Taxes
+V   <- matrix(0, nScenarios, nPeriods)  # Household wealth (= money in SIM)
+H_h <- matrix(0, nScenarios, nPeriods)  # Money held by households
+H_s <- matrix(0, nScenarios, nPeriods)  # Money supplied by the government
+```
+
+Government spending is the only exogenous variable: switched on from period 2 in both scenarios, and raised from `shockStart` in scenario 2 only.
+
+```r
+# Exogenous variables ####
+G <- matrix(0, nScenarios, nPeriods)    # Government spending
+
+# Shocks ####
+G[, 2:nPeriods] <- Gexog                          # Spending switched on in period 2
+G[2, shockStart:nPeriods] <- Gshock               # Higher spending in scenario 2
+```
+
+The core is a triple loop: over scenarios, over time (from period 2), and an inner loop that solves the seven equations. Being simultaneous, they are iterated 100 times per period until they converge (a Gauss–Seidel scheme). The lines are equations (1)–(6) plus the money-demand identity.
+
+```r
+# Loop over scenarios ####
+for (j in 1:nScenarios) {
+
+  # Time loop
+  for (i in 2:nPeriods) {
+
+    # Solve the SIMULTANEOUS equations by iteration
+    for (iter in 1:100) {
+
+      Y[j, i]   = C[j, i] + G[j, i]                        # Output = demand
+      YD[j, i]  = Y[j, i] - TAX[j, i]                      # Disposable income
+      TAX[j, i] = theta * Y[j, i]                          # Taxes on income
+      V[j, i]   = V[j, i - 1] + (YD[j, i] - C[j, i])       # Wealth accumulation
+      C[j, i]   = alpha1 * YD[j, i] + alpha2 * V[j, i]     # Consumption
+      H_h[j, i] = V[j, i]                                  # Money held = wealth
+      H_s[j, i] = H_s[j, i - 1] + (G[j, i] - TAX[j, i])    # Money supply = cumulative deficit
+    }
+  }
+}
+```
+
+Finally we report the analytic steady state $Y^{\*}=G/\theta$ and the consistency gap $|H_h - H_s|$ (which must be zero to machine precision), then plot the four panels.
+
+```r
+# Display the results ####
+Ystar  <- Gexog / theta                                    # Analytic steady-state GDP (baseline)
+sfcGap <- max(abs(H_h[1, 2:nPeriods] - H_s[1, 2:nPeriods]))
+cat(" ******************************")
+cat("\n Max |H_h - H_s| =", sfcGap)
+cat("\n ******************************")
+cat("\n Baseline steady-state values: \n Y =", round(Y[1, nPeriods], 2),
+    "\n V =", round(V[1, nPeriods], 2),
+    "\n H_h =", round(H_h[1, nPeriods], 2))
+cat("\n ******************************")
+
+# Plot the results ####
+op = par(mfrow = c(2, 2), mar = c(4, 4, 3, 1))
+
+# a) Consistency check (baseline): H_h - H_s should hug zero
+plot(H_h[1, 2:nPeriods] - H_s[1, 2:nPeriods], type = "l", col = "seagreen", lwd = 2,
+     font.main = 1, main = "a) Consistency check: H_h - H_s", xlab = "period", ylab = "",
+     ylim = range(-1, 1)); abline(h = 0, lty = 3)
+
+# b) Income building up after government spending starts (baseline)
+plot(Y[1, 2:45], type = "l", col = "dodgerblue", lwd = 2, font.main = 1,
+     main = "b) Income after government spending", xlab = "period", ylab = "",
+     ylim = range(0, 120)); abline(h = Ystar, lty = 2)
+legend("bottomright", c("National income", "Steady state"),
+       col = c("dodgerblue", "black"), lwd = c(2, 1), lty = c(1, 2), bty = "n")
+
+# c) Money stock building up (baseline)
+plot(H_h[1, 2:nPeriods], type = "l", col = "darkorange", lwd = 2, font.main = 1,
+     main = "c) Money stock (baseline)", xlab = "period", ylab = "")
+abline(h = (1 - theta) * Gexog / theta * (1 - alpha1) / alpha2, lty = 2)  # steady-state H
+
+# d) Income after the government-spending rise (scenario 2 vs baseline)
+yr = range(Y[1, 40:nPeriods], Y[2, 40:nPeriods])
+plot(Y[2, 40:nPeriods], type = "l", col = "firebrick", lwd = 2, font.main = 1,
+     main = "d) Income after higher spending", xlab = "period (from 40)", ylab = "", ylim = yr)
+lines(Y[1, 40:nPeriods], col = "black", lwd = 1, lty = 3)
+legend("right", c("Higher spending", "Baseline"), col = c("firebrick", "black"),
+       lwd = c(2, 1), lty = c(1, 3), bty = "n")
+
+par(op)
+```
+
 ---
 
 ### 1.2 - Model PC
@@ -423,7 +540,9 @@ Additional assumptions relative to SIM:
 1. Prices set by reproduction conditions (cost-plus mark-up)
 1. The composition of consumption and government spending is exogenous
 
-The input-output matrix of Model IO-SIM is shown in the table below.
+The input-output matrix of Model IO-SIM is shown in **Table 3** below.
+
+#### Table 3. Input-output matrix
 
 |                               | Agriculture (demand)         | Manufacturing (demand)       | Services (demand)            | Final demand    | Output                          |
 |:------------------------------|:----------------------------:|:----------------------------:|:----------------------------:|:---------------:|:-------------------------------:|
@@ -434,7 +553,7 @@ The input-output matrix of Model IO-SIM is shown in the table below.
 | **Value added**               | $yn_1$                       | $yn_2$                       | $yn_3$                       | $yn$            |                                 |
 | **Output**                    | $p_1 \cdot x_1$              | $p_2 \cdot x_2$              | $p_3 \cdot x_3$              |                 | $\mathbf{p}^T \cdot \mathbf{x}$ |
 
-This table illustrates the cross-industry interdependencies in a simplified economy where three products - agricultural goods, manufactures and services - are produced using the same three products together with labour. Each entry $p_i \cdot a_{ij} \cdot x_j$ is the value of product $i$ absorbed as an intermediate input by industry $j$. Reading along a row gives how each industry's output is used (as inputs elsewhere plus final demand), while reading down a column gives what each industry buys to produce, plus its value added.
+**Table 3** illustrates the cross-industry interdependencies in a simplified economy where three products - agricultural goods, manufactures and services - are produced using the same three products together with labour. Each entry $p_i \cdot a_{ij} \cdot x_j$ is the value of product $i$ absorbed as an intermediate input by industry $j$. Reading along a row gives how each industry's output is used (as inputs elsewhere plus final demand), while reading down a column gives what each industry buys to produce, plus its value added.
 
 We can now turn to the additional equations necessary to complete Model IO-SIM.
 
