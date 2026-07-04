@@ -697,7 +697,7 @@ The `R` code for this model is [`IO_BMW.R`](https://github.com/marcoverpas/Leeds
 
 ### 3.1 - The agent-based approach
 
-The aggregate and IO models are **top-down**: they specify economy-wide (or industry-wide) behavioural rules directly. **Agent-based models (ABMs)** are **bottom-up**: they specify the behaviour of many individual **agents** - here, households - and obtain the macro variables by *summing over agents*. Aggregate regularities then **emerge** from the interaction of the agents rather than being imposed.
+The aggregate and IO models are **top-down**: they specify economy-wide (or industry-wide) behavioural rules directly. **Agent-based models (ABMs)** are **bottom-up**: they specify the behaviour of many individual **agents** - here, households - and obtain the macro variables by *summing over agents*. Aggregate regularities then **emerge** from the interaction of the agents rather than being imposed. For a practical, code-based introduction to this bottom-up approach - in the same "learning by doing" spirit as this repository - see [Caiani et al. (2016)](#references).
 
 Three features distinguish the ABM style used here:
 
@@ -824,6 +824,7 @@ This is the challenge of the coming years. If stock-flow consistent, ecological 
 ## References
 
 - Berg, M., Hartley, B., and Richters, O. (2015). **A stock-flow consistent input-output model with applications to energy price shocks, interest rates, and heat emissions**. *New Journal of Physics*, 17, 015011.
+- Caiani, A., Russo, A., Palestrini, A., and Gallegati, M. (eds.) (2016). **Economics with Heterogeneous Interacting Agents: A Practical Guide to Agent-Based Modeling**. Springer, New Economic Windows series.
 - Fevereiro, J. B. R. T., Genovese, A., Purvis, B., Valles Codina, O., and Veronese Passarella, M. (2025). **Macroeconomic Models for Assessing the Transition towards a Circular Economy: A Systematic Review**. *Ecological Economics*, 236, 108669.
 - Godley, W., and Lavoie, M. (2007). **Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth**. Palgrave Macmillan (chapters 3, 4 and 7).
 - Lorenz, E. N. (1963). **Deterministic Nonperiodic Flow**. *Journal of the Atmospheric Sciences*, 20 (2): 130-141.
