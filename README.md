@@ -364,11 +364,7 @@ The `R` code for this model is [`BASIC_BMW.R`](https://github.com/marcoverpas/Le
 
 The benchmark models above are **fully aggregated**: production is a single homogeneous good. **Input-Output (IO) analysis** ([Miller and Blair, 2009](#references)) instead splits production into several **industries** that buy and sell intermediate goods from one another. Each industry needs the products of the others as inputs, so total ("gross") output must cover both **final demand** (consumption, government, investment) and **intermediate demand**.
 
-With $n$ industries, let $\mathbf{x}$ be the vector of real gross outputs, $\mathbf{d}$ the vector of real final demands, and $\mathbf{A}$ the matrix of **technical coefficients**, where $a_{ij}$ is the amount of good $i$ needed to produce one unit of good $j$. The accounting identity of production is:
-
-$$\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d} \quad \Longrightarrow \quad \mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$$
-
-where $(\mathbf{I} - \mathbf{A})^{-1}$ is the **Leontief inverse**, which translates any final demand into the gross output every industry must produce to satisfy it (directly and indirectly).
+With $n$ industries, let $\mathbf{x}$ be the vector of real gross outputs, $\mathbf{d}$ the vector of real final demands, and $\mathbf{A}$ the matrix of **technical coefficients**, where $a_{ij}$ is the amount of good $i$ needed to produce one unit of good $j$. The accounting identity of production is $\mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$, where $(\mathbf{I} - \mathbf{A})^{-1}$ is the **Leontief inverse**, which translates any final demand into the gross output every industry must produce to satisfy it (directly and indirectly).
 
 Standard IO analysis is powerful but **static**: it compares two snapshots without describing the path between them, and it says little about money and finance. **SFC modelling** is the mirror image: dynamically and financially coherent, but usually blind to inter-industry detail. **IO-SFC models** combine the two - industrial granularity from IO, dynamic and financial coherence from SFC - so that a demand-driven, monetary economy is resolved industry by industry while every stock and flow still adds up ([Berg et al. 2015](#references); [Veronese Passarella, 2025](#references); [Fevereiro et al. 2025](#references)).
 
