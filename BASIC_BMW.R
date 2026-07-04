@@ -152,5 +152,3 @@ plot(Y[5, 48:140], type = "l", col = "coral3", lwd = 2, font.main = 1,
 abline(h = Y[5, 48], lty = 3)
 
 par(op)
-
-#dev.copy(png, "Fig1_BASIC_BMW.png", width = 3000, height = 2400, res = 300); dev.off()
