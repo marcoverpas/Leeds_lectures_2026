@@ -147,13 +147,8 @@ plotScenario <- function(j, ttl, per) {
 
 op = par(mfrow = c(3, 2), mar = c(4, 4, 2, 1), oma = c(0, 0, 2, 0))
 
-# Set folder
-setwd("C:/Users/marco/My Drive/New Conferences/Leeds 2026/Codes/Figures")
-
 plotScenario(1, "Baseline scenario", 2:nPeriods)                  # baseline
-dev.copy(png, "Fig1_IO_SIM.png", width = 3000, height = 2400, res = 300); dev.off()
 
 plotScenario(2, "Alternative scenario: higher government spending", shockStart:nPeriods)
-dev.copy(png, "Fig2_IO_SIM.png", width = 3000, height = 2400, res = 300); dev.off()
 
 par(op)
