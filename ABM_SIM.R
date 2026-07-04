@@ -251,6 +251,3 @@ box()
 
 # Restore the original plotting settings
 par(op)
-
-# Save plot
-dev.copy(png, "Fig1_ABM_SIM.png", width = 3000, height = 2400, res = 300); dev.off()
