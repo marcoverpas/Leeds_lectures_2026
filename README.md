@@ -160,15 +160,14 @@ Simulated over time, these one-period flows become dynamic paths. The figure bel
 src="https://github.com/marcoverpas/figures/blob/main/SIM_anim.gif" width="900">
 </figure>
 
-As a first experiment, we let government spending $G$ rise permanently. In the animation below the grey line is the baseline, and the red one - branching off at the dashed marker - is the shock scenario. National income converges to its new, higher steady state $Y^{\*} = G/\theta$, pulling disposable income and consumption up with it, while households end up holding a permanently larger stock of money. Panels a)–d) reveal these adjustments period by period.
+As a first experiment, we let government spending $G$ rise permanently. 
 
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/SIM_experiment.gif" width="900">
 </figure>
 
-The `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
-
+In the animation above the grey line is the baseline, and the red one - branching off at the dashed marker - is the shock scenario. National income converges to its new, higher steady state $Y^{\*} = G/\theta$, pulling disposable income and consumption up with it, while households end up holding a permanently larger stock of money. Panels a)–d) reveal these adjustments period by period.
 
 #### 🛠️ Hands-on: building Model SIM in `R`
 
@@ -291,6 +290,8 @@ legend("right", c("Higher spending", "Baseline"), col = c("firebrick", "black"),
 
 par(op)
 ```
+
+The complete `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
 
 ---
 
