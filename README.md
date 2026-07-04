@@ -47,7 +47,7 @@ All code has been developed for an `R` environment and is available in [this rep
 - [PhD Lectures, Macerata 2025](https://github.com/marcoverpas/PhD_Lectures_Macerata_2025) - doctoral lectures linking Graziani's monetary circuit theory to SFC modelling (University of Macerata).
 - [Keynote speech, Florence, 2025](https://github.com/marcoverpas/keynote_speech_Florence) - how to extend SFC models with ecological variables (matter, energy, emissions, temperature) to analyse the low-carbon transition (Summer School on "Multiscale Modeling and Ecological Macroeconomics", University of Florence).
 
-:unlock: :copyright: *Note*: All the material in this repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1). You are encouraged to use it for non-commercial purposes, provided that proper credit is given.
+:unlock: :copyright: *Note*: Except where otherwise credited, all the material in this repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1). You are encouraged to use it for non-commercial purposes, provided that proper credit is given. Third-party items - notably the generative-art snippet adapted from [@yuruyurau](https://x.com/yuruyurau) - are used with attribution and are not covered by this licence.
 
 ---
 
@@ -68,7 +68,7 @@ All code has been developed for an `R` environment and is available in [this rep
 >
 > Because the tables are watertight, every model contains one **redundant** (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight. The accounting skeleton is then closed with **behavioural equations** - usually simple rules of thumb and stock-flow norms - that describe how each sector spends, saves and allocates its wealth. The result is a dynamic system, normally written in discrete time as difference equations: the simplest models (such as those below) can be solved analytically for their steady state, while richer ones are simulated on a computer.
 >
-> The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references).
+> The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references). Note: models SIM, PC and BMW are reproduced and extended from Godley and Lavoie (2007), while the input-output and agent-based versions are our own.
 
 ---
 
