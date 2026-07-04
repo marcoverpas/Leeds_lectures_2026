@@ -231,5 +231,3 @@ legend("topleft", c("Consumption", "Wealth"),
        col = c("seagreen", "darkorange3"), lwd = 1, bty = "n")
 box()
 par(op)
-
-dev.copy(png, "Fig1_ABM_PC.png", width = 3000, height = 2400, res = 300); dev.off()
