@@ -374,6 +374,29 @@ Standard IO analysis is powerful but **static**: it compares two snapshots witho
 
 Adding an IO layer to an SFC model requires only a handful of extra equations. Prices are no longer fixed but set by **cost-plus (reproduction) conditions**, and final demand is split across industries by fixed **composition shares**. Because prices now exist, real and nominal magnitudes diverge: consumption is decided in real terms while GDP is measured in value.
 
+> ### 📦 Box A - What is an input-output model?
+>
+> An input-output (IO) model pictures the economy as a set of **industries** that trade with one another. Each industry produces a single good, and to do so it must buy the goods of the other industries as **intermediate inputs**. Part of every industry's output is therefore absorbed inside the productive system (as inputs to others), and only what is left over is delivered to **final demand** - consumption, government, investment. The whole picture is summarised in a single accounting table ([Miller and Blair, 2009, ch. 1-2](#references)):
+>
+> |                     | Industry 1 | Industry 2 | $\cdots$ | Industry $n$ | Final demand | Total output |
+> |:--------------------|:----------:|:----------:|:--------:|:------------:|:------------:|:------------:|
+> | **Industry 1**      | $z_{11}$   | $z_{12}$   | $\cdots$ | $z_{1n}$     | $d_1$        | $x_1$        |
+> | **Industry 2**      | $z_{21}$   | $z_{22}$   | $\cdots$ | $z_{2n}$     | $d_2$        | $x_2$        |
+> | $\vdots$            | $\vdots$   | $\vdots$   | $\ddots$ | $\vdots$     | $\vdots$     | $\vdots$     |
+> | **Industry $n$**    | $z_{n1}$   | $z_{n2}$   | $\cdots$ | $z_{nn}$     | $d_n$        | $x_n$        |
+> | **Value added**     | $v_1$      | $v_2$      | $\cdots$ | $v_n$        |              |              |
+> | **Total input**     | $x_1$      | $x_2$      | $\cdots$ | $x_n$        |              |              |
+>
+> Read **along a row**, the table shows how industry $i$'s output is distributed: the flows $z_{ij}$ sold as inputs to each industry $j$, plus the final demand $d_i$. Read **down a column**, it shows what industry $j$ must buy to produce: the same flows $z_{ij}$, plus the value added $v_j$ (wages and profits). Since every industry's total output equals its total input, we have, for each industry:
+>
+> $$x_i = \sum_{j} z_{ij} + d_i$$
+>
+> The key behavioural assumption is that production uses inputs in **fixed proportions**. The amount of good $i$ needed to make one unit of good $j$ is the *technical coefficient* $a_{ij} = z_{ij} / x_j$, so that intermediate flows can be written $z_{ij} = a_{ij} \cdot x_j$. Collecting the coefficients in the matrix $\mathbf{A}$, gross outputs in $\mathbf{x}$ and final demands in $\mathbf{d}$, the identity above becomes the compact **Leontief system**:
+>
+> $$\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d} \quad \Longrightarrow \quad \mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$$
+>
+> This is a **demand-driven** picture: given any final demand $\mathbf{d}$, the Leontief inverse $(\mathbf{I} - \mathbf{A})^{-1}$ returns the gross output every industry must produce to satisfy it, directly and indirectly. What it does *not* contain is money, finance, or time - it is a static snapshot. The IO-SFC models that follow keep this inter-industry core exactly as it stands and embed it inside a dynamic, stock-flow consistent structure, so that the same demand-led economy is resolved industry by industry while every monetary stock and flow still adds up.
+
 ### 2.2 - Model IO-SIM
 
 Model **IO-SIM** is Model SIM with a three-industry input-output core (agriculture, manufacturing, services). The macro-accounting (Tables 1–2 of SIM) is unchanged; the following equations are added or modified.
@@ -469,7 +492,7 @@ src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_PC.png" width="900
 
 The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R).
 
-> ### 📦 Box 1 - Playing with the model
+> ### 📦 Box B - Playing with the model
 >
 > One of the advantages of creating formal models using `R` is that they can be conveniently converted into online interactive models using the `Shiny` package. Here you can play with an ecosystem-extended version of Model IO-PC.
 >  
@@ -524,7 +547,7 @@ Three features distinguish the ABM style used here:
 
 Crucially, the models remain **stock-flow consistent**: because money is only ever transferred between agents (never created or destroyed by the matching), the redundant equation continues to hold to machine precision. The ABMs are run many times (**Monte Carlo** repetitions); charts show every run (thin grey lines) plus the mean (bold line).
 
-> ### 📦 Box 2 - Emergence: a flock without a leader
+> ### 📦 Box C - Emergence: a flock without a leader
 >
 > Watch a flock of starlings wheel across the sky and it is tempting to look for a
 > leader, or a master plan. There is neither. Each bird follows only a few simple
