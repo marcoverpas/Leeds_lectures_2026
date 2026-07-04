@@ -504,6 +504,8 @@ src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_SIM.png" width="90
 
 The `R` code for this model is [`IO_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_SIM.R).
 
+---
+
 ### 2.3 - Model IO-PC
 
 Model **IO-PC** is the same IO layer bolted onto Model PC. The only difference from IO-SIM is the financial side inherited from PC: households now allocate wealth between cash and bonds (equations 6–11 above), income includes interest, and taxes fall on total income. The IO block (equations 13–19) is identical, and government spending is valued at $p_g \cdot g$. The redundant equation remains $H_h = H_s$, and the aggregate behaviour reproduces Model PC while adding the industrial and price detail.
