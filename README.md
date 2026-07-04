@@ -814,8 +814,10 @@ Lastly, allow me a few words on **Artificial Intelligence** (AI). AI is transfor
 
 <div align="center">
 <img src="https://github.com/marcoverpas/figures/blob/main/monster_rainbow.gif" width="500"><br>
-<sub><i>A "mathematical monster": a few lines of code yield an elaborate, lifelike form that means absolutely nothing -- complexity is easy, economic meaning is the hard part.</i></sub>
+<sub><i>A "mathematical monster": a few lines of code yield an elaborate, lifelike form that means absolutely nothing -- complexity is easy, economic meaning is the hard part. Original generative-art snippet by <a href="https://x.com/yuruyurau">@yuruyurau</a> (#つぶやきProcessing), ported to R.</i></sub>
 </div>
+
+<br><br>
 
 This is the challenge of the coming years. If stock-flow consistent, ecological and monetary-production approaches are to outcompete neoclassical and other mainstream methods, it will not be by matching them in mathematical elaboration. It will be by offering models that are at once fully consistent, economically transparent, and no more complex than the question requires - models a student can open, read, and understand, and that AI has helped us make simpler rather than more opaque. Kept to that standard, these tools sharpen our capacity to analyse the real economy. Abandoned to it, they only automate our confusion.
 
