@@ -1,4 +1,4 @@
-# Leeds, July 9-10, 2026 (work in progress)
+# Leeds, July 9-10, 2026  🛠️ work in progress 🛠️
 
 <div align="center">
 <figure>
