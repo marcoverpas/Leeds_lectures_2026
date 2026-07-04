@@ -697,7 +697,7 @@ The `R` code for this model is [`IO_BMW.R`](https://github.com/marcoverpas/Leeds
 
 ### 3.1 - The agent-based approach
 
-The aggregate and IO models are **top-down**: they specify economy-wide (or industry-wide) behavioural rules directly. **Agent-based models (ABMs)** are **bottom-up**: they specify the behaviour of many individual **agents** - here, households - and obtain the macro variables by *summing over agents*. Aggregate regularities then **emerge** from the interaction of the agents rather than being imposed. For a practical, code-based introduction to this bottom-up approach - in the same "learning by doing" spirit as this repository - see [Caiani et al. (2016)](#references).
+The aggregate and IO models are **top-down**: they specify economy-wide (or industry-wide) behavioural rules directly. **Agent-based models (ABMs)** are **bottom-up**: they specify the behaviour of many individual **agents** - here, households - and obtain the macro variables by *summing over agents*. Aggregate regularities then **emerge** from the interaction of the agents rather than being imposed (for a practical, code-based introduction to this bottom-up approach, in the same "learning by doing" spirit as this repository, see [Caiani et al. (2016)](#references)).
 
 Three features distinguish the ABM style used here:
 
