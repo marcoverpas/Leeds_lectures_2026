@@ -812,6 +812,11 @@ Complexity, by contrast, should always have to justify itself. **Input-output** 
 
 Lastly, allow me a few words on **Artificial Intelligence** (AI). AI is transforming how we develop these models. It writes and debugs code, checks consistency, ports a model from one language to another, and lets a single researcher explore in an afternoon what once took a term. This is a genuine gain. I could not have prepared these lectures so quickly without it. However, it carries a real danger: the ease of generating ever larger and more intricate models tempts us to mistake complication for insight. A model no one can fully read, whose mechanisms are buried under thousands of auto-generated lines, is a **black box** - and a black box does not deepen our understanding of economic, financial, social, and environmental phenomena. It merely relocates our ignorance. AI should be **used to simplify**: to strip a model to its essential mechanisms, to make its logic transparent, to let us see clearly why a result holds.
 
+<div align="center">
+<img src="https://github.com/marcoverpas/figures/blob/main/monster_rainbow.gif" width="500"><br>
+<sub><i>A "mathematical monster": a few lines of code yield an elaborate, lifelike form that means absolutely nothing -- complexity is easy, economic meaning is the hard part.</i></sub>
+</div>
+
 This is the challenge of the coming years. If stock-flow consistent, ecological and monetary-production approaches are to outcompete neoclassical and other mainstream methods, it will not be by matching them in mathematical elaboration. It will be by offering models that are at once fully consistent, economically transparent, and no more complex than the question requires - models a student can open, read, and understand, and that AI has helped us make simpler rather than more opaque. Kept to that standard, these tools sharpen our capacity to analyse the real economy. Abandoned to it, they only automate our confusion.
 
 ## References
