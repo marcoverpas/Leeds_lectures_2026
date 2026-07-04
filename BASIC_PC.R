@@ -114,5 +114,3 @@ legend("right", c("Exogenous MPC", "Endogenous MPC", "Baseline"),
        col = c("green2", "purple", "black"), lwd = c(2, 2, 1), lty = c(1, 1, 3), bty = "n")
 
 par(op)
-
-#dev.copy(png, "Fig1_BASIC_PC.png", width = 3000, height = 2400, res = 300); dev.off()
