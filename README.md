@@ -48,7 +48,6 @@ All code has been developed for an `R` environment and is available in [this rep
 :unlock: :copyright: *Note*: All the material in this repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1). You are encouraged to use it for non-commercial purposes, provided that proper credit is given.
 
 ---
----
 
 > ### 📦 Box A - What is a stock-flow consistent (SFC) model?
 >
@@ -68,6 +67,8 @@ All code has been developed for an `R` environment and is available in [this rep
 > Because the tables are watertight, every model contains one **redundant** (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight. The accounting skeleton is then closed with **behavioural equations** - usually simple rules of thumb and stock-flow norms - that describe how each sector spends, saves and allocates its wealth. The result is a dynamic system, normally written in discrete time as difference equations: the simplest models (such as those below) can be solved analytically for their steady state, while richer ones are simulated on a computer.
 >
 > The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references).
+
+---
 
 ## 1 - Aggregate models
 
@@ -407,6 +408,8 @@ Adding an IO layer to an SFC model requires only a handful of extra equations. P
 >
 > This is a **demand-driven** picture: given any final demand $\mathbf{d}$, the Leontief inverse $(\mathbf{I} - \mathbf{A})^{-1}$ returns the gross output every industry must produce to satisfy it, directly and indirectly. What it does *not* contain is money, finance, or time - it is a static snapshot. The IO-SFC models that follow keep this inter-industry core exactly as it stands and embed it inside a dynamic, stock-flow consistent structure, so that the same demand-led economy is resolved industry by industry while every monetary stock and flow still adds up.
 
+---
+
 ### 2.2 - Model IO-SIM
 
 Model **IO-SIM** is Model SIM with a three-industry input-output core (agriculture, manufacturing, services). The macro-accounting (Tables 1–2 of SIM) is unchanged; the following equations are added or modified.
@@ -532,6 +535,8 @@ The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_
 >
 > Click the link above (or the figure) to open the simulation laboratory for *Model ECO-3IO-PC*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
 
+---
+
 ### 2.4 - Model IO-BMW
 
 Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is **investment**: final demand now has two components - consumption and investment (BMW has no government) - so
@@ -616,6 +621,8 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > (C. W. Reynolds, "Flocks, Herds and Schools: A Distributed Behavioral Model",
 > *Computer Graphics*, 1987).</sub>
 
+---
+
 ### 3.2 - Model ABM-SIM
 
 Model **ABM-SIM** is Model SIM populated by $N$ households. Each household holds its own money $h_i$, forms its own disposable income $yd_i$, and has its own propensity to consume $\alpha_{1,i}$. The number of households exceeds the workers ever needed, so **unemployment emerges** rather than being assumed. One period unfolds as a sequence of "ticks":
@@ -639,6 +646,8 @@ src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_SIM.png" width="9
 
 The `R` code for this model is [`ABM_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_SIM.R).
 
+---
+
 ### 3.3 - Model ABM-PC
 
 Model **ABM-PC** adds PC's portfolio choice to the households. Each household still works (job lottery) and consumes (own propensity), but now also splits its wealth between cash and bonds and earns interest. Aggregating reproduces Model PC. Heterogeneity here has a sharper consequence: because aggregate demand depends on *which* households earn income (weighted by their individual propensities), the random order of hiring now **feeds through to the macro totals** - the composition of income becomes a macro variable in its own right, exactly the mechanism that motivates heterogeneous-agent macroeconomics.
@@ -649,6 +658,8 @@ src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_PC.png" width="90
 </figure>
 
 The `R` code for this model is [`ABM_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/ABM_PC.R).
+
+---
 
 ### 3.4 - Model ABM-BMW
 
