@@ -419,8 +419,6 @@ Additional assumptions relative to SIM:
 
 The input-output matrix of Model IO-SIM is shown in the table below.
 
-#### Table 3. Simplified input-output matrix
-
 |                               | Agriculture (demand)         | Manufacturing (demand)       | Services (demand)            | Final demand    | Output                          |
 |:------------------------------|:----------------------------:|:----------------------------:|:----------------------------:|:---------------:|:-------------------------------:|
 |                               |                              |                              |                              |                 |                                 |
