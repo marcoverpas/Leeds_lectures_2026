@@ -170,7 +170,7 @@ src="https://github.com/marcoverpas/figures/blob/main/SIM_experiment.gif" width=
 The `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
 
 
-### Building Model SIM in R
+#### 🛠️ Hands-on: building Model SIM in `R`
 
 Model SIM needs no external package: base `R` is enough. We start by clearing the workspace.
 
@@ -241,7 +241,7 @@ for (j in 1:nScenarios) {
 }
 ```
 
-Finally we report the analytic steady state $Y^{\*}=G/\theta$ and the consistency gap $|H_h - H_s|$ (which must be zero to machine precision), then plot the four panels.
+We now report the analytic steady state $Y^{\*}=G/\theta$ and the consistency gap $|H_h - H_s|$ (which must be zero to machine precision).
 
 ```r
 # Display the results ####
@@ -254,6 +254,12 @@ cat("\n Baseline steady-state values: \n Y =", round(Y[1, nPeriods], 2),
     "\n V =", round(V[1, nPeriods], 2),
     "\n H_h =", round(H_h[1, nPeriods], 2))
 cat("\n ******************************")
+
+```
+
+Lastly, we visualize the evolution of the main macroeconomic variables over time.
+
+```r
 
 # Plot the results ####
 op = par(mfrow = c(2, 2), mar = c(4, 4, 3, 1))
