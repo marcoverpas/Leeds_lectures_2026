@@ -823,7 +823,7 @@ Lastly, allow me a few words on **Artificial Intelligence** (AI). AI is transfor
 
 <div align="center">
 <img src="https://github.com/marcoverpas/figures/blob/main/monster_rainbow.gif" width="500"><br>
-<sub><i>A "mathematical monster": a few lines of code yield an elaborate, lifelike form that has no economic meaning. The point is that building complex models is easy. Giving them economic meaning to address real-world issues is much harder. <br><br>Source: adapted from an original generative-art snippet by <a href="https://x.com/yuruyurau">@yuruyurau</a>.</i></sub>
+<sub><i>A "mathematical monster": a few lines of code yield an elaborate, lifelike form that has no economic meaning. The point is that building complex models is easy. Giving them economic meaning to address real-world issues is much harder. <br>Source: adapted from an original generative-art snippet by <a href="https://x.com/yuruyurau">@yuruyurau</a>.</i></sub>
 </div>
 
 <br>
