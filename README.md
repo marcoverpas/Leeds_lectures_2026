@@ -1,8 +1,10 @@
 # Leeds, July 9-10, 2026 (work in progress)
 
+<div align="center">
 <figure>
 <img src="https://github.com/marcoverpas/figures/blob/main/cover_leeds_2026.png" width="1000">
 </figure>
+</div>
 
 <div align="center">
 <figure>
@@ -53,7 +55,7 @@ All code has been developed for an `R` environment and is available in [this rep
 >
 > Stock-flow consistent (SFC) models describe the economy as a set of **sectors** (households, firms, banks, government, and so on) whose balance sheets and mutual transactions are recorded, without gaps, in a system of accounting matrices. Rooted in the national accounts and the flow of funds ([Godley and Lavoie, 2007](#references)), they integrate the *real* and the *financial* sides of the economy in one consistent whole: every expenditure is someone's income, and every financial asset is someone else's liability.
 >
-> The framework rests on four accounting principles - **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping** - which together guarantee that nothing appears from, or vanishes into, nowhere. In practice each model is built around two tables: a **balance-sheet matrix** (the stocks each sector owns and owes) and a **transactions-flow matrix** (the payments between sectors and the changes in stocks they imply). Both are *watertight*: every row and every column sums to zero. The transactions-flow matrix has the schematic form below, where a minus sign is a use of funds (an outflow) and a plus sign a source (an inflow):
+> The framework rests on four accounting principles - **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping** - which together guarantee that nothing appears from, or vanishes into, nowhere. In practice each model is built around two tables: a **balance-sheet matrix** (the stocks each sector owns and owes) and a **transactions-flow matrix** (the payments between sectors and the changes in stocks they imply). Both are *watertight*: every column sums to zero, and every financial-asset row sums to zero; a real-asset row (e.g. fixed capital) instead sums to the economy's net worth. The transactions-flow matrix has the schematic form below, where a minus sign is a use of funds (an outflow) and a plus sign a source (an inflow):
 >
 > |                    | Households | Firms  | Government | Row sum |
 > |:-------------------|:----------:|:------:|:----------:|:-------:|
@@ -294,7 +296,7 @@ Key assumptions:
 |                    |            |         |         |         |
 | Column tot.        |   0        |   0     |   0     |   0     |
 
-Since banks and firms make no net profit, household net wealth equals the stock of fixed capital.
+Since banks and firms make no net profit, household net wealth equals the stock of fixed capital. This holds because loans and capital grow in step: equations (B.8) and (B.17) both give $\Delta L = \Delta K = I - DA$, so with equal initial stocks $L = K$ throughout, leaving firms with zero net worth ($K - L = 0$), while the banks' balance sheet keeps $M = L$. Hence $V_h = M = L = K$.
 
 #### Table 2. Transactions-flow matrix
 
@@ -379,7 +381,7 @@ The `R` code for this model is [`BASIC_BMW.R`](https://github.com/marcoverpas/Le
 
 The benchmark models above are **fully aggregated**: production is a single homogeneous good. **Input-Output (IO) analysis** ([Miller and Blair, 2009](#references)) instead splits production into several **industries** that buy and sell intermediate goods from one another. Each industry needs the products of the others as inputs, so total ("gross") output must cover both **final demand** (consumption, government, investment) and **intermediate demand**.
 
-With $n$ industries, let $\mathbf{x}$ be the vector of real gross outputs, $\mathbf{d}$ the vector of real final demands, and $\mathbf{A}$ the matrix of **technical coefficients**, where $a_{ij}$ is the amount of good $i$ needed to produce one unit of good $j$. The accounting identity of production is $\mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$, where $(\mathbf{I} - \mathbf{A})^{-1}$ is the **Leontief inverse**, which translates any final demand into the gross output every industry must produce to satisfy it (directly and indirectly).
+With $n$ industries, let $\mathbf{x}$ be the vector of real gross outputs, $\mathbf{d}$ the vector of real final demands, and $\mathbf{A}$ the matrix of **technical coefficients**, where $a_{ij}$ is the amount of good $i$ needed to produce one unit of good $j$. Each industry's output must cover both intermediate and final demand, giving the accounting identity $\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d}$, whose solution is $\mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$, where $(\mathbf{I} - \mathbf{A})^{-1}$ is the **Leontief inverse** that translates any final demand into the gross output every industry must produce to satisfy it (directly and indirectly).
 
 Standard IO analysis is powerful but **static**: it compares two snapshots without describing the path between them, and it says little about money and finance. **SFC modelling** is the mirror image: dynamically and financially coherent, but usually blind to inter-industry detail. **IO-SFC models** combine the two - industrial granularity from IO, dynamic and financial coherence from SFC - so that a demand-driven, monetary economy is resolved industry by industry while every stock and flow still adds up ([Berg et al. 2015](#references); [Veronese Passarella, 2025](#references); [Fevereiro et al. 2025](#references)).
 
@@ -387,7 +389,7 @@ Adding an IO layer to an SFC model requires only a handful of extra equations. P
 
 > ### 📦 Box B - What is an input-output model?
 >
-> An input-output (IO) model pictures the economy as a set of **industries** that trade with one another. Each industry produces a single good, and to do so it must buy the goods of the other industries as **intermediate inputs**. Part of every industry's output is therefore absorbed inside the productive system (as inputs to others), and only what is left over is delivered to **final demand** - consumption, government, investment. The whole picture is summarised in a single accounting table ([Miller and Blair, 2009, ch. 1-2](#references)):
+> An input-output (IO) model pictures the economy as a set of **industries** that trade with one another. Each industry produces a single good, and to do so it must buy the goods of the other industries as **intermediate inputs**. Part of every industry's output is therefore absorbed inside the productive system (as inputs to others), and only what is left over is delivered to **final demand** - consumption, government, investment. The whole picture is summarised in a single accounting table ([Miller and Blair, 2009, chapters 1-2](#references)):
 >
 > |                     | Industry 1 | Industry 2 | $\cdots$ | Industry $n$ | Final demand | Total output |
 > |:--------------------|:----------:|:----------:|:--------:|:------------:|:------------:|:------------:|
@@ -438,35 +440,35 @@ We can now turn to the additional equations necessary to complete Model IO-SIM.
 
 Composition of real consumption and government spending (behavioural):
 
-$$\mathbf{B}_c = \bar{\mathbf{B}}_c \quad \text{(13)}$$
+$$\mathbf{B}_c = \bar{\mathbf{B}}_c \quad \text{(7)}$$
 
-$$\mathbf{B}_g = \bar{\mathbf{B}}_g \quad \text{(14)}$$
+$$\mathbf{B}_g = \bar{\mathbf{B}}_g \quad \text{(8)}$$
 
 with $\sum_j B_{cj} = \sum_j B_{gj} = 1$.
 
 Real final demand by industry (identity):
 
-$$\mathbf{d} = \mathbf{B}_c \cdot c + \mathbf{B}_g \cdot g \quad \text{(15)}$$
+$$\mathbf{d} = \mathbf{B}_c \cdot c + \mathbf{B}_g \cdot g \quad \text{(9)}$$
 
 Real gross output by industry (identity):
 
-$$\mathbf{x} = (\mathbf{I}-\mathbf{A})^{-1} \cdot \mathbf{d} \quad \text{(16)}$$
+$$\mathbf{x} = (\mathbf{I}-\mathbf{A})^{-1} \cdot \mathbf{d} \quad \text{(10)}$$
+
+Unit prices of reproduction (behavioural):
+
+$$\mathbf{p}^T = \left( w \oslash \mathbf{pr}^T \right) + \left( \mathbf{p}^T \cdot \mathbf{A} \right) \cdot (1 + \mu) \quad \text{(11)}$$
+
+where $w$ is the (uniform) wage rate, $\mathbf{pr}$ the vector of labour productivities, and $\mu$ the (uniform) mark-up.
 
 Nominal GDP (identity):
 
 $$Y = \mathbf{p}^T \cdot \mathbf{d} \quad \text{(1.A)}$$
 
-Unit prices of reproduction (behavioural):
-
-$$\mathbf{p}^T = \left( w \oslash \mathbf{pr}^T \right) + \left( \mathbf{p}^T \cdot \mathbf{A} \right) \cdot (1 + \mu) \quad \text{(17)}$$
-
-where $w$ is the (uniform) wage rate, $\mathbf{pr}$ the vector of labour productivities, and $\mu$ the (uniform) mark-up.
-
 Average consumer and government price indices (identities):
 
-$$p_c = \mathbf{p}^T \cdot \mathbf{B}_c \quad \text{(18)}$$
+$$p_c = \mathbf{p}^T \cdot \mathbf{B}_c \quad \text{(12)}$$
 
-$$p_g = \mathbf{p}^T \cdot \mathbf{B}_g \quad \text{(19)}$$
+$$p_g = \mathbf{p}^T \cdot \mathbf{B}_g \quad \text{(13)}$$
 
 Real consumption (behavioural), where consumers do not suffer from money illusion:
 
@@ -680,7 +682,7 @@ The `R` code for this model is [`ABM_BMW.R`](https://github.com/marcoverpas/Leed
 
 The nine models in this repository are deliberately small, and that **smallness is the point**. Each was built **one layer at a time**: an accounting skeleton first, then a behavioural closure, then - only where the research question demanded it - an input-output core or agent-based microfoundations. Proceeding step by step is not a pedagogical nicety but a methodological discipline. At every stage the balance-sheet and transactions-flow matrices must sum to zero, and the redundant equation must hold to machine precision. A model that fails this test is not "roughly right". It is leaking money somewhere, and any result it produces cannot be fully trusted. **Accounting consistency** is the non-negotiable floor beneath everything else.
 
-Complexity, by contrast, should always have to justify itself. **Input-output** detail earns its place when the question is about industrial interdependence, structural change, relative prices, or the propagation of a sectoral shock. **Heterogenous agent-based microfoundations** earn their place when heterogeneity and interaction genuinely produce emergent macroeconomic behaviour (in our simple examples, the composition of income becomes a macro variable in its own right, and involuntary saving and rationing drive wealth away from its frictionless value). When the question does not require these extensions, the aggregate model is not a poorer answer but the right one. The art is matching the resolution of the model to the resolution of the question, and no finer.
+Complexity, by contrast, should always have to justify itself. **Input-output** detail earns its place when the question is about industrial interdependence, structural change, relative prices, or the propagation of a sectoral shock. **Heterogeneous agent-based microfoundations** earn their place when heterogeneity and interaction genuinely produce emergent macroeconomic behaviour (in our simple examples, the composition of income becomes a macro variable in its own right, and involuntary saving and rationing drive wealth away from its frictionless value). When the question does not require these extensions, the aggregate model is not a poorer answer but the right one. The art is matching the resolution of the model to the resolution of the question, and no finer.
 
 Lastly, allow me a few words on **Artificial Intelligence** (AI). AI is transforming how we develop these models. It writes and debugs code, checks consistency, ports a model from one language to another, and lets a single researcher explore in an afternoon what once took a term. This is a genuine gain. I could not have prepared these lectures so quickly without it. However, it carries a real danger: the ease of generating ever larger and more intricate models tempts us to mistake complication for insight. A model no one can fully read, whose mechanisms are buried under thousands of auto-generated lines, is a **black box** - and a black box does not deepen our understanding of economic, financial, social, and environmental phenomena. It merely relocates our ignorance. AI should be **used to simplify**: to strip a model to its essential mechanisms, to make its logic transparent, to let us see clearly why a result holds.
 
@@ -691,6 +693,8 @@ This is the challenge of the coming years. If stock-flow consistent, ecological 
 - Berg, M., Hartley, B., and Richters, O. (2015). **A stock-flow consistent input-output model with applications to energy price shocks, interest rates, and heat emissions**. *New Journal of Physics*, 17, 015011.
 - Fevereiro, J. B. R. T., Genovese, A., Purvis, B., Valles Codina, O., and Veronese Passarella, M. (2025). **Macroeconomic Models for Assessing the Transition towards a Circular Economy: A Systematic Review**. *Ecological Economics*, 236, 108669.
 - Godley, W., and Lavoie, M. (2007). **Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth**. Palgrave Macmillan (chapters 3, 4 and 7).
+- Lorenz, E. N. (1963). **Deterministic Nonperiodic Flow**. *Journal of the Atmospheric Sciences*, 20 (2): 130-141.
 - Miller, R. E., and Blair, P. D. (2009). **Input-Output Analysis: Foundations and Extensions**. Cambridge University Press, 2nd edition (chapters 1–2).
 - Nikiforos, M., and Zezza, G. (2017). **Stock-flow Consistent Macroeconomic Models: A Survey**. *Journal of Economic Surveys*, 31 (5): 1204-1239.
-- Veronese Passarella, M. (2025). **Destabilizing a Stable Economy: Minsky Meets Graziani's Monetary Circuit**. *International Journal of Political Economy*, 54 (3): 338-355
+- Reynolds, C. W. (1987). **Flocks, Herds and Schools: A Distributed Behavioral Model**. *Computer Graphics*, 21 (4): 25-34.
+- Veronese Passarella, M. (2025). **Destabilizing a Stable Economy: Minsky Meets Graziani's Monetary Circuit**. *International Journal of Political Economy*, 54 (3): 338-355.
