@@ -814,7 +814,7 @@ Lastly, allow me a few words on **Artificial Intelligence** (AI). AI is transfor
 
 <div align="center">
 <img src="https://github.com/marcoverpas/figures/blob/main/monster_rainbow.gif" width="500"><br>
-<sub><i>A "mathematical monster": a few lines of code yield an elaborate, lifelike form that means absolutely nothing -- complexity is easy, economic meaning is the hard part. Original generative-art snippet by <a href="https://x.com/yuruyurau">@yuruyurau</a>, ported to R.</i></sub>
+<sub><i>A "mathematical monster": a few lines of code yield an elaborate, lifelike form that means absolutely nothing. Complexity is easy, economic meaning is the hard part. [Original generative-art snippet by <a href="https://x.com/yuruyurau">@yuruyurau</a>, ported to R.</i></sub>]
 </div>
 
 <br>
