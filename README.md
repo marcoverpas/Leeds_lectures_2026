@@ -385,7 +385,7 @@ Standard IO analysis is powerful but **static**: it compares two snapshots witho
 
 Adding an IO layer to an SFC model requires only a handful of extra equations. Prices are no longer fixed but set by **cost-plus (reproduction) conditions**, and final demand is split across industries by fixed **composition shares**. Because prices now exist, real and nominal magnitudes diverge: consumption is decided in real terms while GDP is measured in value.
 
-> ### 📦 Box A - What is an input-output model?
+> ### 📦 Box B - What is an input-output model?
 >
 > An input-output (IO) model pictures the economy as a set of **industries** that trade with one another. Each industry produces a single good, and to do so it must buy the goods of the other industries as **intermediate inputs**. Part of every industry's output is therefore absorbed inside the productive system (as inputs to others), and only what is left over is delivered to **final demand** - consumption, government, investment. The whole picture is summarised in a single accounting table ([Miller and Blair, 2009, ch. 1-2](#references)):
 >
@@ -522,7 +522,7 @@ src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_PC.png" width="900
 
 The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R).
 
-> ### 📦 Box B - Playing with the model
+> ### 📦 Box C - Playing with the model
 >
 > One of the advantages of creating formal models using `R` is that they can be conveniently converted into online interactive models using the `Shiny` package. Here you can play with an ecosystem-extended version of Model IO-PC.
 >  
@@ -579,7 +579,7 @@ Three features distinguish the ABM style used here:
 
 Crucially, the models remain **stock-flow consistent**: because money is only ever transferred between agents (never created or destroyed by the matching), the redundant equation continues to hold to machine precision. The ABMs are run many times (**Monte Carlo** repetitions); charts show every run (thin grey lines) plus the mean (bold line).
 
-> ### 📦 Box C - Emergence: a flock without a leader
+> ### 📦 Box D - Emergence: a flock without a leader
 >
 > Watch a flock of starlings wheel across the sky and it is tempting to look for a
 > leader, or a master plan. There is neither. Each bird follows only a few simple
