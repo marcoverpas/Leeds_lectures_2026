@@ -49,11 +49,24 @@ All code has been developed for an `R` environment and is available in [this rep
 
 ---
 
-## A note on SFC accounting
-
-Every model below obeys the four accounting principles of SFC modelling: **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping**. In practice this means each model is built around two accounting tables - a **balance-sheet matrix** (stocks) and a **transactions-flow matrix** (flows) - whose rows and columns must sum to zero. Because the tables are watertight, every model contains one *redundant* (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight.
-
----
+> ### 📦 Box A - What is a stock-flow consistent (SFC) model?
+>
+> Stock-flow consistent (SFC) models describe the economy as a set of **sectors** (households, firms, banks, government, and so on) whose balance sheets and mutual transactions are recorded, without gaps, in a system of accounting matrices. Rooted in the national accounts and the flow of funds ([Godley and Lavoie, 2007](#references)), they integrate the *real* and the *financial* sides of the economy in one consistent whole: every expenditure is someone's income, and every financial asset is someone else's liability.
+>
+> The framework rests on four accounting principles - **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping** - which together guarantee that nothing appears from, or vanishes into, nowhere. In practice each model is built around two tables: a **balance-sheet matrix** (the stocks each sector owns and owes) and a **transactions-flow matrix** (the payments between sectors and the changes in stocks they imply). Both are *watertight*: every row and every column sums to zero. The transactions-flow matrix has the schematic form below, where a minus sign is a use of funds (an outflow) and a plus sign a source (an inflow):
+>
+> |                    | Households | Firms  | Government | Row sum |
+> |:-------------------|:----------:|:------:|:----------:|:-------:|
+> | Consumption        | $-C$       | $+C$   |            | 0       |
+> | Income (wages)     | $+Y$       | $-Y$   |            | 0       |
+> | Government spending |           | $+G$   | $-G$       | 0       |
+> | Taxes              | $-T$       |        | $+T$       | 0       |
+> | Change in money    | $-\Delta H$|        | $+\Delta H$| 0       |
+> | **Column sum**     | 0          | 0      | 0          | 0       |
+>
+> Because the tables are watertight, every model contains one **redundant** (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight. The accounting skeleton is then closed with **behavioural equations** - usually simple rules of thumb and stock-flow norms - that describe how each sector spends, saves and allocates its wealth. The result is a dynamic system, normally written in discrete time as difference equations: the simplest models (such as those below) can be solved analytically for their steady state, while richer ones are simulated on a computer.
+>
+> The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references).
 
 ## 1 - Aggregate models
 
@@ -403,6 +416,23 @@ Additional assumptions relative to SIM:
 1. Fixed technical coefficients (circulating capital)
 1. Prices set by reproduction conditions (cost-plus mark-up)
 1. The composition of consumption and government spending is exogenous
+
+The input-output matrix of Model IO-SIM is shown in the table below.
+
+#### Table 3. Simplified input-output matrix
+
+|                               | Agriculture (demand)         | Manufacturing (demand)       | Services (demand)            | Final demand    | Output                          |
+|:------------------------------|:----------------------------:|:----------------------------:|:----------------------------:|:---------------:|:-------------------------------:|
+|                               |                              |                              |                              |                 |                                 |
+| **Agriculture (production)**  | $p_1 \cdot a_{11} \cdot x_1$ | $p_1 \cdot a_{12} \cdot x_2$ | $p_1 \cdot a_{13} \cdot x_3$ | $p_1 \cdot d_1$ | $p_1 \cdot x_1$                 |
+| **Manufacturing (production)**| $p_2 \cdot a_{21} \cdot x_1$ | $p_2 \cdot a_{22} \cdot x_2$ | $p_2 \cdot a_{23} \cdot x_3$ | $p_2 \cdot d_2$ | $p_2 \cdot x_2$                 |
+| **Services (production)**     | $p_3 \cdot a_{31} \cdot x_1$ | $p_3 \cdot a_{32} \cdot x_2$ | $p_3 \cdot a_{33} \cdot x_3$ | $p_3 \cdot d_3$ | $p_3 \cdot x_3$                 |
+| **Value added**               | $yn_1$                       | $yn_2$                       | $yn_3$                       | $yn$            |                                 |
+| **Output**                    | $p_1 \cdot x_1$              | $p_2 \cdot x_2$              | $p_3 \cdot x_3$              |                 | $\mathbf{p}^T \cdot \mathbf{x}$ |
+
+This table illustrates the cross-industry interdependencies in a simplified economy where three products - agricultural goods, manufactures and services - are produced using the same three products together with labour. Each entry $p_i \cdot a_{ij} \cdot x_j$ is the value of product $i$ absorbed as an intermediate input by industry $j$. Reading along a row gives how each industry's output is used (as inputs elsewhere plus final demand), while reading down a column gives what each industry buys to produce, plus its value added.
+
+We can now turn to the additional equations necessary to complete Model IO-SIM.
 
 Composition of real consumption and government spending (behavioural):
 
