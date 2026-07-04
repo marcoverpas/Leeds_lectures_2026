@@ -68,7 +68,9 @@ All code has been developed for an `R` environment and is available in [this rep
 >
 > Because the tables are watertight, every model contains one **redundant** (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight. The accounting skeleton is then closed with **behavioural equations** - usually simple rules of thumb and stock-flow norms - that describe how each sector spends, saves and allocates its wealth. The result is a dynamic system, normally written in discrete time as difference equations: the simplest models (such as those below) can be solved analytically for their steady state, while richer ones are simulated on a computer.
 >
-> The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references). Note: models SIM, PC and BMW are reproduced and extended from Godley and Lavoie (2007), while the input-output and agent-based versions are our own.
+> The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references).
+>
+> Note: models SIM, PC and BMW are reproduced and extended from Godley and Lavoie (2007), while the input-output and agent-based versions are our own.
 
 ---
 
