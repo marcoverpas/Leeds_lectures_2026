@@ -173,5 +173,3 @@ matplot(store$UR, type = "l", lty = 1, col = "grey88", font.main = 1,
 lines(rowMeans(store$UR), lwd = 2, col = "salmon")
 
 par(op)
-
-dev.copy(png, "Fig1_ABM_BMW.png", width = 3000, height = 2400, res = 300); dev.off()
