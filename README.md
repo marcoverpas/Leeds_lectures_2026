@@ -48,6 +48,7 @@ All code has been developed for an `R` environment and is available in [this rep
 :unlock: :copyright: *Note*: All the material in this repository is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1). You are encouraged to use it for non-commercial purposes, provided that proper credit is given.
 
 ---
+---
 
 > ### 📦 Box A - What is a stock-flow consistent (SFC) model?
 >
