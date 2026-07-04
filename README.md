@@ -733,7 +733,7 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > ever look at one another - this is complexity, but *not* emergence, the shape was
 > written into the equations from the start. On the **right**, the birds are told nothing
 > about any global shape; they follow only local rules, and the flock self-organises. The
-> test is simple: switch the interaction *off* - let each bird ignore its neighbours --
+> test is simple: switch the interaction *off* - let each bird ignore its neighbours -
 > and the flock dissolves into a cloud of independent wanderers. The pattern lived in the
 > *interaction*, not in the birds.
 >
