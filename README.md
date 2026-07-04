@@ -12,7 +12,7 @@
 
 ## Overview
 
-This repository presents **nine small macroeconomic models**, organised as a 3 × 3 grid. Three benchmark Stock-Flow Consistent (SFC) toy models from [Godley and Lavoie (2007)](#references) - **SIM**, **PC** and **BMW** - are each developed in three coding *styles*:
+This repository presents **nine small macroeconomic models**, organised as a 3 × 3 grid. Three benchmark Stock-Flow Consistent (SFC) toy models from [Godley and Lavoie (2007)](#references) - **SIM**, **PC** and **BMW** - are each developed in three coding *styles*: *aggregate*, *input-output*, and *agent-based*.
 
 |                          | **Aggregate (original)** | **Input-Output (IO)** | **Agent-Based (ABM)** |
 |:-------------------------|:------------------------:|:---------------------:|:---------------------:|
