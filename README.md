@@ -146,7 +146,16 @@ In the steady state there is no saving ($C = YD$) and money holdings are stable,
 
 $$Y^{\*} = \frac{G}{\theta}$$
 
-The transactions-flow matrix can be read as a Sankey diagram. Traversed left to right - payer, transaction, payee - it traces every monetary flow of a single period: firms pay wages to households, who return them as consumption (to firms), taxes (to the government) and the money they save. Since each transaction has exactly one source and one destination, the two sides of every account balance.
+Before turning to the accounting, it helps to *see* the model move. The animation below renders Model SIM as a **system-dynamics diagram**: the three sectors are boxes, every flow is a pipe along which tokens travel (its thickness scaling with the flow), and the two financial stocks are tanks. Government spending $G$ reaches firms, who pay wages $Y$ to households. Households return part of their income as consumption ($\alpha_1 \cdot YD$) and taxes ($T$), and save the rest ($(1-\alpha_1) \cdot YD$) into their **money tank** $H_h$ - which in turn finances further consumption out of wealth ($\alpha_2 \cdot H_h$). The government's tank is the exact mirror image: it fills with the accumulated deficit $G - T$ but in the *opposite* direction, because the money households hold is nothing other than the government's debt. At every instant $H_h = H_s$, so the household asset (blue, rising) and the government liability (red, falling) are equal and opposite, summing to zero. As income grows, taxes catch up to spending, the deficit closes, and both tanks stop moving: the economy has reached its steady state $Y^{\*} = G/\theta$.
+
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/sim_sd.gif" width="820">
+</figure>
+
+The animation runs the economy forward through many periods. To inspect the plumbing of a *single* period more closely, we can freeze one snapshot and lay its payments out side by side.
+
+This is precisely what the transactions-flow matrix records, which can be read as a Sankey diagram. Traversed left to right - payer, transaction, payee - it traces every monetary flow of a single period: firms pay wages to households, who return them as consumption (to firms), taxes (to the government) and the money they save. Since each transaction has exactly one source and one destination, the two sides of every account balance.
 
 <figure>
 <img
