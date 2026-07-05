@@ -807,7 +807,7 @@ Summing over households reproduces the aggregate SIM: mean output converges to $
 - **Emergent unemployment.** With the hiring spread $s>0$, employment is a genuinely fluctuating, model-generated variable.
 - **Higher accumulated wealth.** The money stock settles *above* the frictionless SIM value. When hiring falls short, households are rationed and cannot spend all they planned; the unspent income becomes **involuntary saving**, so wealth builds up a buffer. In steady state $H \approx H_{SIM} + \text{(average rationing)}/\alpha_2$, so the more friction, the larger the money stock. Setting $s = 0$ (and no heterogeneity) recovers the textbook value exactly.
 
-In the figure below (as in all agent-based charts that follow), each **thin grey line is a single Monte Carlo run**, while the **bold coloured line is the average across the 50 runs**. In other words, the grey band shows how much the outcome varies from one realisation to the next, the coloured line its expected path.
+In the figure below (as in all agent-based charts that follow), each **thin grey line is a single Monte Carlo run**, while the **bold coloured line is the average across the 50 runs**. In other words, the grey band shows how much the outcome varies from one realisation to the next, the coloured line its expected path. Overall, the figure shows the dynamics through which the model’s variables adjust to their steady-state values and the new adjustment process set in motion by the increase in government spending ($G$ from $20 to $30 in period 60).
 
 <figure>
 <img
@@ -822,6 +822,8 @@ The `R` code for this model is [`ABM_SIM.R`](https://github.com/marcoverpas/Leed
 
 Model **ABM-PC** adds PC's portfolio choice to the households. Each household still works (job lottery) and consumes (own propensity), but now also splits its wealth between cash and bonds and earns interest. Aggregating reproduces Model PC. Heterogeneity here has a sharper consequence: because aggregate demand depends on *which* households earn income (weighted by their individual propensities), the random order of hiring now **feeds through to the macro totals** - the composition of income becomes a macro variable in its own right, exactly the mechanism that motivates heterogeneous-agent macroeconomics.
 
+The figure below shows the dynamics through which the model’s variables adjust to their steady-state values and the new adjustment process set in motion by the increase in government spending.
+
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_ABM_PC.png" width="900">
@@ -834,6 +836,8 @@ The `R` code for this model is [`ABM_PC.R`](https://github.com/marcoverpas/Leeds
 ### 3.4 - Model ABM-BMW
 
 Model **ABM-BMW** keeps the households as the agents - heterogeneous as both **workers** (job lottery with spread $s$) and **consumers** (own $\alpha_{1,i}$) - while the **firm, capital and banking block is the standard aggregate BMW**. When hiring falls short, output is below demand, so **investment as well as consumption** is rationed. Because the investment accelerator feeds on output, the friction's recessionary bias is **amplified** (lower output → lower target capital → lower investment → lower output), so the mean output sits noticeably below the frictionless BMW level. Setting $s = 0$ (and no heterogeneity) recovers the exact deterministic BMW. The redundant equation $M_h = M_s$ holds throughout.
+
+Once again, the figure below shows the dynamics through which the model’s variables adjust to their steady-state values and the new adjustment process set in motion by the increase in government spending.
 
 <figure>
 <img
