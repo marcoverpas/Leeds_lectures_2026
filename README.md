@@ -381,7 +381,10 @@ $$Y^{\*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
 
 To see the same solution as a living system rather than a fixed point, the animation below shows Model PC as a stock-flow "hydraulics" diagram. The three sectors - government, firms and households - are linked by pipes whose thickness and travelling tokens scale with each flow: government spending *G*, wages *Y*, consumption *C*, taxes *T* and the interest *rB_h* paid on bonds. Two household tanks fill up as assets - cash *H_h* (blue) and bills *B_h* (gold) - while the government's tank fills *downward* as a liability, its bonds issued *−B_s* (red). Each period the deficit *G + rB_h − T* drains the government tank a little further, the central bank absorbs the bills it does not sell to households (*ΔB_cb*) and pays for them with newly issued cash (*ΔH_s*), and households split their fresh saving between the two asset tanks according to their portfolio rule.
 
-![System-dynamics animation of Model PC](figures/pc_sd.gif)
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/pc_sd.gif" width="820">
+</figure>
 
 As the animation settles, the pipes stop changing width and the tanks stop rising: the model has reached the steady state computed above. Notice that the blue and gold tanks together always mirror the red one - the government's debt is exactly the private sector's wealth - which is simply the accounting identity *B_s = H_h + B_h* playing out period by period.
 
