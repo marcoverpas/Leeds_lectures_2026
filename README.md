@@ -494,12 +494,22 @@ $$r_l = \bar{r}_l \quad \text{(B.21)}$$
 
 The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). Note the accelerator (B.19)–(B.20): firms target a capital stock proportional to lagged output and close a fraction $\gamma$ of the gap each period, on top of replacing depreciation.
 
-Here the four accounts - households, firms (current), firms (capital) and banks - appear as payers and payees, with investment and depreciation shown as flows internal to the firm sector. Because loans create deposits of equal size and the two interest legs cancel at the bank, the Sankey diagram makes the loans-and-deposits circuit, and its self-balancing character, legible at a glance.
+As usual, the animation below runs Model BMW as a stock–flow "hydraulics" diagram. The three sectors - banks, firms and households - are joined by pipes whose thickness and travelling tokens scale with each flow: banks grant new loans to firms (dL), firms pay wages (WB) and buy fixed capital from other firms (I), households consume (C) and place what they save in deposits (dM), and the two interest legs - r_l·L from firms to banks and r_m·M from banks to households - circulate on top. Two tanks sit under the firms: their
+liability, loans −L (filling downward), and the real asset it finances, capital K (filling upward); a third tank under the households holds deposits M_h. Because every loan creates a deposit, the loans tank and the deposits tank rise in lockstep and the whole balance sheet closes as M_h = M_s = L = K.
+
+<figure>
+<img
+src="https://github.com/marcoverpas/figures/blob/main/bmw_sd.gif" width="820">
+</figure>
+
+As firms build up their capital stock the loans, capital and deposits tanks fill together. Once the target capital is reached, net investment dies away and the tanks simply hold, with wages, consumption and the interest legs still circulating around the steady state. The animation therefore makes visible what the accounting guarantees, namely, that the loans-and-deposits circuit is self-balancing, the same property the Sankey diagram below freezes into a single snapshot.
 
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/SANKEY_BMW.png" width="800">
 </figure>
+
+Here the four accounts - households, firms (current), firms (capital) and banks - appear as payers and payees, with investment and depreciation shown as flows internal to the firm sector. Because loans create deposits of equal size and the two interest legs cancel at the bank, the Sankey diagram makes the loans-and-deposits circuit, and its self-balancing character, legible at a glance.
 
 Run over time, the same circuit produces the paths of output, investment, capital and deposits reported below.
 
