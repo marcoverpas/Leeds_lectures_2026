@@ -655,6 +655,8 @@ With the industrial structure in place, the model can be run forward. The figure
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_SIM.png" width="900">
 </figure>
 
+We can now use the model to perform experiments. For instance, one might ask what happens when government spending is increased (from $20 to $30). The figures below show the responses of selected variables.
+
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_SIM.png" width="900">
@@ -668,10 +670,14 @@ The `R` code for this model is [`IO_SIM.R`](https://github.com/marcoverpas/Leeds
 
 Model **IO-PC** is the same IO layer bolted onto Model PC. The only difference from IO-SIM is the financial side inherited from PC: households now allocate wealth between cash and bonds (equations 6–11 above), income includes interest, and taxes fall on total income. The IO block (equations 13–19) is identical, and government spending is valued at $p_g \cdot g$. The redundant equation remains $H_h = H_s$, and the aggregate behaviour reproduces Model PC while adding the industrial and price detail.
 
+Now the model can be run forward. The figures below report the aggregate dynamics and the resulting industry-level detail.
+
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_PC.png" width="900">
 </figure>
+
+The figures below show the responses of selected variables to an increase in government spending (from 20$ to 30$).
 
 <figure>
 <img
@@ -709,10 +715,14 @@ $$k^t_z = \kappa_z \cdot x_{z,-1}, \qquad i_z = \gamma \cdot (k^t_z - k_{z,-1}) 
 
 Aggregate investment is then $\sum_z i_z$, and the BMW loan/deposit block (B.6–B.21) operates on the resulting nominal magnitudes. Because the target is defined on gross output (which exceeds value added), the capital-to-output ratio $\kappa_z$ is smaller than the value used against income in the aggregate BMW. The redundant equation is again $M_h = M_s$.
 
+Now the model can be run forward. The figures below report the aggregate dynamics and the resulting industry-level detail.
+
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_BMW.png" width="900">
 </figure>
+
+The figures below show the responses of selected variables to an increase in government spending (from 20$ to 30$).
 
 <figure>
 <img
