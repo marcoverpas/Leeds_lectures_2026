@@ -310,7 +310,7 @@ par(op)
 > <div align="center">
 > <figure>
 > <a href="https://x52gnt-marco-passarella.shinyapps.io/int_sim/" target="_blank">
-> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="500">
+> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="400">
 > </a>
 > </figure>
 > </div>
@@ -430,6 +430,14 @@ src="https://github.com/marcoverpas/figures/blob/main/PC_experiment.gif" width="
 > Click the link below to open the simulation laboratory for *Model PC*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
 >  
 > [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/int_pc/)
+> <div align="center">
+> <figure>
+> <a href="https://x52gnt-marco-passarella.shinyapps.io/int_pc/" target="_blank">
+> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="400">
+> </a>
+> </figure>
+> </div>
+> <br><br>
 
 The `R` code for this model is [`BASIC_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_PC.R).
 
@@ -552,6 +560,14 @@ src="https://github.com/marcoverpas/figures/blob/main/BMW_experiment.gif" width=
 > Click the link below to open the simulation laboratory for *Model BMW*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
 >  
 > [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/int_bmw/)
+> <div align="center">
+> <figure>
+> <a href="https://x52gnt-marco-passarella.shinyapps.io/int_bmw/" target="_blank">
+> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="400">
+> </a>
+> </figure>
+> </div>
+> <br><br>
 
 The `R` code for this model is [`BASIC_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_BMW.R).
 
