@@ -318,7 +318,7 @@ par(op)
 > 
 > Click the link above to open the simulation laboratory for *Model SIM*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
 
-The complete `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
+The essential but complete `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
 
 ---
 
@@ -439,7 +439,7 @@ src="https://github.com/marcoverpas/figures/blob/main/PC_experiment.gif" width="
 > </div>
 > <br><br>
 
-The `R` code for this model is [`BASIC_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_PC.R).
+The `R` essential but complete code for this model is [`BASIC_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_PC.R).
 
 ---
 
@@ -569,7 +569,7 @@ src="https://github.com/marcoverpas/figures/blob/main/BMW_experiment.gif" width=
 > </div>
 > <br><br>
 
-The `R` code for this model is [`BASIC_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_BMW.R).
+The essential but complete `R` code for this model is [`BASIC_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_BMW.R).
 
 ---
 
@@ -706,7 +706,7 @@ We can now use the model to perform experiments. For instance, one might ask wha
 src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_SIM.png" width="900">
 </figure>
 
-The `R` code for this model is [`IO_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_SIM.R).
+The essential `R` code for this model is [`IO_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_SIM.R).
 
 ---
 
@@ -728,7 +728,7 @@ The figures below show the responses of selected variables to an increase in gov
 src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_PC.png" width="900">
 </figure>
 
-The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R).
+The essential `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_PC.R).
 
 > ### 📦 Box F - Playing with Model ECO-3IO-PC
 >
@@ -773,7 +773,7 @@ The figures below show the responses of selected variables to an increase in gov
 src="https://github.com/marcoverpas/figures/blob/main/Fig2_IO_BMW.png" width="900">
 </figure>
 
-The `R` code for this model is [`IO_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_BMW.R).
+The essential `R` code for this model is [`IO_BMW.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/IO_BMW.R).
 
 ---
 
