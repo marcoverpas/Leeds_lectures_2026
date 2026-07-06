@@ -59,10 +59,9 @@ The auxiliary scripts that generate the animations, system-dynamics diagram, and
 
 | Script | Packages needed |
 | --- | --- |
-| `SIM_system_dynamics.R` | `ggplot2`, `gganimate`, `gifski` |
-| `ANIM_BASIC_SIM_experiment.R` | `ggplot2`, `gganimate`, `tidyr`, `dplyr`, `magick` |
-| `ANIM_BASIC_SIM_grid.R` | `ggplot2`, `gganimate`, `tidyr`, `dplyr`, `magick` |
-| `SANKEY_IO.R` | `networkD3`, `htmlwidgets` |
+| System dynamics figures | `ggplot2`, `gganimate`, `gifski` |
+| Animated figures | `ggplot2`, `gganimate`, `tidyr`, `dplyr`, `magick` |
+| Network figures | `networkD3`, `htmlwidgets` |
 
 Install everything in one go with:
 
