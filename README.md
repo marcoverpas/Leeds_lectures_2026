@@ -799,7 +799,9 @@ $$i_z = \gamma \cdot (k^t_z - k_{z,-1}) + da_z$$
 
 $$da_z = \delta_z \cdot k_{z,-1}$$
 
-Aggregate investment is then $\sum_z i_z$, and the BMW loan/deposit block (6-21) operates on the resulting nominal magnitudes. Because the target is defined on gross output (which exceeds value added), the capital-to-output ratio $\kappa_z$ is smaller than the value used against income in the aggregate BMW. The redundant equation is again $M_h = M_s$.
+Aggregate investment is then $\sum_z i_z$, and the BMW loan/deposit block (6-21) operates on the resulting nominal magnitudes. Because the target is defined on gross output (which exceeds value added), the capital-to-output ratio $\kappa_z$ is smaller than the value used against income in the aggregate BMW.
+
+The redundant equation is again $M_h = M_s$.
 
 Now the model can be run forward. The figures below report the aggregate dynamics and the resulting industry-level detail.
 
@@ -808,7 +810,7 @@ Now the model can be run forward. The figures below report the aggregate dynamic
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_BMW.png" width="900">
 </figure>
 
-The figures below show the responses of selected variables to an increase in government spending (from 20$ to 30$).
+As before, the figures below show the responses of selected variables to an increase in government spending (from 20$ to 30$).
 
 <figure>
 <img
