@@ -732,7 +732,7 @@ The `R` code for this model is [`IO_PC.R`](https://github.com/marcoverpas/Leeds_
 
 > ### 📦 Box F - Playing with Model ECO-3IO-PC
 >
-> Here you can play with an ecosystem-extended version of Model IO-PC.
+> Not only can these models be made interactive, but they can also be conveniently extended to include a variety of variables. Here you can explore an ecosystem-extended version of Model IO-PC.
 >  
 > [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/eco_3io_sfc_model/)
 > 
