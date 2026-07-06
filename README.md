@@ -172,7 +172,7 @@ In the steady state there is no saving ($C = YD$) and money holdings are stable,
 
 $$Y^{\*} = \frac{G}{\theta}$$
 
-Before turning to the experiments, it helps to *see* the model move. The animation below renders Model SIM as a **system-dynamics diagram**: the three sectors are boxes, every flow is a pipe along which tokens travel (its thickness scaling with the flow), and the two financial stocks are tanks. Government spending $G$ reaches firms, who pay wages $Y$ to households. Households return part of their income as consumption ($\alpha_1 \cdot YD$) and taxes ($T$), and save the rest ($(1-\alpha_1) \cdot YD$) into their **money tank** $H_h$ - which in turn finances further consumption out of wealth ($\alpha_2 \cdot H_h$). The government's tank is the exact mirror image: it fills with the accumulated deficit $G - T$ but in the *opposite* direction, because the money households hold is nothing other than the government's debt. At every instant $H_h = H_s$, so the household asset (blue, rising) and the government liability (red, falling) are equal and opposite, summing to zero. As income grows, taxes catch up to spending, the deficit closes, and both tanks stop moving: the economy has reached its steady state $Y^{\*} = G/\theta$.
+Before turning to the experiments, it helps to *see* the model move. The animation below renders Model SIM as a **system-dynamics diagram**: the three sectors are boxes, every flow is a pipe along which tokens travel (its thickness scaling with the flow), and the two financial stocks are tanks. Government spending $G$ reaches firms, who pay wages $Y$ to households. Households return part of their income as consumption ($\alpha_1 \cdot YD$) and taxes ($T$), and save the rest ($(1-\alpha_1) \cdot YD$) into their **money tank** $H_h$ - which in turn finances further consumption out of wealth ($\alpha_2 \cdot H_h$). The government's tank is the exact mirror image: it fills with the accumulated deficit $G - T$ but in the *opposite* direction, because the money households hold is nothing other than the government's debt. At every instant $H_h = H_s$, so the household asset (blue, rising) and the government liability (red, falling) are equal and opposite, summing to zero. As income grows, taxes catch up to spending, the deficit closes, and both tanks stop moving: the economy has reached its steady state.
 
 <figure>
 <img
@@ -202,7 +202,7 @@ As a first experiment, we let government spending $G$ rise permanently.
 src="https://github.com/marcoverpas/figures/blob/main/SIM_experiment.gif" width="900">
 </figure>
 
-In the animation above the grey line is the baseline, and the red one - branching off at the dashed marker - is the shock scenario. National income converges to its new, higher steady state $Y^{\*} = G/\theta$, pulling disposable income and consumption up with it, while households end up holding a permanently larger stock of money. Panels a)–d) reveal these adjustments period by period.
+In the animation above the grey line is the baseline, and the red one - branching off at the dashed marker - is the shock scenario. National income converges to its new, higher steady state $Y^{\**}$, pulling disposable income and consumption up with it, while households end up holding a permanently larger stock of money. Panels a)-d) reveal these adjustments period by period.
 
 #### 🛠️ Hands-on: building Model SIM in `R`
 
@@ -227,7 +227,7 @@ Gshock      <- 30          # Higher government spending (scenario 2)
 shockStart  <- 50          # Period at which spending rises (scenario 2)
 ```
 
-Each variable is a matrix with one row per scenario and one column per period, initialised at zero (row 1 = baseline, row 2 = shock). Since SIM has a single asset, wealth `V` equals money `H_h`.
+Each variable is a matrix with one row per scenario and one column per period, initialised at zero (row 1 = baseline, row 2 = shock). Since SIM has a single asset, wealth `V` equals money holdings `H_h`.
 
 ```r
 # Create the variables as matrices [scenario, period], all starting at zero ####
@@ -387,7 +387,7 @@ Key assumptions:
 |                       |                          |                |                           |                          |         |
 | Column tot.           |   0                      |  0             |   0                       |   0                      |   0     |
 
-The system of difference equations is:
+The system of difference equations defining Model PC is:
 
 $$Y = C + G \quad \text{(1)}$$
 
@@ -415,9 +415,11 @@ Optionally, the propensity to consume can be made a decreasing function of the i
 
 $$\alpha_1 = \alpha_{10} - \alpha_{11} \cdot r_{-1} \quad \text{(12)}$$
 
-The redundant equation is $H_h = H_s$. The steady-state income is:
+The redundant equation is $H_h = H_s$, while the quasi steady-state income is:
 
 $$Y^{\*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
+
+See [here](https://github.com/marcoverpas/PhD_Lectures_Macerata_2025/blob/main/README.md#b2_model_pc) for a formal derivation of $$Y^{\*}$$. 
 
 To see the same solution as a living system rather than a fixed point, the animation below shows Model PC as a stock-flow "hydraulics" diagram. The three sectors - government, firms and households - are linked by pipes whose thickness and travelling tokens scale with each flow: government spending *G*, wages *Y*, consumption *C*, taxes *T* and the interest *rB_h* paid on bonds. Two household tanks fill up as assets - cash *H_h* (blue) and bills *B_h* (gold) - while the government's tank fills *downward* as a liability, its bonds issued *−B_s* (red). Each period the deficit *G + rB_h − T* drains the government tank a little further, the central bank absorbs the bills it does not sell to households (*ΔB_cb*) and pays for them with newly issued cash (*ΔH_s*), and households split their fresh saving between the two asset tanks according to their portfolio rule.
 
@@ -442,12 +444,14 @@ Iterated forward, these flows generate the dynamics of income, wealth and its po
 src="https://github.com/marcoverpas/figures/blob/main/PC_anim.gif" width="900">
 </figure>
 
-As an experiment, we now raise the interest rate $r$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. A higher rate lifts the interest income households earn on their bonds, so disposable income, and with it national income, settle at a higher steady state $Y^{\*} = [G + r \cdot B_h^{*} \cdot (1 - \theta)] / \theta$, while households rebalance their portfolio towards bonds. Panels a)–d) reveal these adjustments period by period.
+As an experiment, we now raise the interest rate $r$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. A higher rate lifts the interest income households earn on their bonds, so disposable income, and with it national income, settle at a higher steady state $Y^{\*}$, while households rebalance their portfolio towards bonds. Panels a)-d) reveal these adjustments period by period.
 
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/PC_experiment.gif" width="900">
 </figure>
+
+Obviously, Model PC can also be used to perform several experiments, such as changes in the propensities to consume, changes in portfolio coefficients, or policy shocks.
 
 > ### 📦 Box B - Playing with Model PC
 >
@@ -470,9 +474,9 @@ The `R` essential but complete code for this model is [`BASIC_PC.R`](https://git
 
 ### 1.4 - Model BMW
 
-Model **BMW** ("**b**ank-**m**oney **w**orld") is the simplest model with private **banks**, **investment** and **fixed capital** ([Godley and Lavoie, 2007, ch. 7](#references)). The only financial asset is **bank deposits**; firms borrow from banks to finance net investment, and banks turn loans into deposits. It is the dynamic counterpart of the monetary circuit.
+Model **BMW** ("**b**ank-**m**oney **w**orld") is the simplest model with private **banks**, **investment** and **fixed capital** ([Godley and Lavoie, 2007, ch. 7](#references)). The only financial asset is **bank deposits**. Firms borrow from banks to finance net investment, and banks turn loans into deposits. It is the dynamic counterpart of the monetary circuit.
 
-Key assumptions:
+Key assumptions of Model BMW are:
 
 1. Closed economy, no ecosystem
 1. Three agents: households, firms, banks
@@ -481,6 +485,8 @@ Key assumptions:
 1. Target capital-to-output ratio
 1. Fixed prices and zero net profits
 1. No state, no outside money (cash)
+
+The associated accounting matrices are:
 
 #### Table 1. Balance-sheet matrix
 
@@ -547,9 +553,9 @@ $$I = \gamma \cdot (K^t - K_{-1}) + DA \quad \text{(B.20)}$$
 
 $$r_l = \bar{r}_l \quad \text{(B.21)}$$
 
-The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). Note the accelerator (B.19)–(B.20): firms target a capital stock proportional to lagged output and close a fraction $\gamma$ of the gap each period, on top of replacing depreciation.
+The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). Note the accelerator (B.19)-(B.20): firms target a capital stock proportional to lagged output and close a fraction $\gamma$ of the gap each period, on top of replacing depreciation.
 
-As usual, the animation below runs Model BMW as a stock–flow "hydraulics" diagram. The three sectors - banks, firms and households - are joined by pipes whose thickness and travelling tokens scale with each flow: banks grant new loans to firms (dL), firms pay wages (WB) and buy fixed capital from other firms (I), households consume (C) and place what they save in deposits (dM), and the two interest legs - r_l·L from firms to banks and r_m·M from banks to households - circulate on top. Two tanks sit under the firms: their
+As usual, the animation below runs Model BMW as a stock-flow "hydraulics" diagram. The three sectors - banks, firms and households - are joined by pipes whose thickness and travelling tokens scale with each flow: banks grant new loans to firms (dL), firms pay wages (WB) and buy fixed capital from other firms (I), households consume (C) and place what they save in deposits (dM), and the two interest legs - r_l·L from firms to banks and r_m·M from banks to households - circulate on top. Two tanks sit under the firms: their
 liability, loans −L (filling downward), and the real asset it finances, capital K (filling upward); a third tank under the households holds deposits M_h. Because every loan creates a deposit, the loans tank and the deposits tank rise in lockstep and the whole balance sheet closes as M_h = M_s = L = K.
 
 <figure>
@@ -557,7 +563,7 @@ liability, loans −L (filling downward), and the real asset it finances, capita
 src="https://github.com/marcoverpas/figures/blob/main/bmw_sd.gif" width="820">
 </figure>
 
-As firms build up their capital stock the loans, capital and deposits tanks fill together. Once the target capital is reached, net investment dies away and the tanks simply hold, with wages, consumption and the interest legs still circulating around the steady state. The animation therefore makes visible what the accounting guarantees, namely, that the loans-and-deposits circuit is self-balancing, the same property the Sankey diagram below freezes into a single snapshot.
+As firms build up their capital stock, the loans, capital and deposits tanks fill together. Once the target capital is reached, net investment dies away and the tanks simply hold, with wages, consumption and the interest legs still circulating around the steady state. The animation therefore makes visible what the accounting guarantees, namely, that the loans-and-deposits circuit is self-balancing, the same property the Sankey diagram below freezes into a single snapshot.
 
 <figure>
 <img
@@ -573,12 +579,14 @@ Run over time, the same circuit produces the paths of output, investment, capita
 src="https://github.com/marcoverpas/figures/blob/main/BMW_anim.gif" width="900">
 </figure>
 
-As an experiment, we raise the target capital-output ratio $\kappa$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. Aiming at a larger capital stock, firms step up investment: investment jumps on impact and the capital stock climbs to a permanently higher level, pulling output and consumption up with it through the accelerator, before the economy settles at its new steady state. Panels a)–d) reveal these adjustments period by period.
+As an experiment, we raise the target capital-output ratio $\kappa$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. Aiming at a larger capital stock, firms step up investment: investment jumps on impact and the capital stock climbs to a permanently higher level, pulling output and consumption up with it through the accelerator, before the economy settles at its new steady state. Panels a)-d) reveal these adjustments period by period.
 
 <figure>
 <img
 src="https://github.com/marcoverpas/figures/blob/main/BMW_experiment.gif" width="900">
 </figure>
+
+As usual, Model BMW can also be used to perform several experiments, such as changes in the propensities to consume, changes in portfolio coefficients, or policy shocks.
 
 > ### 📦 Box C - Playing with Model BMW
 >
