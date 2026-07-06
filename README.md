@@ -833,7 +833,7 @@ Three features distinguish the ABM style used here:
 1. **Interaction and matching.** Agents meet through explicit mechanisms - here a random *job lottery* (who is hired) and a *first-come-first-served* goods market (who gets served when output is short).
 1. **Sequential decisions.** Agents act one after another, out of *last* period's information, so there is no need to solve a simultaneous system by iteration.
 
-Crucially, the models remain **stock-flow consistent**: because money is only ever transferred between agents (never created or destroyed by the matching), the redundant equation continues to hold to machine precision. The ABMs are run many times (**Monte Carlo** repetitions); charts show every run (thin grey lines) plus the mean (bold line).
+Crucially, the models remain **stock-flow consistent**: because money is only ever transferred between agents (never created or destroyed by the matching), the redundant equation continues to hold to machine precision. The ABM is run many times, each with a different random seed (**Monte Carlo** repetitions), and the results are tipically averaged across runs to account for the model's stochastic variability.
 
 > ### 📦 Box F - Emergence: a flock without a leader
 >
@@ -855,13 +855,13 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 >
 > <br>
 > 
-> The two panels make the distinction concrete. On the **left**, a cloud of particles
+> The two panels make the distinction concrete. On the **left**, a cloud of particles where
 > each obeys the very same set of differential equations (the Lorenz system): the motion
 > is intricate, even chaotic, yet every dot is slaved to a global law and none of them
-> ever look at one another - this is complexity, but *not* emergence, the shape was
+> ever look at one another. This is complexity, but *not* emergence. The shape was
 > written into the equations from the start. On the **right**, the birds are told nothing
-> about any global shape; they follow only local rules, and the flock self-organises. The
-> test is simple: switch the interaction *off* - let each bird ignore its neighbours -
+> about any global shape. They follow only local rules, and the flock self-organises. The
+> test is simple: switch the interaction *off* (let each bird ignore its neighbours)
 > and the flock dissolves into a cloud of independent wanderers. The pattern lived in the
 > *interaction*, not in the birds.
 >
@@ -870,8 +870,8 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 > households and/or firms - behave, and let them interact through markets. The aggregate
 > quantities (output, employment, wealth) are then simply the sums over agents, and
 > macroeconomic regularities *emerge* from the crowd rather than being assumed. As we will
-> see, features that no household was ever told to produce - involuntary unemployment, or
-> an aggregate demand that depends on precisely *who* was paid this period - appear all by
+> see, features that no household was ever told to produce (involuntary unemployment, or
+> an aggregate demand that depends on precisely *who* was paid this period) appear all by
 > themselves, the economic counterpart of the flock.
 >
 > <sub>Left panel: the Lorenz system (E. N. Lorenz, "Deterministic Nonperiodic Flow",
@@ -886,16 +886,16 @@ Crucially, the models remain **stock-flow consistent**: because money is only ev
 Model **ABM-SIM** is Model SIM populated by $N$ households. Each household holds its own money $h_i$, forms its own disposable income $yd_i$, and has its own propensity to consume $\alpha_{1,i}$. The number of households exceeds the workers ever needed, so **unemployment emerges** rather than being assumed. One period unfolds as a sequence of "ticks":
 
 1. each household plans consumption out of its last income and its money, $c_i = \alpha_{1,i} \cdot yd_{i,-1} + \alpha_2 \cdot h_i$;
-1. the economy needs one worker per unit of demand; a **job lottery** (with spread $s$) fills the jobs - some go unfilled;
+1. the economy needs one worker per unit of demand; a **job lottery** (with spread $s$) fills the jobs (some go unfilled);
 1. whoever works produces the good and is paid; goods are sold **first-come-first-served** until they run out;
 1. taxes are paid, and each household updates its money holdings.
 
-Summing over households reproduces the aggregate SIM: mean output converges to $G/\theta$. Two results are worth highlighting.
+Summing over households reproduces the aggregate SIM: mean output still converges to $G/\theta$ (as in the top-down versions of Model SIM). Two results are worth highlighting.
 
 - **Emergent unemployment.** With the hiring spread $s>0$, employment is a genuinely fluctuating, model-generated variable.
-- **Higher accumulated wealth.** The money stock settles *above* the frictionless SIM value. When hiring falls short, households are rationed and cannot spend all they planned; the unspent income becomes **involuntary saving**, so wealth builds up a buffer. In steady state $H \approx H_{SIM} + \text{(average rationing)}/\alpha_2$, so the more friction, the larger the money stock. Setting $s = 0$ (and no heterogeneity) recovers the textbook value exactly.
+- **Higher accumulated wealth.** The money stock settles *above* the frictionless SIM value. When hiring falls short, households are rationed and cannot spend all they planned. The unspent income becomes **involuntary saving**, so wealth builds up a buffer. In steady state $H \approx H_{SIM} + \text{(average rationing)}/\alpha_2$, so the more friction, the larger the money stock. Setting $s = 0$ (and no heterogeneity) recovers the textbook value exactly.
 
-In the figure below (as in all agent-based charts that follow), each **thin grey line is a single Monte Carlo run**, while the **bold coloured line is the average across the 50 runs**. In other words, the grey band shows how much the outcome varies from one realisation to the next, the coloured line its expected path. Overall, the figure shows the dynamics through which the model’s variables adjust to their steady-state values and the new adjustment process set in motion by the increase in government spending ($G$ from $20 to $30 in period 60).
+In the figure below (as in all agent-based charts that follow), each **thin grey line is a single Monte Carlo run**, while the **bold coloured line is the average across the 50 runs**. In other words, the grey band shows how much the outcome varies from one realisation to the next, the coloured line its expected path. Overall, the figure shows the dynamics through which the model’s variables adjust to their steady-state values and the new adjustment process set in motion by the increase in government spending.
 
 <figure>
 <img
@@ -908,7 +908,7 @@ The `R` code for this model is [`ABM_SIM.R`](https://github.com/marcoverpas/Leed
 
 ### 3.3 - Model ABM-PC
 
-Model **ABM-PC** adds PC's portfolio choice to the households. Each household still works (job lottery) and consumes (own propensity), but now also splits its wealth between cash and bonds and earns interest. Aggregating reproduces Model PC. Heterogeneity here has a sharper consequence: because aggregate demand depends on *which* households earn income (weighted by their individual propensities), the random order of hiring now **feeds through to the macro totals** - the composition of income becomes a macro variable in its own right, exactly the mechanism that motivates heterogeneous-agent macroeconomics.
+Model **ABM-PC** adds PC's portfolio choice to the households. Each household still works (job lottery) and consumes (own propensity), but now also splits its wealth between cash and bonds and earns interest. Aggregating reproduces Model PC. Heterogeneity here has a sharper consequence: because aggregate demand depends on *which* households earn income (weighted by their individual propensities), the random order of hiring now **feeds through to the macro totals**. The composition of income becomes a macro variable in its own right, exactly the mechanism that motivates heterogeneous-agent macroeconomics.
 
 The figure below shows the dynamics through which the model’s variables adjust to their steady-state values and the new adjustment process set in motion by the increase in government spending.
 
@@ -923,7 +923,7 @@ The `R` code for this model is [`ABM_PC.R`](https://github.com/marcoverpas/Leeds
 
 ### 3.4 - Model ABM-BMW
 
-Model **ABM-BMW** keeps the households as the agents - heterogeneous as both **workers** (job lottery with spread $s$) and **consumers** (own $\alpha_{1,i}$) - while the **firm, capital and banking block is the standard aggregate BMW**. When hiring falls short, output is below demand, so **investment as well as consumption** is rationed. Because the investment accelerator feeds on output, the friction's recessionary bias is **amplified** (lower output → lower target capital → lower investment → lower output), so the mean output sits noticeably below the frictionless BMW level. Setting $s = 0$ (and no heterogeneity) recovers the exact deterministic BMW. The redundant equation $M_h = M_s$ holds throughout.
+Model **ABM-BMW** keeps the households as the agents - heterogeneous as both **workers** (job lottery with spread $s$) and **consumers** (own $\alpha_{1,i}$) - while the **firm, capital and banking block is the standard aggregate BMW**. When hiring falls short, output is below demand, so **both investment and consumption** are rationed. Because the investment accelerator feeds on output, the friction's recessionary bias is **amplified** (lower output → lower target capital → lower investment → lower output), so the mean output sits noticeably below the frictionless BMW level. Setting $s = 0$ (and no heterogeneity) recovers the exact deterministic BMW. The redundant equation $M_h = M_s$ holds throughout.
 
 Once again, the figure below shows the dynamics through which the model’s variables adjust to their steady-state values and the new adjustment process set in motion by the increase in government spending.
 
