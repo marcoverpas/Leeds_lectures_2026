@@ -309,7 +309,7 @@ par(op)
 > [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/int_sim/)
 > <figure>
 > <a href="https://x52gnt-marco-passarella.shinyapps.io/int_sim/" target="_blank">
-> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/playing.png" width="1000">
+> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="1000">
 > </a>
 > </figure>
 > <br><br>
