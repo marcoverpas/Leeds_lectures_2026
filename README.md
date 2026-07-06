@@ -588,7 +588,7 @@ As an experiment, we raise the target capital-output ratio $\kappa$ permanently.
 src="https://github.com/marcoverpas/figures/blob/main/BMW_experiment.gif" width="900">
 </figure>
 
-As usual, Model BMW can also be used to perform several experiments, such as changes in the propensities to consume, changes in portfolio coefficients, or policy shocks.
+As usual, Model BMW can also be used to perform several experiments, such as changes in the propensities to consume, changes in the coefficients defining the investment in fixed capital, or policy shocks.
 
 > ### 📦 Box C - Playing with Model BMW
 >
