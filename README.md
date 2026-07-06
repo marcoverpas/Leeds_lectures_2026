@@ -14,6 +14,8 @@
 
 ## Overview
 
+These lectures are organised by [NARTI](https://narti.org.uk/event/modelling-monetary-economies-of-production-with-prof-marco-passarella-registration-open/) (Northern Advanced Research Training Initiative), as part of the training seminar *"Modelling Monetary Economies of Production: Integrating SFC, IO and AB Approaches,"* held on 9-10 July 2026 at the University of Leeds.
+
 This repository presents **nine small macroeconomic models**, organised as a 3 × 3 grid. Three benchmark Stock-Flow Consistent (SFC) toy models from [Godley and Lavoie (2007)](#references) - **SIM**, **PC** and **BMW** - are each developed in three coding *styles*: *aggregate*, *input-output*, and *agent-based*.
 
 |                          | **Aggregate (original)** | **Input-Output (IO)** | **Agent-Based (ABM)** |
