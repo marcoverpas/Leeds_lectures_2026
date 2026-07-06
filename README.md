@@ -53,7 +53,7 @@ All code has been developed for an `R` environment and is available in [this rep
 
 ## ⚙️ Requirements
 
-The nine core models (SIM, PC, BMW x aggregate/IO/ABM) run in plain base `R` - no packages required.
+The nine core models (SIM, PC, BMW × aggregate/IO/ABM) run in plain base `R` - no packages required.
 
 The auxiliary scripts that generate the animations, system-dynamics diagram, and Sankey charts shown in this README need a few additional packages:
 
@@ -67,7 +67,7 @@ The auxiliary scripts that generate the animations, system-dynamics diagram, and
 
 Install everything in one go with:
 
-    install.packages(c("ggplot2", "gganimate", "tidyr", "dplyr", "htmltools"
+    install.packages(c("ggplot2", "gganimate", "tidyr", "dplyr", "htmltools",
                         "magick", "gifski", "networkD3", "htmlwidgets", "knitr", "kableExtra"))
 
 Tested on R 4.6.1 (2026-06-24). Any recent R version should work.
