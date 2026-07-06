@@ -25,7 +25,7 @@ This repository presents **nine small macroeconomic models**, organised as a 3 Ã
 Reading across a row shows how the *same* economy can be represented at three levels of resolution: as economy-wide aggregates, as a set of interconnected **industries** (IO), and as a population of heterogeneous interacting **households** (ABM). Reading down a column shows how the financial structure is progressively enriched: from a single state money (SIM), to money plus government bonds (PC), to bank loans and deposits financing fixed capital (BMW).
 
 - [1 - Aggregate models](#1---aggregate-models)
-  - [1.1 - Introduction to SFC models]](#11---introduction-to-SFC-models)
+  - [1.1 - Introduction to SFC models](#11---introduction-to-SFC-models)
   - [1.2 - Model SIM](#12---model-sim)
   - [1.3 - Model PC](#13---model-pc)
   - [1.4 - Model BMW](#14---model-bmw)
