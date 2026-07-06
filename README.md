@@ -307,11 +307,13 @@ par(op)
 > One of the advantages of creating formal models using `R` is that they can be conveniently converted into online interactive models using the `Shiny` package. 
 >
 > [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/int_sim/)
+> <div align="center">
 > <figure>
 > <a href="https://x52gnt-marco-passarella.shinyapps.io/int_sim/" target="_blank">
 > <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="500">
 > </a>
 > </figure>
+> </div>
 > <br><br>
 > 
 > Click the link above to open the simulation laboratory for *Model SIM*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
