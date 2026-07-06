@@ -51,6 +51,28 @@ All code has been developed for an `R` environment and is available in [this rep
 
 ---
 
+## ⚙️ Requirements
+
+The nine core models (SIM, PC, BMW x aggregate/IO/ABM) run in plain base `R` - no packages required.
+
+The auxiliary scripts that generate the animations, system-dynamics diagram, and Sankey charts shown in this README need a few additional packages:
+
+| Script | Packages needed |
+| --- | --- |
+| `SIM_system_dynamics.R` | `ggplot2`, `gganimate`, `gifski` |
+| `ANIM_BASIC_SIM_experiment.R` | `ggplot2`, `gganimate`, `tidyr`, `dplyr`, `magick` |
+| `ANIM_BASIC_SIM_grid.R` | `ggplot2`, `gganimate`, `tidyr`, `dplyr`, `magick` |
+| `SANKEY_IO.R` | `networkD3`, `htmlwidgets` |
+
+Install everything in one go with:
+
+    install.packages(c("ggplot2", "gganimate", "tidyr", "dplyr",
+                        "magick", "gifski", "networkD3", "htmlwidgets"))
+
+Tested on R 4.6.1 (2026-06-24). Any recent R version should work.
+
+---
+
 > ### 📦 Box A - What is a stock-flow consistent (SFC) model?
 >
 > Stock-flow consistent (SFC) models describe the economy as a set of **sectors** (households, firms, banks, government, and so on) whose balance sheets and mutual transactions are recorded, without gaps, in a system of accounting matrices. Rooted in the national accounts and the flow of funds ([Godley and Lavoie, 2007](#references)), they integrate the *real* and the *financial* sides of the economy in one consistent whole: every expenditure is someone's income, and every financial asset is someone else's liability.
