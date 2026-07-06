@@ -60,13 +60,15 @@ The auxiliary scripts that generate the animations, system-dynamics diagram, and
 | Script | Packages needed |
 | --- | --- |
 | System dynamics figures | `ggplot2`, `gganimate`, `gifski` |
-| Animated figures | `ggplot2`, `gganimate`, `tidyr`, `dplyr`, `magick` |
+| Other animated figures | `ggplot2`, `gganimate`, `tidyr`, `dplyr`, `magick` |
 | Network figures | `networkD3`, `htmlwidgets` |
+| Sankey diagrams | `networkD3`, `htmlwidgets`, `htmltools` |
+| Tables | `knitr`, `kableExtra` |
 
 Install everything in one go with:
 
-    install.packages(c("ggplot2", "gganimate", "tidyr", "dplyr",
-                        "magick", "gifski", "networkD3", "htmlwidgets"))
+    install.packages(c("ggplot2", "gganimate", "tidyr", "dplyr", "htmltools"
+                        "magick", "gifski", "networkD3", "htmlwidgets", "knitr", "kableExtra"))
 
 Tested on R 4.6.1 (2026-06-24). Any recent R version should work.
 
