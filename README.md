@@ -56,7 +56,7 @@ All code has been developed for an `R` environment and is available in [this rep
 
 The nine core models (SIM, PC, BMW × aggregate/IO/ABM) run in plain base `R` - no packages required.
 
-The auxiliary scripts that generate the animations, system-dynamics diagram, and Sankey charts shown in this README need a few additional packages:
+The auxiliary scripts that generate the animations, system-dynamics diagrams, and Sankey charts shown in this README file need a few additional packages:
 
 | Script | Packages needed |
 | --- | --- |
@@ -81,7 +81,7 @@ Tested on R 4.6.1 (2026-06-24). Any recent R version should work.
 
 Stock-flow consistent (SFC) models describe the economy as a set of **sectors** (households, firms, banks, government, and so on) whose balance sheets and mutual transactions are recorded, without gaps, in a system of accounting matrices. Rooted in the national accounts and the flow of funds ([Godley and Lavoie, 2007](#references)), they integrate the *real* and the *financial* sides of the economy in one consistent whole: every expenditure is someone's income, and every financial asset is someone else's liability.
 
- The framework rests on four accounting principles - **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping** - which together guarantee that nothing appears from, or vanishes into, nowhere. In practice each model is built around two tables: a **balance-sheet matrix** (the stocks each sector owns and owes) and a **transactions-flow matrix** (the payments between sectors and the changes in stocks they imply). Both are *watertight*: every column sums to zero, and every financial-asset row sums to zero; a real-asset row (e.g. fixed capital) instead sums to the economy's net worth. The transactions-flow matrix has the schematic form below, where a minus sign is a use of funds (an outflow) and a plus sign a source (an inflow):
+ The framework rests on four accounting principles - **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping** - which together guarantee that nothing appears from, or vanishes into, nowhere. In practice each model is built around two tables: a **balance-sheet matrix** (the stocks each sector owns and owes) and a **transactions-flow matrix** (the payments between sectors and the changes in stocks they imply). Both are *watertight*: every column sums to zero, and every financial-asset row sums to zero. A real-asset row (e.g. fixed capital) instead sums to the economy's net worth. The transactions-flow matrix has the schematic form below, where a minus sign is a use of funds (an outflow) and a plus sign a source (an inflow):
 
  |                    | Households | Firms  | Government | Row sum |
  |:-------------------|:----------:|:------:|:----------:|:-------:|
@@ -94,7 +94,7 @@ Stock-flow consistent (SFC) models describe the economy as a set of **sectors** 
 
 Because the tables are watertight, every model contains one **redundant** (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight. The accounting skeleton is then closed with **behavioural equations** - usually simple rules of thumb and stock-flow norms - that describe how each sector spends, saves and allocates its wealth. The result is a dynamic system, normally written in discrete time as difference equations: the simplest models (such as those below) can be solved analytically for their steady state, while richer ones are simulated on a computer.
 
-The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references).
+The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references) and [Carnevali et al. (2019)](#references).
 
 Note: models SIM, PC and BMW are reproduced and extended from Godley and Lavoie (2007), while the input-output and agent-based versions are our own.
 
@@ -937,6 +937,7 @@ This is the challenge of the coming years. If SFC, IO, ABM and other monetary-pr
 
 - Berg, M., Hartley, B., and Richters, O. (2015). **A stock-flow consistent input-output model with applications to energy price shocks, interest rates, and heat emissions**. *New Journal of Physics*, 17, 015011.
 - Caiani, A., Russo, A., Palestrini, A., and Gallegati, M. (eds.) (2016). **Economics with Heterogeneous Interacting Agents: A Practical Guide to Agent-Based Modeling**. Springer, New Economic Windows series.
+- Carnevali, E., Deleidi, M., Pariboni, R. and Veronese Passarella, M. (2019). **FC dynamic models: features, limitations and developments**. In P. Arestis and M. Sawyer (eds.), Frontiers of Heterodox Economics, Series: International Papers in Political Economy, Palgrave Macmillan, pp. 223-276.
 - Fevereiro, J. B. R. T., Genovese, A., Purvis, B., Valles Codina, O., and Veronese Passarella, M. (2025). **Macroeconomic Models for Assessing the Transition towards a Circular Economy: A Systematic Review**. *Ecological Economics*, 236, 108669.
 - Godley, W., and Lavoie, M. (2007). **Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth**. Palgrave Macmillan (chapters 3, 4 and 7).
 - Lorenz, E. N. (1963). **Deterministic Nonperiodic Flow**. *Journal of the Atmospheric Sciences*, 20 (2): 130-141.
