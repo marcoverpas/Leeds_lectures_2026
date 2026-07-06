@@ -350,7 +350,7 @@ The essential but complete `R` code for this model is [`BASIC_SIM.R`](https://gi
 
 Model **PC** ("**p**ortfolio **c**hoice") adds a second financial asset ([Godley and Lavoie, 2007, ch. 4](#references)): households can now hold their wealth as **cash and/or government bonds**, and the central bank appears explicitly.
 
-Key assumptions:
+The key assumptions of model PC are:
 
 1. Closed economy, no ecosystem
 1. Four agents: households, "firms", government, central bank
@@ -358,6 +358,8 @@ Key assumptions:
 1. No investment and no inventories
 1. Fixed prices and zero net profits
 1. No banks, no inside money (bank deposits)
+
+The associated accounting tables are: 
 
 #### Table 1. Balance-sheet matrix
 
@@ -387,7 +389,7 @@ Key assumptions:
 |                       |                          |                |                           |                          |         |
 | Column tot.           |   0                      |  0             |   0                       |   0                      |   0     |
 
-The system of difference equations defining Model PC is:
+The matrices above allow us to write down the accounting identities of Model PC. Completing the identities with behavioural equations for taxes and consumption, we obtain the following system of difference equations:
 
 $$Y = C + G \quad \text{(1)}$$
 
@@ -486,7 +488,7 @@ Key assumptions of Model BMW are:
 1. Fixed prices and zero net profits
 1. No state, no outside money (cash)
 
-The associated accounting matrices are:
+The associated accounting tables are:
 
 #### Table 1. Balance-sheet matrix
 
