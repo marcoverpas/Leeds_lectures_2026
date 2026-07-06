@@ -102,13 +102,15 @@ Note: models SIM, PC and BMW are reproduced and extended from Godley and Lavoie 
 
 Model **SIM** ("**SIM**plest") is the most basic SFC model ([Godley and Lavoie, 2007, ch. 3](#references)). It has a single financial asset - **state money (cash)** - created when the government spends and destroyed when it taxes.
 
-Key assumptions:
+The key assumptions of Model SIM are:
 
 1. Closed economy, no ecosystem
 1. Three agents: households, "firms", government
 1. One financial asset: outside money (cash)
 1. No investment, no inventories, no banks, no bonds
 1. Fixed prices and zero net profits (all income is wages)
+
+The associated accounting matrices are:
 
 #### Table 1. Balance-sheet matrix
 
@@ -134,7 +136,7 @@ Key assumptions:
 |                       |                 |         |                 |         |
 | Column tot.           |    0            |  0      |    0            |   0     |
 
-Completing the identities with behavioural equations for taxes and consumption, we obtain:
+The matrices above allow us to write down the accounting identities of the model. Completing the identities with behavioural equations for taxes and consumption, we obtain:
 
 National income (identity):
 
@@ -170,7 +172,7 @@ In the steady state there is no saving ($C = YD$) and money holdings are stable,
 
 $$Y^{\*} = \frac{G}{\theta}$$
 
-Before turning to the accounting, it helps to *see* the model move. The animation below renders Model SIM as a **system-dynamics diagram**: the three sectors are boxes, every flow is a pipe along which tokens travel (its thickness scaling with the flow), and the two financial stocks are tanks. Government spending $G$ reaches firms, who pay wages $Y$ to households. Households return part of their income as consumption ($\alpha_1 \cdot YD$) and taxes ($T$), and save the rest ($(1-\alpha_1) \cdot YD$) into their **money tank** $H_h$ - which in turn finances further consumption out of wealth ($\alpha_2 \cdot H_h$). The government's tank is the exact mirror image: it fills with the accumulated deficit $G - T$ but in the *opposite* direction, because the money households hold is nothing other than the government's debt. At every instant $H_h = H_s$, so the household asset (blue, rising) and the government liability (red, falling) are equal and opposite, summing to zero. As income grows, taxes catch up to spending, the deficit closes, and both tanks stop moving: the economy has reached its steady state $Y^{\*} = G/\theta$.
+Before turning to the experiments, it helps to *see* the model move. The animation below renders Model SIM as a **system-dynamics diagram**: the three sectors are boxes, every flow is a pipe along which tokens travel (its thickness scaling with the flow), and the two financial stocks are tanks. Government spending $G$ reaches firms, who pay wages $Y$ to households. Households return part of their income as consumption ($\alpha_1 \cdot YD$) and taxes ($T$), and save the rest ($(1-\alpha_1) \cdot YD$) into their **money tank** $H_h$ - which in turn finances further consumption out of wealth ($\alpha_2 \cdot H_h$). The government's tank is the exact mirror image: it fills with the accumulated deficit $G - T$ but in the *opposite* direction, because the money households hold is nothing other than the government's debt. At every instant $H_h = H_s$, so the household asset (blue, rising) and the government liability (red, falling) are equal and opposite, summing to zero. As income grows, taxes catch up to spending, the deficit closes, and both tanks stop moving: the economy has reached its steady state $Y^{\*} = G/\theta$.
 
 <figure>
 <img
