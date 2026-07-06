@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it as below."
+title: "Leeds Lectures 2026: SIM, PC and BMW Stock-Flow Consistent Models in R (Aggregate, Input-Output and Agent-Based Versions)"
+authors:
+  - family-names: "Veronese Passarella"
+    given-names: "Marco"
+    affiliation: "University of L'Aquila; University of Leeds"
+    orcid: "https://orcid.org/0000-0001-7652-5952"
+date-released: 2026-07-06
+url: "https://github.com/marcoverpas/Leeds_lectures_2026"
+repository-code: "https://github.com/marcoverpas/Leeds_lectures_2026"
+license: "CC-BY-NC-4.0"
+keywords:
+  - stock-flow consistent models
+  - macroeconomics
+  - input-output
+  - agent-based modelling
+  - R
