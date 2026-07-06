@@ -305,15 +305,17 @@ par(op)
 > ### 📦 Box B - Playing with Model SIM
 >
 > One of the advantages of creating formal models using `R` is that they can be conveniently converted into online interactive models using the `Shiny` package. 
->  
+>
+> <div align="center">
 > [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/int_sim/)
 > <figure>
 > <a href="https://x52gnt-marco-passarella.shinyapps.io/int_sim/" target="_blank">
-> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="1000">
+> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="500">
 > </a>
 > </figure>
 > <br><br>
->
+> </div>
+> 
 > Click the link above to open the simulation laboratory for *Model SIM*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
 
 The complete `R` code for this model is [`BASIC_SIM.R`](https://github.com/marcoverpas/Leeds_lectures_2026/blob/main/BASIC_SIM.R).
