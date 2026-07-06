@@ -25,9 +25,10 @@ This repository presents **nine small macroeconomic models**, organised as a 3 Ã
 Reading across a row shows how the *same* economy can be represented at three levels of resolution: as economy-wide aggregates, as a set of interconnected **industries** (IO), and as a population of heterogeneous interacting **households** (ABM). Reading down a column shows how the financial structure is progressively enriched: from a single state money (SIM), to money plus government bonds (PC), to bank loans and deposits financing fixed capital (BMW).
 
 - [1 - Aggregate models](#1---aggregate-models)
-  - [1.1 - Model SIM](#11---model-sim)
-  - [1.2 - Model PC](#12---model-pc)
-  - [1.3 - Model BMW](#13---model-bmw)
+  - [1.1 - Introduction to SFC models]](#11---introduction-to-SFC-models)
+  - [1.2 - Model SIM](#12---model-sim)
+  - [1.3 - Model PC](#13---model-pc)
+  - [1.4 - Model BMW](#14---model-bmw)
 - [2 - Input-Output models](#2---input-output-models)
   - [2.1 - The logic of IO and IO-SFC models](#21---the-logic-of-io-and-io-sfc-models)
   - [2.2 - Model IO-SIM](#22---model-io-sim)
@@ -74,32 +75,30 @@ Tested on R 4.6.1 (2026-06-24). Any recent R version should work.
 
 ---
 
-> ### ðŸ“¦ Box A - What is a stock-flow consistent (SFC) model?
->
-> Stock-flow consistent (SFC) models describe the economy as a set of **sectors** (households, firms, banks, government, and so on) whose balance sheets and mutual transactions are recorded, without gaps, in a system of accounting matrices. Rooted in the national accounts and the flow of funds ([Godley and Lavoie, 2007](#references)), they integrate the *real* and the *financial* sides of the economy in one consistent whole: every expenditure is someone's income, and every financial asset is someone else's liability.
->
-> The framework rests on four accounting principles - **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping** - which together guarantee that nothing appears from, or vanishes into, nowhere. In practice each model is built around two tables: a **balance-sheet matrix** (the stocks each sector owns and owes) and a **transactions-flow matrix** (the payments between sectors and the changes in stocks they imply). Both are *watertight*: every column sums to zero, and every financial-asset row sums to zero; a real-asset row (e.g. fixed capital) instead sums to the economy's net worth. The transactions-flow matrix has the schematic form below, where a minus sign is a use of funds (an outflow) and a plus sign a source (an inflow):
->
-> |                    | Households | Firms  | Government | Row sum |
-> |:-------------------|:----------:|:------:|:----------:|:-------:|
-> | Consumption        | $-C$       | $+C$   |            | 0       |
-> | Income (wages)     | $+Y$       | $-Y$   |            | 0       |
-> | Government spending |           | $+G$   | $-G$       | 0       |
-> | Taxes              | $-T$       |        | $+T$       | 0       |
-> | Change in money    | $-\Delta H$|        | $+\Delta H$| 0       |
-> | **Column sum**     | 0          | 0      | 0          | 0       |
->
-> Because the tables are watertight, every model contains one **redundant** (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight. The accounting skeleton is then closed with **behavioural equations** - usually simple rules of thumb and stock-flow norms - that describe how each sector spends, saves and allocates its wealth. The result is a dynamic system, normally written in discrete time as difference equations: the simplest models (such as those below) can be solved analytically for their steady state, while richer ones are simulated on a computer.
->
-> The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references).
->
-> Note: models SIM, PC and BMW are reproduced and extended from Godley and Lavoie (2007), while the input-output and agent-based versions are our own.
-
----
-
 ## 1 - Aggregate models
 
-### 1.1 - Model SIM
+### 1.1 - Introduction to SFC models
+
+Stock-flow consistent (SFC) models describe the economy as a set of **sectors** (households, firms, banks, government, and so on) whose balance sheets and mutual transactions are recorded, without gaps, in a system of accounting matrices. Rooted in the national accounts and the flow of funds ([Godley and Lavoie, 2007](#references)), they integrate the *real* and the *financial* sides of the economy in one consistent whole: every expenditure is someone's income, and every financial asset is someone else's liability.
+
+ The framework rests on four accounting principles - **flow consistency**, **stock consistency**, **stock-flow consistency**, and **quadruple book-keeping** - which together guarantee that nothing appears from, or vanishes into, nowhere. In practice each model is built around two tables: a **balance-sheet matrix** (the stocks each sector owns and owes) and a **transactions-flow matrix** (the payments between sectors and the changes in stocks they imply). Both are *watertight*: every column sums to zero, and every financial-asset row sums to zero; a real-asset row (e.g. fixed capital) instead sums to the economy's net worth. The transactions-flow matrix has the schematic form below, where a minus sign is a use of funds (an outflow) and a plus sign a source (an inflow):
+
+ |                    | Households | Firms  | Government | Row sum |
+ |:-------------------|:----------:|:------:|:----------:|:-------:|
+ | Consumption        | $-C$       | $+C$   |            | 0       |
+ | Income (wages)     | $+Y$       | $-Y$   |            | 0       |
+ | Government spending |           | $+G$   | $-G$       | 0       |
+ | Taxes              | $-T$       |        | $+T$       | 0       |
+ | Change in money    | $-\Delta H$|        | $+\Delta H$| 0       |
+ | **Column sum**     | 0          | 0      | 0          | 0       |
+
+Because the tables are watertight, every model contains one **redundant** (or *hidden*) equation, logically implied by all the others (*Walras' Law*). We omit it from the code and use it instead to double-check that the model is watertight. The accounting skeleton is then closed with **behavioural equations** - usually simple rules of thumb and stock-flow norms - that describe how each sector spends, saves and allocates its wealth. The result is a dynamic system, normally written in discrete time as difference equations: the simplest models (such as those below) can be solved analytically for their steady state, while richer ones are simulated on a computer.
+
+The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references).
+
+Note: models SIM, PC and BMW are reproduced and extended from Godley and Lavoie (2007), while the input-output and agent-based versions are our own.
+
+### 1.2 - Model SIM
 
 Model **SIM** ("**SIM**plest") is the most basic SFC model ([Godley and Lavoie, 2007, ch. 3](#references)). It has a single financial asset - **state money (cash)** - created when the government spends and destroyed when it taxes.
 
@@ -345,7 +344,7 @@ The essential but complete `R` code for this model is [`BASIC_SIM.R`](https://gi
 
 ---
 
-### 1.2 - Model PC
+### 1.3 - Model PC
 
 Model **PC** ("**p**ortfolio **c**hoice") adds a second financial asset ([Godley and Lavoie, 2007, ch. 4](#references)): households can now hold their wealth as **cash and/or government bonds**, and the central bank appears explicitly.
 
@@ -467,7 +466,7 @@ The `R` essential but complete code for this model is [`BASIC_PC.R`](https://git
 
 ---
 
-### 1.3 - Model BMW
+### 1.4 - Model BMW
 
 Model **BMW** ("**b**ank-**m**oney **w**orld") is the simplest model with private **banks**, **investment** and **fixed capital** ([Godley and Lavoie, 2007, ch. 7](#references)). The only financial asset is **bank deposits**; firms borrow from banks to finance net investment, and banks turn loans into deposits. It is the dynamic counterpart of the monetary circuit.
 
