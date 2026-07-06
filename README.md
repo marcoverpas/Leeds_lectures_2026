@@ -251,7 +251,7 @@ G[, 2:nPeriods] <- Gexog                          # Spending switched on in peri
 G[2, shockStart:nPeriods] <- Gshock               # Higher spending in scenario 2
 ```
 
-The core is a triple loop: over scenarios, over time (from period 2), and an inner loop that solves the seven equations. Being simultaneous, they are iterated 100 times per period until they converge (a Gauss–Seidel scheme). The lines are equations (1)–(6) plus the money-demand identity.
+The core is a triple loop: over scenarios, over time (from period 2), and an inner loop that solves the seven equations. Being simultaneous, they are iterated 100 times per period until they converge (a Gauss-Seidel scheme). The lines are equations (1)-(6) plus the money-demand identity.
 
 ```r
 # Loop over scenarios ####
@@ -523,39 +523,39 @@ Since banks and firms make no net profit, household net wealth equals the stock 
 |                      |                           |                          |                 |                           |         |
 | Column tot.          |   0                       |   0                      |   0             |   0                       |   0     |
 
-The model is a system of 21 equations. Collapsing the trivial supply = demand identities ($C_s = C_d$, $I_s = I_d$, $N_s = N_d$, $L_s = L_d$, $AF = DA$), the core is:
+The model is a system of 21 equations. Collapsing the trivial supply = demand identities (that is, equations (1) to (4), and (7): $C_s = C_d$, $I_s = I_d$, $N_s = N_d$, $L_s = L_d$, $AF = DA$), the core is:
 
-$$Y = C + I \quad \text{(B.5)}$$
+$$Y = C + I \quad \text{(5)}$$
 
-$$WB = Y - r_{l,-1} \cdot L_{-1} - DA \quad \text{(B.6)}$$
+$$WB = Y - r_{l,-1} \cdot L_{-1} - DA \quad \text{(6)}$$
 
-$$L = L_{-1} + I - DA \quad \text{(B.8)}$$
+$$L = L_{-1} + I - DA \quad \text{(8)}$$
 
-$$YD = WB + r_{m,-1} \cdot M_{h,-1} \quad \text{(B.9)}$$
+$$YD = WB + r_{m,-1} \cdot M_{h,-1} \quad \text{(9)}$$
 
-$$M_h = M_{h,-1} + YD - C \quad \text{(B.10)}$$
+$$M_h = M_{h,-1} + YD - C \quad \text{(10)}$$
 
-$$M_s = M_{s,-1} + \Delta L \quad \text{(B.11)}$$
+$$M_s = M_{s,-1} + \Delta L \quad \text{(11)}$$
 
-$$r_m = r_l \quad \text{(B.12)}$$
+$$r_m = r_l \quad \text{(12)}$$
 
-$$N = \frac{Y}{pr} \quad \text{(B.14)}$$
+$$N = \frac{Y}{pr} \quad \text{(14)}$$
 
-$$w = \frac{WB}{N} \quad \text{(B.15)}$$
+$$w = \frac{WB}{N} \quad \text{(15)}$$
 
-$$C = \alpha_0 + \alpha_1 \cdot YD + \alpha_2 \cdot M_{h,-1} \quad \text{(B.16)}$$
+$$C = \alpha_0 + \alpha_1 \cdot YD + \alpha_2 \cdot M_{h,-1} \quad \text{(16)}$$
 
-$$K = K_{-1} + I - DA \quad \text{(B.17)}$$
+$$K = K_{-1} + I - DA \quad \text{(17)}$$
 
-$$DA = \delta \cdot K_{-1} \quad \text{(B.18)}$$
+$$DA = \delta \cdot K_{-1} \quad \text{(18)}$$
 
-$$K^t = \kappa \cdot Y_{-1} \quad \text{(B.19)}$$
+$$K^t = \kappa \cdot Y_{-1} \quad \text{(19)}$$
 
-$$I = \gamma \cdot (K^t - K_{-1}) + DA \quad \text{(B.20)}$$
+$$I = \gamma \cdot (K^t - K_{-1}) + DA \quad \text{(20)}$$
 
-$$r_l = \bar{r}_l \quad \text{(B.21)}$$
+$$r_l = \bar{r}_l \quad \text{(21)}$$
 
-The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). Note the accelerator (B.19)-(B.20): firms target a capital stock proportional to lagged output and close a fraction $\gamma$ of the gap each period, on top of replacing depreciation.
+The redundant equation is $\Delta M_h = \Delta M_s$ (equivalently $M_h = M_s$). Note the accelerator (19)-(20): firms target a capital stock proportional to lagged output and close a fraction $\gamma$ of the gap each period, on top of replacing depreciation.
 
 As usual, the animation below runs Model BMW as a stock-flow "hydraulics" diagram. The three sectors - banks, firms and households - are joined by pipes whose thickness and travelling tokens scale with each flow: banks grant new loans to firms (dL), firms pay wages (WB) and buy fixed capital from other firms (I), households consume (C) and place what they save in deposits (dM), and the two interest legs - r_l·L from firms to banks and r_m·M from banks to households - circulate on top. Two tanks sit under the firms: their
 liability, loans −L (filling downward), and the real asset it finances, capital K (filling upward); a third tank under the households holds deposits M_h. Because every loan creates a deposit, the loans tank and the deposits tank rise in lockstep and the whole balance sheet closes as M_h = M_s = L = K.
@@ -613,17 +613,17 @@ The essential but complete `R` code for this model is [`BASIC_BMW.R`](https://gi
 
 ### 2.1 - The logic of IO and IO-SFC models
 
-The benchmark models above are **fully aggregated**: production is a single homogeneous good. **Input-Output (IO) analysis** ([Miller and Blair, 2009](#references)) instead splits production into several **industries** that buy and sell intermediate goods from one another. Each industry needs the products of the others as inputs, so total ("gross") output must cover both **final demand** (consumption, government, investment) and **intermediate demand**.
+The benchmark models above are **fully aggregated**: production is a single homogeneous good. **Input-Output (IO) analysis** ([Miller and Blair, 2009](#references)) instead splits production into several **industries** that buy and sell intermediate goods from one another. Each industry needs the products of the others as inputs, so total ("gross") output must cover both **final demand** (consumption, investment and government spending) and **intermediate demand**.
 
 With $n$ industries, let $\mathbf{x}$ be the vector of real gross outputs, $\mathbf{d}$ the vector of real final demands, and $\mathbf{A}$ the matrix of **technical coefficients**, where $a_{ij}$ is the amount of good $i$ needed to produce one unit of good $j$. Each industry's output must cover both intermediate and final demand, giving the accounting identity $\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d}$, whose solution is $\mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$, where $(\mathbf{I} - \mathbf{A})^{-1}$ is the **Leontief inverse** that translates any final demand into the gross output every industry must produce to satisfy it (directly and indirectly).
 
-Standard IO analysis is powerful but **static**: it compares two snapshots without describing the path between them, and it says little about money and finance. **SFC modelling** is the mirror image: dynamically and financially coherent, but usually blind to inter-industry detail. **IO-SFC models** combine the two - industrial granularity from IO, dynamic and financial coherence from SFC - so that a demand-driven, monetary economy is resolved industry by industry while every stock and flow still adds up ([Berg et al. 2015](#references); [Veronese Passarella, 2025](#references); [Fevereiro et al. 2025](#references); see also [my presentation at the 2nd UK-China Conference on Pluralist Economics](https://www.marcopassarella.it/wp-content/uploads/Leeds_2026_presentation_rev1.pdf)).
+Standard IO analysis is powerful but **static**: it compares two snapshots without describing the path between them, and it says little about money and finance. **SFC modelling** is the mirror image: dynamically and financially coherent, but usually blind to inter-industry detail. **IO-SFC models** aim to combine the two - industrial granularity from IO, dynamic and financial coherence from SFC - so that a demand-driven, monetary economy is resolved industry by industry while every stock and flow still adds up ([Berg et al. 2015](#references); [Veronese Passarella, 2025](#references); [Fevereiro et al. 2025](#references); see also [my presentation at the 2nd UK-China Conference on Pluralist Economics](https://www.marcopassarella.it/wp-content/uploads/Leeds_2026_presentation_rev1.pdf)).
 
-Adding an IO layer to an SFC model requires only a handful of extra equations. Prices are no longer fixed but set by **cost-plus (reproduction) conditions**, and final demand is split across industries by fixed **composition shares**. Because prices now exist, real and nominal magnitudes diverge: consumption is decided in real terms while GDP is measured in value.
+In algebraic terms, adding an IO layer to an SFC model requires only a handful of extra equations. Prices are no longer fixed but set by **cost-plus (reproduction) conditions**, and final demand is split across industries by fixed **composition shares**. Because prices now exist, real and nominal magnitudes diverge: consumption is decided in real terms while GDP is measured in value.
 
 > ### 📦 Box D - What is an input-output model?
 >
-> An input-output (IO) model pictures the economy as a set of **industries** that trade with one another. Each industry produces a single good, and to do so it must buy the goods of the other industries as **intermediate inputs**. Part of every industry's output is therefore absorbed inside the productive system (as inputs to others), and only what is left over is delivered to **final demand** - consumption, government, investment. The whole picture is summarised in a single accounting table ([Miller and Blair, 2009, chapters 1-2](#references)):
+> An input-output (IO) model pictures the economy as a set of **industries** that trade with one another. Each industry produces a single good, and to do so it must buy the goods of the other industries as **intermediate inputs**. Part of every industry's output is therefore absorbed inside the productive system (as inputs to others), and only what is left over is delivered to **final demand** - consumption, investment and government spending). The whole picture is summarised in a single accounting table ([Miller and Blair, 2009, chapters 1-2](#references)):
 >
 > |                     | Industry 1 | Industry 2 | $\cdots$ | Industry $n$ | Final demand | Total output |
 > |:--------------------|:----------:|:----------:|:--------:|:------------:|:------------:|:------------:|
@@ -642,17 +642,17 @@ Adding an IO layer to an SFC model requires only a handful of extra equations. P
 >
 > $$\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d} \quad \Longrightarrow \quad \mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$$
 >
-> This is a **demand-driven** picture: given any final demand $\mathbf{d}$, the Leontief inverse $(\mathbf{I} - \mathbf{A})^{-1}$ returns the gross output every industry must produce to satisfy it, directly and indirectly. What it does *not* contain is money, finance, or time - it is a static snapshot. The IO-SFC models that follow keep this inter-industry core exactly as it stands and embed it inside a dynamic, stock-flow consistent structure, so that the same demand-led economy is resolved industry by industry while every monetary stock and flow still adds up.
+> This is a **demand-driven** picture: given any final demand $\mathbf{d}$, the Leontief inverse $(\mathbf{I} - \mathbf{A})^{-1}$ returns the gross output every industry must produce to satisfy it, directly and indirectly. What it does *not* contain is money, finance, or time. It is a static snapshot. The IO-SFC models that follow keep this inter-industry core exactly as it stands and embed it inside a dynamic, stock-flow consistent structure, so that the same demand-led economy is resolved industry by industry while every monetary stock and flow still adds up.
 
 ---
 
 ### 2.2 - Model IO-SIM
 
-Model **IO-SIM** is Model SIM with a three-industry input-output core (agriculture, manufacturing, services). The macro-accounting (Tables 1–2 of SIM) is unchanged; the following equations are added or modified.
+Model **IO-SIM** is Model SIM with a three-industry input-output core (agriculture, manufacturing, services). The macro-accounting (Tables 1-2 of SIM) is unchanged.
 
-Additional assumptions relative to SIM:
+Additional assumptions relative to Model SIM are:
 
-1. Three industries; each produces one good with one technique
+1. Three industries  (each produces one good with one technique)
 1. Fixed technical coefficients (circulating capital)
 1. Prices set by reproduction conditions (cost-plus mark-up)
 1. The composition of consumption and government spending is exogenous
@@ -672,7 +672,7 @@ The input-output matrix of Model IO-SIM is shown in **Table 3** below.
 
 **Table 3** illustrates the cross-industry interdependencies in a simplified economy where three products - agricultural goods, manufactures and services - are produced using the same three products together with labour. Each entry $p_i \cdot a_{ij} \cdot x_j$ is the value of product $i$ absorbed as an intermediate input by industry $j$. Reading along a row gives how each industry's output is used (as inputs elsewhere plus final demand), while reading down a column gives what each industry buys to produce, plus its value added.
 
-We can now turn to the additional equations necessary to complete Model IO-SIM.
+We can now turn to the additional equations necessary to complete Model IO-SIM. 
 
 Composition of real consumption and government spending (behavioural):
 
@@ -692,7 +692,7 @@ $$\mathbf{x} = (\mathbf{I}-\mathbf{A})^{-1} \cdot \mathbf{d} \quad \text{(10)}$$
 
 Unit prices of reproduction (behavioural):
 
-$$\mathbf{p}^T = \left( w \oslash \mathbf{pr}^T \right) + \left( \mathbf{p}^T \cdot \mathbf{A} \right) \cdot (1 + \mu) \quad \text{(11)}$$
+$$\mathbf{p}^T = \left( w \mathbf{1}^T \oslash \mathbf{pr}^T \right) + \left( \mathbf{p}^T \cdot \mathbf{A} \right) \cdot (1 + \mu) \quad \text{(11)}$$
 
 where $w$ is the (uniform) wage rate, $\mathbf{pr}$ the vector of labour productivities, and $\mu$ the (uniform) mark-up.
 
@@ -710,7 +710,9 @@ Real consumption (behavioural), where consumers do not suffer from money illusio
 
 $$c = \alpha_1 \cdot \left( \frac{YD}{p_c} - \pi \cdot \frac{H_{h,-1}}{p_c} \right) + \alpha_2 \cdot \frac{H_{h,-1}}{p_c} \quad \text{(5.A)}$$
 
-where $\pi$ is the rate of growth of the consumer price index (the inflation rate). Nominal consumption and government spending become $p_c \cdot c$ and $p_g \cdot g$. The redundant equation $H_h = H_s$ still holds.
+where $\pi$ is the rate of growth of the consumer price index (the inflation rate).
+
+Nominal consumption and government spending become $p_c \cdot c$ and $p_g \cdot g$. The redundant equation $H_h = H_s$ still holds.
 
 For the input-output core the flows are best read product by product. This Sankey diagram unpacks the (nominal) use table: each product on the left fans out to the three industries that consume it as an intermediate input, plus final demand on the right - a direct picture of how much of each sector's output is absorbed in production elsewhere versus delivered to final buyers.
 
@@ -735,7 +737,7 @@ With the industrial structure in place, the model can be run forward. The figure
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_SIM.png" width="900">
 </figure>
 
-We can now use the model to perform experiments. For instance, one might ask what happens when government spending is increased (from $20 to $30). The figures below show the responses of selected variables.
+We can now use the model to perform experiments. For instance, one might ask what happens when government spending is increased. The figures below show the responses of selected variables.
 
 <figure>
 <img
@@ -748,7 +750,7 @@ The essential `R` code for this model is [`IO_SIM.R`](https://github.com/marcove
 
 ### 2.3 - Model IO-PC
 
-Model **IO-PC** is the same IO layer bolted onto Model PC. The only difference from IO-SIM is the financial side inherited from PC: households now allocate wealth between cash and bonds (equations 6–11 above), income includes interest, and taxes fall on total income. The IO block (equations 13–19) is identical, and government spending is valued at $p_g \cdot g$. The redundant equation remains $H_h = H_s$, and the aggregate behaviour reproduces Model PC while adding the industrial and price detail.
+Model **IO-PC** is the same IO layer bolted onto Model PC. The only difference from IO-SIM is the financial side inherited from PC: households now allocate wealth between cash and bonds (equations 6-11 above), income includes interest, and taxes fall on total income. The IO block (equations 13-19) is identical, and government spending is valued at $p_g \cdot g$. The redundant equation remains $H_h = H_s$, and the aggregate behaviour reproduces Model PC while adding the industrial and price detail.
 
 Now the model can be run forward. The figures below report the aggregate dynamics and the resulting industry-level detail.
 
@@ -757,7 +759,7 @@ Now the model can be run forward. The figures below report the aggregate dynamic
 src="https://github.com/marcoverpas/figures/blob/main/Fig1_IO_PC.png" width="900">
 </figure>
 
-The figures below show the responses of selected variables to an increase in government spending (from 20$ to 30$).
+The figures below show the responses of selected variables to an increase in government spending.
 
 <figure>
 <img
@@ -785,15 +787,19 @@ The essential `R` code for this model is [`IO_PC.R`](https://github.com/marcover
 
 ### 2.4 - Model IO-BMW
 
-Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is **investment**: final demand now has two components - consumption and investment (BMW has no government) - so
+Model **IO-BMW** adds the same IO/price layer to Model BMW. The novelty is the absence of the **government sector** and the presence of **investment** in fixed capital. Final demand now has two components (consumption and investment) so that:
 
 $$\mathbf{d} = \mathbf{B}_c \cdot c + \mathbf{B}_i \cdot i$$
 
 where $\mathbf{B}_i$ is the vector of investment composition shares. Capital is now determined **industry by industry**, following the solution used in larger empirical IO-SFC models: each industry targets a capital stock proportional to its own lagged **gross** output, and invests to close part of the gap plus replace depreciation:
 
-$$k^t_z = \kappa_z \cdot x_{z,-1}, \qquad i_z = \gamma \cdot (k^t_z - k_{z,-1}) + da_z, \qquad da_z = \delta_z \cdot k_{z,-1}$$
+$$k^t_z = \kappa_z \cdot x_{z,-1}$$ 
 
-Aggregate investment is then $\sum_z i_z$, and the BMW loan/deposit block (B.6–B.21) operates on the resulting nominal magnitudes. Because the target is defined on gross output (which exceeds value added), the capital-to-output ratio $\kappa_z$ is smaller than the value used against income in the aggregate BMW. The redundant equation is again $M_h = M_s$.
+$$i_z = \gamma \cdot (k^t_z - k_{z,-1}) + da_z$$ 
+
+$$da_z = \delta_z \cdot k_{z,-1}$$
+
+Aggregate investment is then $\sum_z i_z$, and the BMW loan/deposit block (6-21) operates on the resulting nominal magnitudes. Because the target is defined on gross output (which exceeds value added), the capital-to-output ratio $\kappa_z$ is smaller than the value used against income in the aggregate BMW. The redundant equation is again $M_h = M_s$.
 
 Now the model can be run forward. The figures below report the aggregate dynamics and the resulting industry-level detail.
 
@@ -953,7 +959,7 @@ This is the challenge of the coming years. If SFC, IO, ABM and other monetary-pr
 - Fevereiro, J. B. R. T., Genovese, A., Purvis, B., Valles Codina, O., and Veronese Passarella, M. (2025). **Macroeconomic Models for Assessing the Transition towards a Circular Economy: A Systematic Review**. *Ecological Economics*, 236, 108669.
 - Godley, W., and Lavoie, M. (2007). **Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth**. Palgrave Macmillan (chapters 3, 4 and 7).
 - Lorenz, E. N. (1963). **Deterministic Nonperiodic Flow**. *Journal of the Atmospheric Sciences*, 20 (2): 130-141.
-- Miller, R. E., and Blair, P. D. (2009). **Input-Output Analysis: Foundations and Extensions**. Cambridge University Press, 2nd edition (chapters 1–2).
+- Miller, R. E., and Blair, P. D. (2009). **Input-Output Analysis: Foundations and Extensions**. Cambridge University Press, 2nd edition (chapters 1-2).
 - Nikiforos, M., and Zezza, G. (2017). **Stock-flow Consistent Macroeconomic Models: A Survey**. *Journal of Economic Surveys*, 31 (5): 1204-1239.
 - Reynolds, C. W. (1987). **Flocks, Herds and Schools: A Distributed Behavioral Model**. *Computer Graphics*, 21 (4): 25-34.
 - Veronese Passarella, M. (2025). **Destabilizing a Stable Economy: Minsky Meets Graziani's Monetary Circuit**. *International Journal of Political Economy*, 54 (3): 338-355.
