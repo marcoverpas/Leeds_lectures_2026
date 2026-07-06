@@ -302,7 +302,7 @@ legend("right", c("Higher spending", "Baseline"), col = c("firebrick", "black"),
 par(op)
 ```
 
-> ### 📦 Box B - Playing with the Model SIM
+> ### 📦 Box B - Playing with Model SIM
 >
 > One of the advantages of creating formal models using `R` is that they can be conveniently converted into online interactive models using the `Shiny` package. Click the link below to open the simulation laboratory for *Model SIM*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
 >  
@@ -415,7 +415,7 @@ As an experiment, we now raise the interest rate $r$ permanently. In the animati
 src="https://github.com/marcoverpas/figures/blob/main/PC_experiment.gif" width="900">
 </figure>
 
-> ### 📦 Box C - Playing with the Model PC
+> ### 📦 Box C - Playing with Model PC
 >
 > Click the link below to open the simulation laboratory for *Model PC*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
 >  
@@ -537,7 +537,7 @@ As an experiment, we raise the target capital-output ratio $\kappa$ permanently.
 src="https://github.com/marcoverpas/figures/blob/main/BMW_experiment.gif" width="900">
 </figure>
 
-> ### 📦 Box D - Playing with the Model BMW
+> ### 📦 Box D - Playing with Model BMW
 >
 > Click the link below to open the simulation laboratory for *Model BMW*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
 >  
