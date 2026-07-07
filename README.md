@@ -60,6 +60,8 @@ All code has been developed for an `R` environment and is available in [this rep
 
 The nine core models (SIM, PC, BMW × aggregate/IO/ABM) run in plain base `R` - no packages required.
 
+Download R from the [official CRAN website](https://cran.r-project.org). I also recommend [RStudio](https://posit.co/download/rstudio-desktop/), a free, powerful, and user-friendly IDE for R.
+
 The auxiliary scripts that generate the animations, system-dynamics diagrams, and Sankey charts shown in this README file need a few additional packages:
 
 | Script | Packages needed |
