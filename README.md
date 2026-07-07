@@ -623,11 +623,12 @@ The benchmark models above are **fully aggregated**: production is a single homo
 
 With $n$ industries, let $\mathbf{x}$ be the vector of real gross outputs, $\mathbf{d}$ the vector of real final demands, and $\mathbf{A}$ the matrix of **technical coefficients**, where $a_{ij}$ is the amount of good $i$ needed to produce one unit of good $j$. Each industry's output must cover both intermediate and final demand, giving the accounting identity $\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d}$, whose solution is $\mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$, where $(\mathbf{I} - \mathbf{A})^{-1}$ is the **Leontief inverse** that translates any final demand into the gross output every industry must produce to satisfy it (directly and indirectly).
 
-> *Note on "real" vs. "physical" variables*. In this repository, variables described as "real" (real output, real final demand, real technical coefficients, and so on) should not be read as physical quantities — tons, units, hours. Actual datasets,
-> whether national accounts or input-output tables, record economic transactions in nominal (current-price) monetary terms. What we call "real" variables are these nominal values divided by an appropriate price index (or deflator), so as to express
-> them in the prices of a chosen reference year. This distinction is not just semantic. Deflated series depend on the price index usedand inherit the well-known index-number problems that arise when aggregating heterogeneous goods and services.
-> In particular, "real" technical coefficients computed from deflated data can change over time purely because relative prices shift, even when the underlying physical/technical relationship between inputs and output is unchanged. We use "real"
-> in the standard national-accounting sense throughout, but flag the distinction here to avoid the common conflation with "physical."
+> *Note on "real" vs. "physical" variables*. In this repository, variables described as "real" (real output, real final demand, real technical coefficients, and so on) should not be read as physical quantities (tons, units, hours). Actual datasets,
+> whether national accounts or input-output tables, record economic transactions in nominal (current-price) monetary terms. What we call "real" variables are these nominal values divided by a price index constructed for this purpose - an implicit,
+> model-specific deflator built for each macro variable. This index is not meant to represent the actual price level of that period. It is a constructed measure of relative
+> price change over time, used to strip nominal values of price effects. This distinction is not just semantic. Deflated series depend on the price index used and inherit the well-known index-number problems that arise when aggregating heterogeneous
+> goods and services. In particular, "real" technical coefficients computed from deflated data can change over time purely because relative prices shift, even when the underlying physical/technical relationship between inputs and output is unchanged.
+> We use "real" in the standard national-accounting sense throughout, but flag the distinction here to avoid the common conflation with "physical".
 
 Standard IO analysis is powerful but **static**: it compares two snapshots without describing the path between them, and it says little about money and finance. **SFC modelling** is the mirror image: dynamically and financially coherent, but usually blind to inter-industry detail. **IO-SFC models** aim to combine the two - industrial granularity from IO, dynamic and financial coherence from SFC - so that a demand-driven, monetary economy is resolved industry by industry while every stock and flow still adds up ([Berg et al. 2015](#references); [Veronese Passarella, 2025](#references); [Fevereiro et al. 2025](#references); see also [my presentation at the 2nd UK-China Conference on Pluralist Economics](https://www.marcopassarella.it/wp-content/uploads/Leeds_2026_presentation_rev1.pdf)).
 
@@ -650,7 +651,7 @@ In algebraic terms, adding an IO layer to an SFC model requires only a handful o
 >
 > $$x_i = \sum_{j} z_{ij} + d_i$$
 >
-> The key behavioural assumption is that production uses inputs in **fixed proportions**. The amount of good $i$ needed to make one unit of good $j$ is the *technical coefficient* $a_{ij} = z_{ij} / x_j$, so that intermediate flows can be written $z_{ij} = a_{ij} \cdot x_j$. Collecting the coefficients in the matrix $\mathbf{A}$, gross outputs in $\mathbf{x}$ and final demands in $\mathbf{d}$, the identity above becomes the compact **Leontief system**:
+> The key assumption is that production uses inputs in **fixed proportions**. The amount of good $i$ needed to make one unit of good $j$ is the *technical coefficient* $a_{ij} = z_{ij} / x_j$, so that intermediate flows can be written $z_{ij} = a_{ij} \cdot x_j$. Collecting the coefficients in the matrix $\mathbf{A}$, gross outputs in $\mathbf{x}$ and final demands in $\mathbf{d}$, the identity above becomes the compact **Leontief system**:
 >
 > $$\mathbf{x} = \mathbf{A} \cdot \mathbf{x} + \mathbf{d} \quad \Longrightarrow \quad \mathbf{x} = (\mathbf{I} - \mathbf{A})^{-1} \cdot \mathbf{d}$$
 >
