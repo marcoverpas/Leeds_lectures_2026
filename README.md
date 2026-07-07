@@ -2,8 +2,6 @@
 
 These lectures are organised by [NARTI](https://narti.org.uk/event/modelling-monetary-economies-of-production-with-prof-marco-passarella-registration-open/) (Northern Advanced Research Training Initiative), as part of the training seminar *"Modelling Monetary Economies of Production: Integrating SFC, IO and AB Approaches,"* held on 9-10 July 2026 at the University of Leeds. 
 
-📖 This material is also available in an easy-to-read book format (HTML): [Open the book version](https://marcoverpas.github.io/Leeds_lectures_2026/README_book.html)
-
 <div align="center">
 <figure>
 <img src="https://github.com/marcoverpas/figures/blob/main/cover_leeds_2026.png" width="1000">
@@ -174,7 +172,7 @@ $$H_h = H_s$$
 
 In the steady state there is no saving ($C = YD$) and money holdings are stable, so national income converges to:
 
-$$Y^{\*} = \frac{G}{\theta}$$
+$$Y^{*} = \frac{G}{\theta}$$
 
 Before turning to the experiments, it helps to *see* the model move. The animation below renders Model SIM as a **system-dynamics diagram**: the three sectors are boxes, every flow is a pipe along which tokens travel (its thickness scaling with the flow), and the two financial stocks are tanks. Government spending $G$ reaches firms, who pay wages $Y$ to households. Households return part of their income as consumption ($\alpha_1 \cdot YD$) and taxes ($T$), and save the rest ($(1-\alpha_1) \cdot YD$) into their **money tank** $H_h$ - which in turn finances further consumption out of wealth ($\alpha_2 \cdot H_h$). The government's tank is the exact mirror image: it fills with the accumulated deficit $G - T$ but in the *opposite* direction, because the money households hold is nothing other than the government's debt. At every instant $H_h = H_s$, so the household asset (blue, rising) and the government liability (red, falling) are equal and opposite, summing to zero. As income grows, taxes catch up to spending, the deficit closes, and both tanks stop moving: the economy has reached its steady state.
 
@@ -206,7 +204,7 @@ As a first experiment, we let government spending $G$ rise permanently.
 src="https://github.com/marcoverpas/figures/blob/main/SIM_experiment.gif" width="900">
 </figure>
 
-In the animation above the grey line is the baseline, and the red one - branching off at the dashed marker - is the shock scenario. National income converges to its new, higher steady state $Y^{\**}$, pulling disposable income and consumption up with it, while households end up holding a permanently larger stock of money. Panels a)-d) reveal these adjustments period by period.
+In the animation above the grey line is the baseline, and the red one - branching off at the dashed marker - is the shock scenario. National income converges to its new, higher steady state $Y^{*}$, pulling disposable income and consumption up with it, while households end up holding a permanently larger stock of money. Panels a)-d) reveal these adjustments period by period.
 
 #### 🛠️ Hands-on: building Model SIM in `R`
 
@@ -279,7 +277,7 @@ for (j in 1:nScenarios) {
 }
 ```
 
-We now report the analytic steady state $Y^{\*}=G/\theta$ and the consistency gap $|H_h - H_s|$ (which must be zero to machine precision).
+We now report the analytic steady state $Y^{*}=G/\theta$ and the consistency gap $|H_h - H_s|$ (which must be zero to machine precision).
 
 ```r
 # Display the results ####
@@ -423,9 +421,9 @@ $$\alpha_1 = \alpha_{10} - \alpha_{11} \cdot r_{-1} \quad \text{(12)}$$
 
 The redundant equation is $H_h = H_s$, while the quasi steady-state income is:
 
-$$Y^{\*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
+$$Y^{*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
 
-See [here](https://github.com/marcoverpas/PhD_Lectures_Macerata_2025/blob/main/README.md#b2_model_pc) for a formal derivation of $$Y^{\*}$$. 
+See [here](https://github.com/marcoverpas/PhD_Lectures_Macerata_2025/blob/main/README.md#b2_model_pc) for a formal derivation of $$Y^{*}$$. 
 
 To see the same solution as a living system rather than a fixed point, the animation below shows Model PC as a stock-flow "hydraulics" diagram. The three sectors - government, firms and households - are linked by pipes whose thickness and travelling tokens scale with each flow: government spending *G*, wages *Y*, consumption *C*, taxes *T* and the interest *rB_h* paid on bonds. Two household tanks fill up as assets - cash *H_h* (blue) and bills *B_h* (gold) - while the government's tank fills *downward* as a liability, its bonds issued *−B_s* (red). Each period the deficit *G + rB_h − T* drains the government tank a little further, the central bank absorbs the bills it does not sell to households (*ΔB_cb*) and pays for them with newly issued cash (*ΔH_s*), and households split their fresh saving between the two asset tanks according to their portfolio rule.
 
@@ -450,7 +448,7 @@ Iterated forward, these flows generate the dynamics of income, wealth and its po
 src="https://github.com/marcoverpas/figures/blob/main/PC_anim.gif" width="900">
 </figure>
 
-As an experiment, we now raise the interest rate $r$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. A higher rate lifts the interest income households earn on their bonds, so disposable income, and with it national income, settle at a higher steady state $Y^{\*}$, while households rebalance their portfolio towards bonds. Panels a)-d) reveal these adjustments period by period.
+As an experiment, we now raise the interest rate $r$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. A higher rate lifts the interest income households earn on their bonds, so disposable income, and with it national income, settle at a higher steady state $Y^{*}$, while households rebalance their portfolio towards bonds. Panels a)-d) reveal these adjustments period by period.
 
 <figure>
 <img
