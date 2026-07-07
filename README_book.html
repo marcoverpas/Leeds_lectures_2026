@@ -139,10 +139,10 @@ window.MathJax = {
 
 <section class="cover">
   <p class="kicker">NARTI Training Seminar &middot; University of Leeds &middot; 9&ndash;10 July 2026</p>
-  <h1 class="book-title">Nine Small Macroeconomic Models</h1>
-  <p class="book-subtitle">SIM, PC &amp; BMW &mdash; Aggregate, Input-Output &amp; Agent-Based Approaches</p>
+  <h1 class="book-title">Nine Little Models</h1>
+  <p class="book-subtitle">SIM, PC &amp; BMW &mdash; Aggregate, IO &amp; AB Approaches</p>
   <img class="cover-image" src="https://raw.githubusercontent.com/marcoverpas/figures/main/cover_leeds_2026.png" alt="Cover">
-  <p class="blurb">These lectures are organised by <a href="https://narti.org.uk/event/modelling-monetary-economies-of-production-with-prof-marco-passarella-registration-open/">NARTI</a> (Northern Advanced Research Training Initiative), as part of the training seminar <em>"Modelling Monetary Economies of Production: Integrating SFC, IO and AB Approaches,"</em> held on 9-10 July 2026 at the University of Leeds.</p>
+  <p class="blurb">These lectures are organised by <a href="https://narti.org.uk/event/modelling-monetary-economies-of-production-with-prof-marco-passarella-registration-open/">NARTI</a> (Northern Advanced Research Training Initiative), as part of the training seminar <em>"Modelling Monetary Economies of Production: Integrating SFC, IO and AB Approaches,"</em> held on 9-10 July 2026 at the University of Leeds. </p>
   <div class="qr-block">
     <img class="qr-image" src="https://raw.githubusercontent.com/marcoverpas/figures/main/QR_code_Leeds_2026.png" alt="QR code">
     <span>Scan for event details</span>
@@ -230,6 +230,7 @@ window.MathJax = {
 <hr />
 <h2 id="requirements">⚙️ Requirements</h2>
 <p>The nine core models (SIM, PC, BMW × aggregate/IO/ABM) run in plain base <code>R</code> - no packages required.</p>
+<p>Download R from the <a href="https://cran.r-project.org">official CRAN website</a>. I also recommend <a href="https://posit.co/download/rstudio-desktop/">RStudio</a>, a free, powerful, and user-friendly IDE for R.</p>
 <p>The auxiliary scripts that generate the animations, system-dynamics diagrams, and Sankey charts shown in this README file need a few additional packages:</p>
 <table>
 <thead>
@@ -483,7 +484,7 @@ window.MathJax = {
 <p>The redundant (hidden) equation matches money demand with money supply:</p>
 <p>$$H_h = H_s$$</p>
 <p>In the steady state there is no saving ($C = YD$) and money holdings are stable, so national income converges to:</p>
-<p>$$Y^* = \frac{G}{\theta}$$</p>
+<p>$$Y^{*} = \frac{G}{\theta}$$</p>
 <p>Before turning to the experiments, it helps to <em>see</em> the model move. The animation below renders Model SIM as a <strong>system-dynamics diagram</strong>: the three sectors are boxes, every flow is a pipe along which tokens travel (its thickness scaling with the flow), and the two financial stocks are tanks. Government spending $G$ reaches firms, who pay wages $Y$ to households. Households return part of their income as consumption ($\alpha_1 \cdot YD$) and taxes ($T$), and save the rest ($(1-\alpha_1) \cdot YD$) into their <strong>money tank</strong> $H_h$ - which in turn finances further consumption out of wealth ($\alpha_2 \cdot H_h$). The government's tank is the exact mirror image: it fills with the accumulated deficit $G - T$ but in the <em>opposite</em> direction, because the money households hold is nothing other than the government's debt. At every instant $H_h = H_s$, so the household asset (blue, rising) and the government liability (red, falling) are equal and opposite, summing to zero. As income grows, taxes catch up to spending, the deficit closes, and both tanks stop moving: the economy has reached its steady state.</p>
 <figure>
 <img
@@ -509,7 +510,7 @@ src="https://raw.githubusercontent.com/marcoverpas/figures/main/SIM_anim.gif" wi
 src="https://raw.githubusercontent.com/marcoverpas/figures/main/SIM_experiment.gif" width="900">
 </figure>
 
-<p>In the animation above the grey line is the baseline, and the red one - branching off at the dashed marker - is the shock scenario. National income converges to its new, higher steady state $Y^{**}$, pulling disposable income and consumption up with it, while households end up holding a permanently larger stock of money. Panels a)-d) reveal these adjustments period by period.</p>
+<p>In the animation above the grey line is the baseline, and the red one - branching off at the dashed marker - is the shock scenario. National income converges to its new, higher steady state $Y^{*}$, pulling disposable income and consumption up with it, while households end up holding a permanently larger stock of money. Panels a)-d) reveal these adjustments period by period.</p>
 <h4 id="hands-on-building-model-sim-in-r">🛠️ Hands-on: building Model SIM in <code>R</code></h4>
 <p>Model SIM needs no external package: base <code>R</code> is enough. We start by clearing the workspace.</p>
 <pre><code class="language-r"># Clear environment
@@ -565,7 +566,7 @@ for (j in 1:nScenarios) {
   }
 }
 </code></pre>
-<p>We now report the analytic steady state $Y^*=G/\theta$ and the consistency gap $|H_h - H_s|$ (which must be zero to machine precision).</p>
+<p>We now report the analytic steady state $Y^{*}=G/\theta$ and the consistency gap $|H_h - H_s|$ (which must be zero to machine precision).</p>
 <pre><code class="language-r"># Display the results ####
 Ystar  &lt;- Gexog / theta                                    # Analytic steady-state GDP (baseline)
 sfcGap &lt;- max(abs(H_h[1, 2:nPeriods] - H_s[1, 2:nPeriods]))
@@ -828,7 +829,7 @@ par(op)
 <p>$$\alpha_1 = \alpha_{10} - \alpha_{11} \cdot r_{-1} \quad \text{(12)}$$</p>
 <p>The redundant equation is $H_h = H_s$, while the quasi steady-state income is:</p>
 <p>$$Y^* = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$</p>
-<p>See <a href="https://github.com/marcoverpas/PhD_Lectures_Macerata_2025/blob/main/README.md#b2_model_pc">here</a> for a formal derivation of $$Y^*$$. </p>
+<p>See <a href="https://github.com/marcoverpas/PhD_Lectures_Macerata_2025/blob/main/README.md#b2_model_pc">here</a> for a formal derivation of $$Y^{*}$$. </p>
 <p>To see the same solution as a living system rather than a fixed point, the animation below shows Model PC as a stock-flow "hydraulics" diagram. The three sectors - government, firms and households - are linked by pipes whose thickness and travelling tokens scale with each flow: government spending <em>G</em>, wages <em>Y</em>, consumption <em>C</em>, taxes <em>T</em> and the interest <em>rB_h</em> paid on bonds. Two household tanks fill up as assets - cash <em>H_h</em> (blue) and bills <em>B_h</em> (gold) - while the government's tank fills <em>downward</em> as a liability, its bonds issued <em>−B_s</em> (red). Each period the deficit <em>G + rB_h − T</em> drains the government tank a little further, the central bank absorbs the bills it does not sell to households (<em>ΔB_cb</em>) and pays for them with newly issued cash (<em>ΔH_s</em>), and households split their fresh saving between the two asset tanks according to their portfolio rule.</p>
 <figure>
 <img
@@ -848,7 +849,7 @@ src="https://raw.githubusercontent.com/marcoverpas/figures/main/SANKEY_PC.png" w
 src="https://raw.githubusercontent.com/marcoverpas/figures/main/PC_anim.gif" width="900">
 </figure>
 
-<p>As an experiment, we now raise the interest rate $r$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. A higher rate lifts the interest income households earn on their bonds, so disposable income, and with it national income, settle at a higher steady state $Y^*$, while households rebalance their portfolio towards bonds. Panels a)-d) reveal these adjustments period by period.</p>
+<p>As an experiment, we now raise the interest rate $r$ permanently. In the animation below the grey line is the baseline and the red one - branching off at the dashed marker - is the shock scenario. A higher rate lifts the interest income households earn on their bonds, so disposable income, and with it national income, settle at a higher steady state $Y^{*}$, while households rebalance their portfolio towards bonds. Panels a)-d) reveal these adjustments period by period.</p>
 <figure>
 <img
 src="https://raw.githubusercontent.com/marcoverpas/figures/main/PC_experiment.gif" width="900">
