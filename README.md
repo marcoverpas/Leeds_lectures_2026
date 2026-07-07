@@ -14,6 +14,8 @@ These lectures are organised by [NARTI](https://narti.org.uk/event/modelling-mon
 </figure>
 </div>
 
+📖 Note: this material is also available in an easy-to-read book format (HTML): [open the book version](https://marcoverpas.github.io/Leeds_lectures_2026/README_book.html)
+
 ## Overview
 
 This repository presents **nine small macroeconomic models**, organised as a 3 × 3 grid. Three benchmark Stock-Flow Consistent (SFC) toy models from [Godley and Lavoie (2007)](#references) - **SIM**, **PC** and **BMW** - are each developed in three coding *styles*: *aggregate*, *input-output*, and *agent-based*.
