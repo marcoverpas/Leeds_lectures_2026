@@ -421,7 +421,7 @@ $$\alpha_1 = \alpha_{10} - \alpha_{11} \cdot r_{-1} \quad \text{(12)}$$
 
 The redundant equation is $H_h = H_s$, while the quasi steady-state income is:
 
-$$Y^{*} = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
+$$Y^* = \frac{G + r \cdot B_h^{*} \cdot (1 - \theta)}{\theta}$$
 
 See [here](https://github.com/marcoverpas/PhD_Lectures_Macerata_2025/blob/main/README.md#b2_model_pc) for a formal derivation of $$Y^{*}$$. 
 
