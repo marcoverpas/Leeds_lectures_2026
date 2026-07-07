@@ -625,8 +625,7 @@ With $n$ industries, let $\mathbf{x}$ be the vector of real gross outputs, $\mat
 
 > *Note on "real" vs. "physical" variables*. In this repository, variables described as "real" (real output, real final demand, real technical coefficients, and so on) should not be read as physical quantities (tons, units, hours). Actual datasets,
 > whether national accounts or input-output tables, record economic transactions in nominal (current-price) monetary terms. What we call "real" variables are these nominal values divided by a price index constructed for this purpose - an implicit,
-> model-specific deflator built for each macro variable. This index is not meant to represent the actual price level of that period. It is a constructed measure of relative
-> price change over time, used to strip nominal values of price effects. This distinction is not just semantic. Deflated series depend on the price index used and inherit the well-known index-number problems that arise when aggregating heterogeneous
+> model-specific deflator built for each macro variable. This index is used to strip nominal values of price effects. This distinction is not just semantic. Deflated series depend on the price index used and inherit the well-known index-number problems that arise when aggregating heterogeneous
 > goods and services. In particular, "real" technical coefficients computed from deflated data can change over time purely because relative prices shift, even when the underlying physical/technical relationship between inputs and output is unchanged.
 > We use "real" in the standard national-accounting sense throughout, but flag the distinction here to avoid the common conflation with "physical".
 
