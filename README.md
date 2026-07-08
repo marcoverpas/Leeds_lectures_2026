@@ -102,6 +102,8 @@ Because the tables are watertight, every model contains one **redundant** (or *h
 
 The models in this repository are the smallest members of this family. From the same accounting core grow the many extensions now used in research - multi-area (MA-SFC), ecological (ECO-SFC), input-output (IO-SFC), agent-based (AB-SFC) and empirical (E-SFC) SFC models - several of which are illustrated in the companion repositories listed above. For a full theoretical treatment, see [Godley and Lavoie (2007)](#references); for a survey, [Nikiforos and Zezza (2017)](#references) and [Carnevali et al. (2019)](#references).
 
+A more detailed introduction to SFC models can be found [here](https://github.com/marcoverpas/PhD_Lectures_Macerata_2025#b1_introduction_to_sfc_models).
+
 Note: models SIM, PC and BMW are reproduced and extended from Godley and Lavoie (2007), while the input-output and agent-based versions are our own.
 
 ### 1.2 - Model SIM
