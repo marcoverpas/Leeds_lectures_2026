@@ -74,9 +74,9 @@ for (j in 1:nScenarios) {
     for (iter in 1:nIter) {
       
       # A) PRICES (cost-plus mark-up) ####
-      p[j, i, 1] = wage / pr[1] + (p[j,i,1]*A[1,1] + p[j,i,2]*A[2,1] + p[j,i,3]*A[3,1]) * (1 + mu)
-      p[j, i, 2] = wage / pr[2] + (p[j,i,1]*A[1,2] + p[j,i,2]*A[2,2] + p[j,i,3]*A[3,2]) * (1 + mu)
-      p[j, i, 3] = wage / pr[3] + (p[j,i,1]*A[1,3] + p[j,i,2]*A[2,3] + p[j,i,3]*A[3,3]) * (1 + mu)
+      for (z in 1:nIndustries) {
+        p[j, i, z] = wage / pr[z] + sum(p[j, i, 1:nIndustries] * A[1:nIndustries, z]) * (1 + mu)  # Unit prices (17)
+      }
       p_c[j, i]  = sum(p[j, i, ] * betaC)
       p_i[j, i]  = sum(p[j, i, ] * betaI)
       
