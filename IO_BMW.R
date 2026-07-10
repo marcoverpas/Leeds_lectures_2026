@@ -2,7 +2,7 @@
 #  Model BMW + 3-industry input-output (IO-BMW)
 #  Source: Godley & Lavoie ch.7 (BMW), extended with a 3-industry IO core
 #  Author: Marco Veronese Passarella
-#  Last change: 04/07/2026
+#  Last change: 10/07/2026
 # *************************************************************************
 
 # Clear environment
