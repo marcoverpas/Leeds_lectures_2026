@@ -1,4 +1,4 @@
-# Leeds, July 9-10, 2026  🛠️ work in progress 🛠️
+# Leeds, July 9-10, 2026  
 
 These lectures are organised by [NARTI](https://narti.org.uk/event/modelling-monetary-economies-of-production-with-prof-marco-passarella-registration-open/) (Northern Advanced Research Training Initiative), as part of the training seminar *"Modelling Monetary Economies of Production: Integrating SFC, IO and AB Approaches,"* held on 9-10 July 2026 at the University of Leeds. 
 
