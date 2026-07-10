@@ -2,7 +2,7 @@
 #  Model PC + 3-industry input-output (IO-PC)
 #  Source: Godley & Lavoie ch.4, extended with a 3-industry IO core
 #  Author: Marco Veronese Passarella
-#  Last change: 04/07/2026
+#  Last change: 10/07/2026
 # *************************************************************************
 
 # Clear environment
@@ -73,9 +73,9 @@ for (j in 1:nScenarios) {
     for (iter in 1:nIter) {
       
       # A) PRICES (cost-plus mark-up over intermediate inputs) ####
-      p[j, i, 1] = wage / pr[1] + (p[j,i,1]*A[1,1] + p[j,i,2]*A[2,1] + p[j,i,3]*A[3,1]) * (1 + mu)  # eq. 17
-      p[j, i, 2] = wage / pr[2] + (p[j,i,1]*A[1,2] + p[j,i,2]*A[2,2] + p[j,i,3]*A[3,2]) * (1 + mu)  # eq. 17
-      p[j, i, 3] = wage / pr[3] + (p[j,i,1]*A[1,3] + p[j,i,2]*A[2,3] + p[j,i,3]*A[3,3]) * (1 + mu)  # eq. 17
+      for (z in 1:nIndustries) {
+        p[j, i, z] = wage / pr[z] + sum(p[j, i, 1:nIndustries] * A[1:nIndustries, z]) * (1 + mu)  # Unit prices (17)
+      }
       p_c[j, i]  = sum(p[j, i, ] * betaC)                                          # Consumer price (18)
       p_g[j, i]  = sum(p[j, i, ] * betaG)                                          # Government price (19)
       
