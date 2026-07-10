@@ -2,7 +2,7 @@
 #  Model SIM + 3-industry input-output (IO-SIM)
 #  Source: Godley & Lavoie ch.3 (SIM), extended with a 3-industry IO core
 #  Author: Marco Veronese Passarella
-#  Last change: 04/07/2026
+#  Last change: 10/07/2026
 # *************************************************************************
 
 # Clear environment
