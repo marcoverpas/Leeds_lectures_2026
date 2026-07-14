@@ -971,7 +971,7 @@ This is the challenge of the coming years. If SFC, IO, ABM and other monetary-pr
 
 - Berg, M., Hartley, B., and Richters, O. (2015). **A stock-flow consistent input-output model with applications to energy price shocks, interest rates, and heat emissions**. *New Journal of Physics*, 17, 015011.
 - Caiani, A., Russo, A., Palestrini, A., and Gallegati, M. (eds.) (2016). **Economics with Heterogeneous Interacting Agents: A Practical Guide to Agent-Based Modeling**. Springer, New Economic Windows series.
-- Carnevali, E., Deleidi, M., Pariboni, R. and Veronese Passarella, M. (2019). **FC dynamic models: features, limitations and developments**. In P. Arestis and M. Sawyer (eds.), Frontiers of Heterodox Economics, Series: International Papers in Political Economy, Palgrave Macmillan, pp. 223-276.
+- Carnevali, E., Deleidi, M., Pariboni, R. and Veronese Passarella, M. (2019). **SFC dynamic models: features, limitations and developments**. In P. Arestis and M. Sawyer (eds.), Frontiers of Heterodox Economics, Series: International Papers in Political Economy, Palgrave Macmillan, pp. 223-276.
 - Fevereiro, J. B. R. T., Genovese, A., Purvis, B., Valles Codina, O., and Veronese Passarella, M. (2025). **Macroeconomic Models for Assessing the Transition towards a Circular Economy: A Systematic Review**. *Ecological Economics*, 236, 108669.
 - Godley, W., and Lavoie, M. (2007). **Monetary Economics: An Integrated Approach to Credit, Money, Income, Production and Wealth**. Palgrave Macmillan (chapters 3, 4 and 7).
 - Lorenz, E. N. (1963). **Deterministic Nonperiodic Flow**. *Journal of the Atmospheric Sciences*, 20 (2): 130-141.
