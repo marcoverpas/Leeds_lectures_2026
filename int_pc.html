@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model PC (endogenous MPC): a simulation</title>
+<!--
+  BASIC PC MODEL - endogenous alpha1 (Godley & Lavoie, ch. 4) - interactive version
+  HTML/JavaScript port of the Shiny app INT_PC.R: same equations, same parameters, same charts.
+  Self-contained: no server and no external libraries. It can be opened directly in a
+  browser or hosted as a static page (e.g. GitHub Pages).
+  Last change: 06/11/2026
+-->
+<style>
+  :root {
+    --text: #333333;
+    --muted: #6b6b6b;
+    --panel: #f5f5f5;
+    --border: #e3e3e3;
+    --accent: #428bca;
+    --track: #e1e4e9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 16px 24px 32px;
+    background: #ffffff; color: var(--text);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px;
+  }
+  h1 { font-weight: 500; font-size: 30px; margin: 4px 0 18px; }
+  .layout { display: grid; grid-template-columns: minmax(250px, 1fr) 3fr; gap: 24px; align-items: start; }
+  .sidebar {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 4px;
+    padding: 19px; box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+  }
+  .group { margin-bottom: 20px; }
+  .group > .label { font-weight: 700; display: block; margin-bottom: 6px; }
+  .radio { display: flex; align-items: flex-start; gap: 6px; margin: 4px 0; cursor: pointer; }
+  .radio input { margin-top: 2px; }
+  .slider-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .value {
+    background: var(--accent); color: #fff; border-radius: 4px;
+    padding: 1px 6px; font-size: 12px; font-variant-numeric: tabular-nums;
+  }
+  .range-ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+  input[type=range] { width: 100%; margin: 8px 0 2px; accent-color: var(--accent); }
+  .greyed-out { opacity: 0.4; pointer-events: none; }
+  button {
+    font: inherit; padding: 6px 12px; border-radius: 4px; cursor: pointer;
+    border: 1px solid #cccccc; background: #ffffff; color: var(--text);
+  }
+  button:hover { background: #e6e6e6; }
+  .note { font-size: 12px; color: var(--muted); line-height: 1.45; margin-top: 16px; }
+  .charts { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 4px 10px; }
+  .charts svg { width: 100%; height: auto; display: block; }
+  @media (max-width: 1100px) { .charts { grid-template-columns: repeat(min(var(--cols, 3), 2), minmax(0, 1fr)); } }
+  @media (max-width: 800px) {
+    body { padding: 12px 16px 24px; }
+    h1 { font-size: 24px; }
+    .layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) { .charts { grid-template-columns: 1fr; } }
+</style>
+
+</head>
+<body>
+
+<h1>Model PC (endogenous MPC): a simulation</h1>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div id="controls"></div>
+    <button id="reset" type="button">Reset initial values</button>
+    <p class="note">New values apply from period 51 onwards. The charts show periods 49 to 100.</p>
+  </aside>
+
+  <main class="charts" id="charts" style="--cols: 3"></main>
+</div>
+
+<script>
+// ==============================================================================
+// SHARED HELPERS (controls and minimal SVG plotting that mimics R base graphics)
+// ==============================================================================
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+let W_ = 400;                                          // viewBox width of each panel (an app may change it)
+let H_ = 300;                                          // viewBox height (an app may change it)
+const FS = 15;                                         // base font size (viewBox units)
+
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+const min = a => Math.min(...a), max = a => Math.max(...a);
+const range = (...arrs) => { const all = arrs.flat().filter(Number.isFinite); return [min(all), max(all)]; };
+const seq = (a, b) => Array.from({ length: b - a + 1 }, (_, k) => a + k);
+const round = (x, d) => Math.round(x * 10 ** d) / 10 ** d;
+const trim = (x, d) => String(Number(x.toFixed(d)));
+
+// ---------------------------------------------------------------- controls
+// SLIDERS: [{id, label, min, max, step, value, dec}] ; RADIOS: [{id, label, choices:[[value,label]], value}]
+function buildControls(SLIDERS, RADIOS, onChange) {
+  const box = document.getElementById("controls");
+  for (const r of RADIOS || []) {
+    const g = document.createElement("div");
+    g.className = "group"; g.id = r.id + "_box";
+    g.innerHTML = `<span class="label">${r.label}</span>` + r.choices.map(([v, l]) =>
+      `<label class="radio"><input type="radio" name="${r.id}" value="${v}"${String(v) === String(r.value) ? " checked" : ""}> ${l}</label>`).join("");
+    box.appendChild(g);
+    g.querySelectorAll("input").forEach(e => e.addEventListener("change", onChange));
+  }
+  for (const s of SLIDERS) {
+    const g = document.createElement("div");
+    g.className = "group"; g.id = s.id + "_box";
+    g.innerHTML =
+      `<div class="slider-head"><label class="label" for="${s.id}"><b>${s.label}</b></label>` +
+      `<span class="value" id="${s.id}_val"></span></div>` +
+      `<input type="range" id="${s.id}" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.value}">` +
+      `<div class="range-ends"><span>${trim(s.min, s.dec)}</span><span>${trim(s.max, s.dec)}</span></div>`;
+    box.appendChild(g);
+    g.querySelector("input").addEventListener("input", onChange);
+  }
+  const reset = document.getElementById("reset");
+  if (reset) reset.addEventListener("click", () => {
+    for (const s of SLIDERS) document.getElementById(s.id).value = s.value;
+    if (window.RESET_RADIOS) for (const r of RADIOS || [])
+      document.querySelector(`input[name=${r.id}][value="${r.value}"]`).checked = true;
+    onChange();
+  });
+}
+function readControls(SLIDERS, RADIOS) {
+  const v = {};
+  for (const s of SLIDERS) {
+    v[s.id] = parseFloat(document.getElementById(s.id).value);
+    document.getElementById(s.id + "_val").textContent = trim(v[s.id], s.dec);
+  }
+  for (const r of RADIOS || []) v[r.id] = document.querySelector(`input[name=${r.id}]:checked`).value;
+  return v;
+}
+function greyOut(id, on) { document.getElementById(id + "_box").classList.toggle("greyed-out", on); }
+
+// ---------------------------------------------------------------- plotting
+// Tick positions as R's axis() computes them (GEPretty: R_pretty with high.u.bias 0.8 and u5.bias 1.7),
+// applied to the plotting range
+function pretty(lo, hi, n = 5) {
+  if (!(hi - lo > 1e-12 * Math.max(1, Math.abs(hi)))) { const d = Math.abs(lo) * 0.1 || 1; lo -= d; hi += d; }
+  const h = 0.8, h5 = 1.7, cell = (hi - lo) / n;
+  const base = 10 ** Math.floor(Math.log10(cell));
+  let unit = base;
+  if (2 * base - cell < h * (cell - unit)) { unit = 2 * base;
+    if (5 * base - cell < h5 * (cell - unit)) { unit = 5 * base;
+      if (10 * base - cell < h * (cell - unit)) unit = 10 * base; } }
+  const ticks = [];
+  for (let k = Math.floor(lo / unit + 1e-7); k <= Math.ceil(hi / unit - 1e-7); k++) ticks.push(k * unit);
+  const dec = Math.max(0, -Math.floor(Math.log10(unit) + 1e-9));
+  return { ticks, dec };
+}
+// R's default ylim for plot(): the data range (a flat series gets +/- 4% of its value, or +/- 1 if zero)
+function dataLim(...arrs) {
+  let [a, b] = range(...arrs);
+  if (a === b) { const d = a === 0 ? 1 : Math.abs(a) * 0.04; a -= d; b += d; }
+  return [a, b];
+}
+const fmtTick = (t, dec) => {
+  const s = t.toFixed(dec);
+  if (Math.abs(t) >= 1e5) { const [mn, ex] = t.toExponential().split("e"); return Number(mn) + "e" + ex[0] + ex.slice(1).padStart(2, "0"); }   // R style: 2e+05
+  return s === "-0" ? "0" : s;
+};
+
+let clipId = 0;
+// o: {title, xlim, ylim, xlab, ylab, xticks, yticks, mar:{l,r,t,b}, xaxs:"i"}
+function Panel(container, o) {
+  const MAR = Object.assign({ l: 62, r: 12, t: 34, b: o.xlab ? 52 : 34 }, o.mar || {});
+  const svg = el("svg", { viewBox: `0 0 ${W_} ${H_}`, role: "img", "aria-label": o.title || "" });
+  container.appendChild(svg);
+  const pw = W_ - MAR.l - MAR.r, ph = H_ - MAR.t - MAR.b;
+  const ext = ([a, b], i) => { if (i) return [a, b]; const d = (b - a) * 0.04; return [a - d, b + d]; };
+  const [x0, x1] = ext(o.xlim, o.xaxs === "i"), [y0, y1] = ext(o.ylim, o.yaxs === "i");
+  const X = x => MAR.l + (x - x0) / (x1 - x0) * pw;
+  const Y = y => MAR.t + (y1 - y) / (y1 - y0) * ph;
+
+  if (o.title) {
+    const t = el("text", { x: MAR.l + pw / 2, y: 20, "text-anchor": "middle", "font-size": FS, "font-weight": o.bold ? 700 : 400, style: "white-space: pre" }, svg);
+    if (o.titleHtml) t.innerHTML = o.titleHtml; else t.textContent = o.title;
+    try { const cx = MAR.l + pw / 2, room = 2 * Math.min(cx, W_ - cx) - 6, len = t.getComputedTextLength(); if (len > room) t.setAttribute("font-size", FS * room / len); } catch (e) {}
+  }
+  el("rect", { x: MAR.l, y: MAR.t, width: pw, height: ph, fill: "none", stroke: "#000", "stroke-width": 1 }, svg);
+
+  const xt = o.xticks || pretty(x0, x1);
+  const xin = xt.ticks.filter(t => t >= x0 - 1e-9 && t <= x1 + 1e-9);
+  const xlen = Math.max(...xin.map(t => fmtTick(t, xt.dec).length));
+  const xthin = xin.length > 1 && Math.abs(X(xin[1]) - X(xin[0])) < xlen * 8.5 + 6 ? 2 : 1;
+  for (const [k, t] of xin.entries()) {
+    el("line", { x1: X(t), x2: X(t), y1: MAR.t + ph, y2: MAR.t + ph + 6, stroke: "#000" }, svg);
+    if (k % xthin) continue;
+    el("text", { x: X(t), y: MAR.t + ph + 22, "text-anchor": "middle", "font-size": FS - 1 }, svg).textContent = xt.labels ? xt.labels[k] : fmtTick(t, xt.dec);
+  }
+  // As R does, labels that would overlap are not printed (every other one is kept)
+  const yt = o.yticks || pretty(y0, y1);
+  const yin = yt.ticks.filter(t => t >= y0 - 1e-9 && t <= y1 + 1e-9);
+  const ylen = Math.max(...yin.map(t => fmtTick(t, yt.dec).length));
+  const ythin = yin.length > 1 && Math.abs(Y(yin[0]) - Y(yin[1])) < ylen * 8.5 + 6 ? 2 : 1;
+  for (const [k, t] of yin.entries()) {
+    el("line", { x1: MAR.l - 6, x2: MAR.l, y1: Y(t), y2: Y(t), stroke: "#000" }, svg);
+    if (k % ythin) continue;
+    el("text", { x: MAR.l - 10, y: Y(t), "text-anchor": "middle", "font-size": FS - 1,
+                 transform: `rotate(-90 ${MAR.l - 10} ${Y(t)})` }, svg).textContent = fmtTick(t, yt.dec);
+  }
+  if (o.xlab) el("text", { x: MAR.l + pw / 2, y: H_ - 8, "text-anchor": "middle", "font-size": FS - 1 }, svg).textContent = o.xlab;
+  if (o.ylab) el("text", { x: 14, y: MAR.t + ph / 2, "text-anchor": "middle", "font-size": FS - 1,
+                 transform: `rotate(-90 14 ${MAR.t + ph / 2})` }, svg).textContent = o.ylab;
+
+  const id = "clip" + (++clipId);
+  el("rect", { x: MAR.l, y: MAR.t, width: pw, height: ph }, el("clipPath", { id }, el("defs", {}, svg)));
+  const g = el("g", { "clip-path": `url(#${id})` }, svg);
+
+  // s: {col, lwd, lty}  lty: 1 solid, 2 dashed, 3 dotted, 4 dot-dash
+  const DASH = { 1: "none", 2: "7 5", 3: "1.5 4", 4: "1.5 4 7 4", 5: "12 5", 6: "4 3 10 3" };
+  const style = (s) => ({ fill: "none", stroke: s.col, "stroke-width": (s.lwd || 1) * 1.15,
+    "stroke-dasharray": DASH[s.lty || 1], "stroke-linejoin": "round", "stroke-linecap": (s.lty || 1) === 3 ? "round" : "butt" });
+
+  const api = {
+    X, Y, x0, x1, y0, y1,
+    line(xs, ys, s) {     // s.step: R type = "s"
+      let d = "", pen = false;
+      for (let k = 0; k < xs.length; k++) {
+        if (!Number.isFinite(xs[k]) || !Number.isFinite(ys[k])) { pen = false; continue; }
+        if (s.step && pen) d += `L${X(xs[k])},${Y(ys[k - 1])}`;
+        d += (pen ? "L" : "M") + X(xs[k]) + "," + Y(ys[k]); pen = true;
+      }
+      el("path", { d, ...style(s) }, g);
+      return api;
+    },
+    series(ys, s) { return api.line(ys.map((_, k) => k + 1), ys, s); },   // R: plot(y) uses x = 1..n
+    abline(a, b, s) { el("line", { x1: X(x0), y1: Y(a + b * x0), x2: X(x1), y2: Y(a + b * x1), ...style(s) }, g); return api; },
+    hline(y, s) { el("line", { x1: X(x0), x2: X(x1), y1: Y(y), y2: Y(y), ...style(s) }, g); return api; },
+    vline(x, s) { el("line", { x1: X(x), x2: X(x), y1: Y(y0), y2: Y(y1), ...style(s) }, g); return api; },
+    point(x, y, col, r = 4.5) { el("circle", { cx: X(x), cy: Y(y), r, fill: col }, g); return api; },
+    text(x, y, txt, opt = {}) {
+      const t = el("text", { x: X(x), y: Y(y), "text-anchor": opt.anchor || "middle", "font-size": opt.size || FS - 2, fill: opt.col || "#000" }, g);
+      t.textContent = txt; return api;
+    },
+    // Secondary (right-hand) y axis, as in R's par(new = TRUE) + axis(4)
+    secondary(ylim) {
+      const [s0, s1] = ext(ylim, o.yaxs === "i");
+      const Y2 = y => MAR.t + (s1 - y) / (s1 - s0) * ph;
+      const yt2 = pretty(s0, s1);
+      const yin2 = yt2.ticks.filter(t => t >= s0 - 1e-9 && t <= s1 + 1e-9);
+      const ylen2 = Math.max(...yin2.map(t => fmtTick(t, yt2.dec).length));
+      const thin2 = yin2.length > 1 && Math.abs(Y2(yin2[0]) - Y2(yin2[1])) < ylen2 * 8.5 + 6 ? 2 : 1;
+      const xr = MAR.l + pw;
+      for (const [k, t] of yin2.entries()) {
+        el("line", { x1: xr, x2: xr + 6, y1: Y2(t), y2: Y2(t), stroke: "#000" }, svg);
+        if (k % thin2) continue;
+        el("text", { x: xr + 16, y: Y2(t), "text-anchor": "middle", "font-size": FS - 1,
+                     transform: `rotate(-90 ${xr + 16} ${Y2(t)})` }, svg).textContent = fmtTick(t, yt2.dec);
+      }
+      return {
+        line(xs, ys, s) {
+          let d = "";
+          xs.forEach((x, k) => { if (Number.isFinite(ys[k])) d += (d ? "L" : "M") + X(x) + "," + Y2(ys[k]); });
+          el("path", { d, ...style(s) }, g);
+          return api;
+        },
+      };
+    },
+    // items: [{text, html, col, lwd, lty}], pos: topleft|top|topright|left|right|bottomleft|bottom|bottomright
+    legend(items, pos, opt = {}) {
+      const lh = 19, seg = 26, gap = 6, fs = opt.size || FS - 1.5;
+      const lg = el("g", {}, svg);
+      // write the labels first, so that their real width can be measured
+      const texts = items.map(it => { const t = el("text", { x: 0, y: 0, "font-size": fs }, lg); if (it.html) t.innerHTML = it.html; else t.textContent = it.text; return t; });
+      const widths = texts.map((t, k) => { let w = 0; try { w = t.getComputedTextLength(); } catch (e) {} return (w || items[k].text.length * fs * 0.55) + seg + gap; });
+      const wmax = Math.max(...widths), hh = items.length * lh;
+      let pts;
+      if (opt.horiz) {
+        const tot = widths.reduce((a, b) => a + b, 0) + 14 * (items.length - 1);
+        let x = pos.includes("left") ? MAR.l + 8 : pos.includes("right") ? MAR.l + pw - tot - 6 : MAR.l + (pw - tot) / 2;
+        const y = pos.startsWith("bottom") ? MAR.t + ph - 12 : MAR.t + 16;
+        pts = items.map((it, k) => { const p = [x, y]; x += widths[k] + 14; return p; });
+      } else {
+        const x = pos.includes("left") ? MAR.l + 8 : pos.includes("right") ? MAR.l + pw - wmax - 6 : MAR.l + (pw - wmax) / 2;
+        const ytop = pos.startsWith("top") ? MAR.t + 16 : pos.startsWith("bottom") ? MAR.t + ph - hh + 7 : MAR.t + (ph - hh) / 2 + 10;
+        pts = items.map((it, k) => [x, ytop + k * lh]);
+      }
+      items.forEach((it, k) => {
+        const [x, y] = pts[k];
+        lg.insertBefore(el("rect", { x: x - 3, y: y - 9, width: widths[k] + 4, height: 18, fill: "#ffffff", "fill-opacity": 0.8 }), lg.firstChild);
+        el("line", { x1: x, x2: x + seg, y1: y, y2: y, ...style(it) }, lg);
+        texts[k].setAttribute("x", x + seg + gap); texts[k].setAttribute("y", y + 5);
+      });
+      return api;
+    },
+  };
+  return api;
+}
+</script>
+<script>
+"use strict";
+H_ = 360;   // taller panels: two rows of charts
+
+// MODEL-START ====================================================================
+// Initial values (period 1 to 50)
+const alpha11_initial = 0.65, alpha12_initial = 2, alpha2_initial = 0.4, lambda0_initial = 0.635, lambda1_initial = 5;
+const lambda2_initial = 0.01, theta_initial = 0.2, r_bar_initial = 0.025, g0_initial = 20;
+
+const nPeriods = 100;     // Number of periods
+const nIterations = 100;  // Iterations to solve the simultaneous equations each period
+
+// p: new values, applied from period 51 onwards. Arrays are indexed 1..nPeriods (element 0 unused).
+function simulate(p) {
+  const fill = v => new Array(nPeriods + 1).fill(v);
+  const Y = fill(0), C = fill(0), YD = fill(0), TAX = fill(0), V = fill(0), B_h = fill(0), H_h = fill(0);
+  const B_s = fill(0), B_cb = fill(0), H_s = fill(0), G = fill(0);
+  const r = fill(r_bar_initial);                       // Policy interest rate
+  const alpha1 = fill(alpha11_initial - 2 * r_bar_initial);    // Endogenous MPC
+  for (let i = 2; i <= nPeriods; i++) G[i] = g0_initial;   // Government spending switched on from period 2
+
+  for (let i = 2; i <= nPeriods; i++) {
+    let alpha11, alpha12, alpha2, lambda0, lambda1, lambda2, theta, r_bar, g0;
+    if (i >= 51) {
+      ({ alpha11, alpha12, alpha2, lambda0, lambda1, lambda2, theta, r_bar, g0 } = p);
+    } else {
+      alpha11 = alpha11_initial; alpha12 = alpha12_initial; alpha2 = alpha2_initial; lambda0 = lambda0_initial; lambda1 = lambda1_initial;
+      lambda2 = lambda2_initial; theta = theta_initial; r_bar = r_bar_initial; g0 = g0_initial;
+    }
+    G[i] = g0;
+    r[i] = r_bar;
+
+    for (let iter = 1; iter <= nIterations; iter++) {
+      Y[i] = C[i] + G[i];                                                     // Output = demand (4.1)
+      YD[i] = Y[i] - TAX[i] + r[i - 1] * B_h[i - 1];                          // Disposable income (4.2)
+      TAX[i] = theta * (Y[i] + r[i - 1] * B_h[i - 1]);                        // Taxes on total income (4.3)
+      V[i] = V[i - 1] + (YD[i] - C[i]);                                       // Wealth accumulation (4.4)
+      alpha1[i] = alpha11 - alpha12 * r[i - 1];                               // Endogenous MPC
+      C[i] = alpha1[i] * YD[i] + alpha2 * V[i];                               // Consumption (4.5)
+      B_h[i] = V[i] * (lambda0 + lambda1 * r[i]) - lambda2 * YD[i];           // Bill demand (4.7)
+      B_s[i] = B_s[i - 1] + (G[i] + r[i - 1] * B_s[i - 1]) - (TAX[i] + r[i - 1] * B_cb[i - 1]);   // Bill supply (4.8)
+      B_cb[i] = B_s[i] - B_h[i];                                              // Central bank residual (4.10)
+      H_s[i] = H_s[i - 1] + (B_cb[i] - B_cb[i - 1]);                          // Cash supply (4.9)
+      H_h[i] = V[i] - B_h[i];                                                 // Household cash (4.6)
+    }
+  }
+  return { Y, C, YD, TAX, V, B_h, H_h, B_s, B_cb, H_s, G, r, alpha1 };
+}
+// MODEL-END ======================================================================
+
+const SLIDERS = [
+  // alpha11 is fixed at 0.65 in INT_PC.R; here it can also be changed (from period 51, like the other parameters)
+  { id: "alpha11", label: "Propensity to consume out of income: autonomous part (&alpha;<sub>11</sub>)", min: 0.5, max: 0.8, step: 0.01, value: 0.65, dec: 2 },
+  { id: "alpha12", label: "Interest rate sensitivity of consumption (&alpha;<sub>12</sub>)", min: 0, max: 4, step: 0.1, value: 2, dec: 1 },
+  { id: "alpha2", label: "Propensity to consume out of wealth (&alpha;<sub>2</sub>)", min: 0.1, max: 0.9, step: 0.01, value: 0.4, dec: 2 },
+  { id: "lambda0", label: "Portfolio: baseline share of bills (&lambda;<sub>0</sub>)", min: 0.335, max: 0.935, step: 0.005, value: 0.635, dec: 3 },
+  { id: "lambda1", label: "Portfolio: sensitivity of bill share to interest rate (&lambda;<sub>1</sub>)", min: 1, max: 10, step: 0.5, value: 5, dec: 1 },
+  { id: "lambda2", label: "Portfolio: sensitivity of bill share to income/wealth (&lambda;<sub>2</sub>)", min: 0, max: 0.05, step: 0.001, value: 0.01, dec: 3 },
+  { id: "theta", label: "Tax rate (&theta;)", min: 0.1, max: 0.5, step: 0.01, value: 0.2, dec: 2 },
+  { id: "r_bar", label: "Policy interest rate (r)", min: 0, max: 0.05, step: 0.001, value: 0.025, dec: 3 },
+  { id: "g0", label: "Government spending (G)", min: 5, max: 40, step: 1, value: 20, dec: 0 },
+];
+
+function pad_ylim(arrs, abs_min = 0, min_frac = 0.08, pad_frac = 0.25) {
+  const [a, b] = range(...arrs);
+  const center = (a + b) / 2;
+  const span = Math.max(b - a, Math.max(min_frac * Math.abs(center), abs_min));
+  const half = (span / 2) * (1 + pad_frac);
+  return [center - half, center + half];
+}
+
+function draw() {
+  const p = readControls(SLIDERS);
+  const m = simulate(p);
+  const idx = seq(49, nPeriods), sel = a => idx.map(i => a[i]);
+  const xlim = [1, idx.length];
+  const box = document.getElementById("charts");
+  box.innerHTML = "";
+  const P = (title, ylim, titleHtml) => Panel(box, { title, titleHtml, xlim, ylim });
+
+  const Y = sel(m.Y), YD = sel(m.YD), C = sel(m.C), V = sel(m.V), B_h = sel(m.B_h), H_h = sel(m.H_h), a1 = sel(m.alpha1);
+  const chk = idx.map(i => m.H_h[i] - m.H_s[i]);
+
+  // a) Consistency check: H_h - H_s should hug zero
+  P("Consistency check: H_h - H_s", [-1, 1]).series(chk, { col: "#2E8B57", lwd: 2 }).hline(0, { col: "#000000", lty: 3 });
+
+  // b) National income
+  P("National income (Y)", pad_ylim([Y], 2)).series(Y, { col: "#1874CD", lwd: 2 }).hline(m.Y[49], { col: "#000000", lty: 3 });
+
+  // c) Disposable income and consumption
+  P("Disposable income and consumption", pad_ylim([YD, C], 2))
+    .series(YD, { col: "#DF536B", lwd: 2 }).series(C, { col: "#9B30FF", lwd: 2 })
+    .legend([{ text: "Disposable income", col: "#DF536B", lwd: 2 }, { text: "Consumption", col: "#9B30FF", lwd: 2 }], "bottomright");
+
+  // d) Household wealth
+  P("Households' wealth (V)", pad_ylim([V], 2)).series(V, { col: "#CD6600", lwd: 2 });
+
+  // e) Portfolio: bills vs cash
+  P("Portfolio: bills and cash", pad_ylim([B_h, H_h], 2))
+    .series(B_h, { col: "#B22222", lwd: 2 }).series(H_h, { col: "#4682B4", lwd: 2 })
+    .legend([{ text: "Bills (B_h)", col: "#B22222", lwd: 2 }, { text: "Cash (H_h)", col: "#4682B4", lwd: 2 }], "right");
+
+  // f) Endogenous propensity to consume
+  P("Endogenous MPC (alpha1)", pad_ylim([a1], 0.02), "Endogenous MPC (α<tspan font-size='10' dy='4'>1</tspan><tspan dy='-4'>)</tspan>")
+    .series(a1, { col: "#CDCD00", lwd: 2 });
+}
+
+buildControls(SLIDERS, [], draw);
+draw();
+</script>
+</body>
+</html>

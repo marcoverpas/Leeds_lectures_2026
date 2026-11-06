@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ECO-3IO-SFC Model: a simulation</title>
+<!--
+  ECO-3IO-SFC MODEL - interactive version
+  HTML/JavaScript port of the Shiny app app.R (Keynote Firenze 2025 / Handbook in Eco Macro 2025, Interactive model): same equations, same parameters, same charts.
+  Self-contained: no server and no external libraries. It can be opened directly in a
+  browser or hosted as a static page (e.g. GitHub Pages).
+  Last change: 06/11/2026
+-->
+<style>
+  :root {
+    --text: #333333;
+    --muted: #6b6b6b;
+    --panel: #f5f5f5;
+    --border: #e3e3e3;
+    --accent: #428bca;
+    --track: #e1e4e9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 16px 24px 32px;
+    background: #ffffff; color: var(--text);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px;
+  }
+  h1 { font-weight: 500; font-size: 30px; margin: 4px 0 18px; }
+  .layout { display: grid; grid-template-columns: minmax(250px, 1fr) 3fr; gap: 24px; align-items: start; }
+  .sidebar {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 4px;
+    padding: 19px; box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+  }
+  .group { margin-bottom: 20px; }
+  .group > .label { font-weight: 700; display: block; margin-bottom: 6px; }
+  .radio { display: flex; align-items: flex-start; gap: 6px; margin: 4px 0; cursor: pointer; }
+  .radio input { margin-top: 2px; }
+  .slider-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .value {
+    background: var(--accent); color: #fff; border-radius: 4px;
+    padding: 1px 6px; font-size: 12px; font-variant-numeric: tabular-nums;
+  }
+  .range-ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+  input[type=range] { width: 100%; margin: 8px 0 2px; accent-color: var(--accent); }
+  .greyed-out { opacity: 0.4; pointer-events: none; }
+  button {
+    font: inherit; padding: 6px 12px; border-radius: 4px; cursor: pointer;
+    border: 1px solid #cccccc; background: #ffffff; color: var(--text);
+  }
+  button:hover { background: #e6e6e6; }
+  .note { font-size: 12px; color: var(--muted); line-height: 1.45; margin-top: 16px; }
+  .charts { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 4px 10px; }
+  .charts svg { width: 100%; height: auto; display: block; }
+  @media (max-width: 1100px) { .charts { grid-template-columns: repeat(min(var(--cols, 3), 2), minmax(0, 1fr)); } }
+  @media (max-width: 800px) {
+    body { padding: 12px 16px 24px; }
+    h1 { font-size: 24px; }
+    .layout { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) { .charts { grid-template-columns: 1fr; } }
+</style>
+
+</head>
+<body>
+
+<h1>ECO-3IO-SFC Model: a simulation</h1>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div id="controls"></div>
+    <button id="reset" type="button">Reset initial values</button>
+    <p class="note">New values apply from period 51 onwards. The charts show periods 49 to 100.</p>
+  </aside>
+
+  <main class="charts" id="charts" style="--cols: 4"></main>
+</div>
+
+<script>
+// ==============================================================================
+// SHARED HELPERS (controls and minimal SVG plotting that mimics R base graphics)
+// ==============================================================================
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+let W_ = 400;                                          // viewBox width of each panel (an app may change it)
+let H_ = 300;                                          // viewBox height (an app may change it)
+const FS = 15;                                         // base font size (viewBox units)
+
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+const min = a => Math.min(...a), max = a => Math.max(...a);
+const range = (...arrs) => { const all = arrs.flat().filter(Number.isFinite); return [min(all), max(all)]; };
+const seq = (a, b) => Array.from({ length: b - a + 1 }, (_, k) => a + k);
+const round = (x, d) => Math.round(x * 10 ** d) / 10 ** d;
+const trim = (x, d) => String(Number(x.toFixed(d)));
+
+// ---------------------------------------------------------------- controls
+// SLIDERS: [{id, label, min, max, step, value, dec}] ; RADIOS: [{id, label, choices:[[value,label]], value}]
+function buildControls(SLIDERS, RADIOS, onChange) {
+  const box = document.getElementById("controls");
+  for (const r of RADIOS || []) {
+    const g = document.createElement("div");
+    g.className = "group"; g.id = r.id + "_box";
+    g.innerHTML = `<span class="label">${r.label}</span>` + r.choices.map(([v, l]) =>
+      `<label class="radio"><input type="radio" name="${r.id}" value="${v}"${String(v) === String(r.value) ? " checked" : ""}> ${l}</label>`).join("");
+    box.appendChild(g);
+    g.querySelectorAll("input").forEach(e => e.addEventListener("change", onChange));
+  }
+  for (const s of SLIDERS) {
+    const g = document.createElement("div");
+    g.className = "group"; g.id = s.id + "_box";
+    g.innerHTML =
+      `<div class="slider-head"><label class="label" for="${s.id}"><b>${s.label}</b></label>` +
+      `<span class="value" id="${s.id}_val"></span></div>` +
+      `<input type="range" id="${s.id}" min="${s.min}" max="${s.max}" step="${s.step}" value="${s.value}">` +
+      `<div class="range-ends"><span>${trim(s.min, s.dec)}</span><span>${trim(s.max, s.dec)}</span></div>`;
+    box.appendChild(g);
+    g.querySelector("input").addEventListener("input", onChange);
+  }
+  const reset = document.getElementById("reset");
+  if (reset) reset.addEventListener("click", () => {
+    for (const s of SLIDERS) document.getElementById(s.id).value = s.value;
+    if (window.RESET_RADIOS) for (const r of RADIOS || [])
+      document.querySelector(`input[name=${r.id}][value="${r.value}"]`).checked = true;
+    onChange();
+  });
+}
+function readControls(SLIDERS, RADIOS) {
+  const v = {};
+  for (const s of SLIDERS) {
+    v[s.id] = parseFloat(document.getElementById(s.id).value);
+    document.getElementById(s.id + "_val").textContent = trim(v[s.id], s.dec);
+  }
+  for (const r of RADIOS || []) v[r.id] = document.querySelector(`input[name=${r.id}]:checked`).value;
+  return v;
+}
+function greyOut(id, on) { document.getElementById(id + "_box").classList.toggle("greyed-out", on); }
+
+// ---------------------------------------------------------------- plotting
+// Tick positions as R's axis() computes them (GEPretty: R_pretty with high.u.bias 0.8 and u5.bias 1.7),
+// applied to the plotting range
+function pretty(lo, hi, n = 5) {
+  if (!(hi - lo > 1e-12 * Math.max(1, Math.abs(hi)))) { const d = Math.abs(lo) * 0.1 || 1; lo -= d; hi += d; }
+  const h = 0.8, h5 = 1.7, cell = (hi - lo) / n;
+  const base = 10 ** Math.floor(Math.log10(cell));
+  let unit = base;
+  if (2 * base - cell < h * (cell - unit)) { unit = 2 * base;
+    if (5 * base - cell < h5 * (cell - unit)) { unit = 5 * base;
+      if (10 * base - cell < h * (cell - unit)) unit = 10 * base; } }
+  const ticks = [];
+  for (let k = Math.floor(lo / unit + 1e-7); k <= Math.ceil(hi / unit - 1e-7); k++) ticks.push(k * unit);
+  const dec = Math.max(0, -Math.floor(Math.log10(unit) + 1e-9));
+  return { ticks, dec };
+}
+// R's default ylim for plot(): the data range (a flat series gets +/- 4% of its value, or +/- 1 if zero)
+function dataLim(...arrs) {
+  let [a, b] = range(...arrs);
+  if (a === b) { const d = a === 0 ? 1 : Math.abs(a) * 0.04; a -= d; b += d; }
+  return [a, b];
+}
+const fmtTick = (t, dec) => {
+  const s = t.toFixed(dec);
+  if (Math.abs(t) >= 1e5) { const [mn, ex] = t.toExponential().split("e"); return Number(mn) + "e" + ex[0] + ex.slice(1).padStart(2, "0"); }   // R style: 2e+05
+  return s === "-0" ? "0" : s;
+};
+
+let clipId = 0;
+// o: {title, xlim, ylim, xlab, ylab, xticks, yticks, mar:{l,r,t,b}, xaxs:"i"}
+function Panel(container, o) {
+  const MAR = Object.assign({ l: 62, r: 12, t: 34, b: o.xlab ? 52 : 34 }, o.mar || {});
+  const svg = el("svg", { viewBox: `0 0 ${W_} ${H_}`, role: "img", "aria-label": o.title || "" });
+  container.appendChild(svg);
+  const pw = W_ - MAR.l - MAR.r, ph = H_ - MAR.t - MAR.b;
+  const ext = ([a, b], i) => { if (i) return [a, b]; const d = (b - a) * 0.04; return [a - d, b + d]; };
+  const [x0, x1] = ext(o.xlim, o.xaxs === "i"), [y0, y1] = ext(o.ylim, o.yaxs === "i");
+  const X = x => MAR.l + (x - x0) / (x1 - x0) * pw;
+  const Y = y => MAR.t + (y1 - y) / (y1 - y0) * ph;
+
+  if (o.title) {
+    const t = el("text", { x: MAR.l + pw / 2, y: 20, "text-anchor": "middle", "font-size": FS, "font-weight": o.bold ? 700 : 400, style: "white-space: pre" }, svg);
+    if (o.titleHtml) t.innerHTML = o.titleHtml; else t.textContent = o.title;
+    try { const cx = MAR.l + pw / 2, room = 2 * Math.min(cx, W_ - cx) - 6, len = t.getComputedTextLength(); if (len > room) t.setAttribute("font-size", FS * room / len); } catch (e) {}
+  }
+  el("rect", { x: MAR.l, y: MAR.t, width: pw, height: ph, fill: "none", stroke: "#000", "stroke-width": 1 }, svg);
+
+  const xt = o.xticks || pretty(x0, x1);
+  const xin = xt.ticks.filter(t => t >= x0 - 1e-9 && t <= x1 + 1e-9);
+  const xlen = Math.max(...xin.map(t => fmtTick(t, xt.dec).length));
+  const xthin = xin.length > 1 && Math.abs(X(xin[1]) - X(xin[0])) < xlen * 8.5 + 6 ? 2 : 1;
+  for (const [k, t] of xin.entries()) {
+    el("line", { x1: X(t), x2: X(t), y1: MAR.t + ph, y2: MAR.t + ph + 6, stroke: "#000" }, svg);
+    if (k % xthin) continue;
+    el("text", { x: X(t), y: MAR.t + ph + 22, "text-anchor": "middle", "font-size": FS - 1 }, svg).textContent = xt.labels ? xt.labels[k] : fmtTick(t, xt.dec);
+  }
+  // As R does, labels that would overlap are not printed (every other one is kept)
+  const yt = o.yticks || pretty(y0, y1);
+  const yin = yt.ticks.filter(t => t >= y0 - 1e-9 && t <= y1 + 1e-9);
+  const ylen = Math.max(...yin.map(t => fmtTick(t, yt.dec).length));
+  const ythin = yin.length > 1 && Math.abs(Y(yin[0]) - Y(yin[1])) < ylen * 8.5 + 6 ? 2 : 1;
+  for (const [k, t] of yin.entries()) {
+    el("line", { x1: MAR.l - 6, x2: MAR.l, y1: Y(t), y2: Y(t), stroke: "#000" }, svg);
+    if (k % ythin) continue;
+    el("text", { x: MAR.l - 10, y: Y(t), "text-anchor": "middle", "font-size": FS - 1,
+                 transform: `rotate(-90 ${MAR.l - 10} ${Y(t)})` }, svg).textContent = fmtTick(t, yt.dec);
+  }
+  if (o.xlab) el("text", { x: MAR.l + pw / 2, y: H_ - 8, "text-anchor": "middle", "font-size": FS - 1 }, svg).textContent = o.xlab;
+  if (o.ylab) el("text", { x: 14, y: MAR.t + ph / 2, "text-anchor": "middle", "font-size": FS - 1,
+                 transform: `rotate(-90 14 ${MAR.t + ph / 2})` }, svg).textContent = o.ylab;
+
+  const id = "clip" + (++clipId);
+  el("rect", { x: MAR.l, y: MAR.t, width: pw, height: ph }, el("clipPath", { id }, el("defs", {}, svg)));
+  const g = el("g", { "clip-path": `url(#${id})` }, svg);
+
+  // s: {col, lwd, lty}  lty: 1 solid, 2 dashed, 3 dotted, 4 dot-dash
+  const DASH = { 1: "none", 2: "7 5", 3: "1.5 4", 4: "1.5 4 7 4", 5: "12 5", 6: "4 3 10 3" };
+  const style = (s) => ({ fill: "none", stroke: s.col, "stroke-width": (s.lwd || 1) * 1.15,
+    "stroke-dasharray": DASH[s.lty || 1], "stroke-linejoin": "round", "stroke-linecap": (s.lty || 1) === 3 ? "round" : "butt" });
+
+  const api = {
+    X, Y, x0, x1, y0, y1,
+    line(xs, ys, s) {     // s.step: R type = "s"
+      let d = "", pen = false;
+      for (let k = 0; k < xs.length; k++) {
+        if (!Number.isFinite(xs[k]) || !Number.isFinite(ys[k])) { pen = false; continue; }
+        if (s.step && pen) d += `L${X(xs[k])},${Y(ys[k - 1])}`;
+        d += (pen ? "L" : "M") + X(xs[k]) + "," + Y(ys[k]); pen = true;
+      }
+      el("path", { d, ...style(s) }, g);
+      return api;
+    },
+    series(ys, s) { return api.line(ys.map((_, k) => k + 1), ys, s); },   // R: plot(y) uses x = 1..n
+    abline(a, b, s) { el("line", { x1: X(x0), y1: Y(a + b * x0), x2: X(x1), y2: Y(a + b * x1), ...style(s) }, g); return api; },
+    hline(y, s) { el("line", { x1: X(x0), x2: X(x1), y1: Y(y), y2: Y(y), ...style(s) }, g); return api; },
+    vline(x, s) { el("line", { x1: X(x), x2: X(x), y1: Y(y0), y2: Y(y1), ...style(s) }, g); return api; },
+    point(x, y, col, r = 4.5) { el("circle", { cx: X(x), cy: Y(y), r, fill: col }, g); return api; },
+    text(x, y, txt, opt = {}) {
+      const t = el("text", { x: X(x), y: Y(y), "text-anchor": opt.anchor || "middle", "font-size": opt.size || FS - 2, fill: opt.col || "#000" }, g);
+      t.textContent = txt; return api;
+    },
+    // Secondary (right-hand) y axis, as in R's par(new = TRUE) + axis(4)
+    secondary(ylim) {
+      const [s0, s1] = ext(ylim, o.yaxs === "i");
+      const Y2 = y => MAR.t + (s1 - y) / (s1 - s0) * ph;
+      const yt2 = pretty(s0, s1);
+      const yin2 = yt2.ticks.filter(t => t >= s0 - 1e-9 && t <= s1 + 1e-9);
+      const ylen2 = Math.max(...yin2.map(t => fmtTick(t, yt2.dec).length));
+      const thin2 = yin2.length > 1 && Math.abs(Y2(yin2[0]) - Y2(yin2[1])) < ylen2 * 8.5 + 6 ? 2 : 1;
+      const xr = MAR.l + pw;
+      for (const [k, t] of yin2.entries()) {
+        el("line", { x1: xr, x2: xr + 6, y1: Y2(t), y2: Y2(t), stroke: "#000" }, svg);
+        if (k % thin2) continue;
+        el("text", { x: xr + 16, y: Y2(t), "text-anchor": "middle", "font-size": FS - 1,
+                     transform: `rotate(-90 ${xr + 16} ${Y2(t)})` }, svg).textContent = fmtTick(t, yt2.dec);
+      }
+      return {
+        line(xs, ys, s) {
+          let d = "";
+          xs.forEach((x, k) => { if (Number.isFinite(ys[k])) d += (d ? "L" : "M") + X(x) + "," + Y2(ys[k]); });
+          el("path", { d, ...style(s) }, g);
+          return api;
+        },
+      };
+    },
+    // items: [{text, html, col, lwd, lty}], pos: topleft|top|topright|left|right|bottomleft|bottom|bottomright
+    legend(items, pos, opt = {}) {
+      const lh = 19, seg = 26, gap = 6, fs = opt.size || FS - 1.5;
+      const lg = el("g", {}, svg);
+      // write the labels first, so that their real width can be measured
+      const texts = items.map(it => { const t = el("text", { x: 0, y: 0, "font-size": fs }, lg); if (it.html) t.innerHTML = it.html; else t.textContent = it.text; return t; });
+      const widths = texts.map((t, k) => { let w = 0; try { w = t.getComputedTextLength(); } catch (e) {} return (w || items[k].text.length * fs * 0.55) + seg + gap; });
+      const wmax = Math.max(...widths), hh = items.length * lh;
+      let pts;
+      if (opt.horiz) {
+        const tot = widths.reduce((a, b) => a + b, 0) + 14 * (items.length - 1);
+        let x = pos.includes("left") ? MAR.l + 8 : pos.includes("right") ? MAR.l + pw - tot - 6 : MAR.l + (pw - tot) / 2;
+        const y = pos.startsWith("bottom") ? MAR.t + ph - 12 : MAR.t + 16;
+        pts = items.map((it, k) => { const p = [x, y]; x += widths[k] + 14; return p; });
+      } else {
+        const x = pos.includes("left") ? MAR.l + 8 : pos.includes("right") ? MAR.l + pw - wmax - 6 : MAR.l + (pw - wmax) / 2;
+        const ytop = pos.startsWith("top") ? MAR.t + 16 : pos.startsWith("bottom") ? MAR.t + ph - hh + 7 : MAR.t + (ph - hh) / 2 + 10;
+        pts = items.map((it, k) => [x, ytop + k * lh]);
+      }
+      items.forEach((it, k) => {
+        const [x, y] = pts[k];
+        lg.insertBefore(el("rect", { x: x - 3, y: y - 9, width: widths[k] + 4, height: 18, fill: "#ffffff", "fill-opacity": 0.8 }), lg.firstChild);
+        el("line", { x1: x, x2: x + seg, y1: y, y2: y, ...style(it) }, lg);
+        texts[k].setAttribute("x", x + seg + gap); texts[k].setAttribute("y", y + 5);
+      });
+      return api;
+    },
+  };
+  return api;
+}
+</script>
+<script>
+"use strict";
+W_ = 330; H_ = 430;   // two rows of four charts
+
+// MODEL-START ====================================================================
+// Initial values (before period 51)
+const alpha11_initial = 8, alpha12_initial = 0, r_bar_initial = 0.025, pr1_initial = 3.5, pr2_initial = 5;
+const pr3_initial = 2.2, theta_initial = 0.2, lambda0_initial = 0.635, g0_initial = 20;
+
+const nPeriods = 100, nIndustries = 3, nIterations = 100;
+
+// SET THE COEFFICIENTS (EXOGENOUS VARIABLES AND PARAMETERS)
+const alpha10 = 0.8;   // Autonomous component of propensity to consume out of income
+const alpha2 = 0.4;    // Propensity to consume out of wealth
+const w = 0.4;         // Uniform wage rate
+const mu = 0.875;      // Uniform mark-up
+const lambda1 = 5;     // Elasticity of bills demand to interest rate
+const lambda2 = 0.01;  // Elasticity of bills demand to yd/v
+const beta_c_bar = [0.15, 0.35, 0.50];   // Household consumption shares of products 1, 2, 3
+const beta_g_bar = [0.10, 0.30, 0.60];   // Government consumption shares of products 1, 2, 3
+// Technical coefficients: AM[r][c] = quantity of product r+1 necessary to produce one unit of product c+1
+const AM = [[0.11, 0.12, 0.10], [0.21, 0.22, 0.20], [0.15, 0.18, 0.10]];
+
+// Ecosystem coefficients
+const rho_dis = 0.2;        // Recycling rate
+const g_beta_e = 0.01;      // Declining rate of CO2 intensity of non-renewable energy sources
+const tcre = 1.65 / 1000;   // Transient climate response to cumulative carbon emissions (degrees C per GtC)
+const fnc = 0.34;           // Non-CO2 fraction of total anthropogenic forcing
+const sigma_m = 0.0005;     // Conversion rate of matter resources into reserves
+const car = 3.67;           // Coefficient converting Gt of carbon into Gt of CO2
+const sigma_e = 0.003;      // Conversion rate of energy resources into reserves
+const mu_mat = [0.4, 0.7, 0.3];      // Material intensity coefficients by industry
+const zeta_dc = [0.025, 0.035, 0.020];  // Percentages of discarded socio-economic stock by industry
+const xi_dc = [0.05, 0.50, 0.01];    // Shares of consumption goods that are durable
+const eps_en = [8, 6, 3];            // Energy intensity coefficients by industry
+const eta_en = [0.12, 0.15, 0.18];   // Shares of renewable energy in total energy by industry
+
+const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+// Inverse of a 3x3 matrix (Gauss-Jordan with partial pivoting), as R's solve()
+function inv3(M) {
+  const a = M.map((r, i) => [...r, ...[0, 1, 2].map(j => (i === j ? 1 : 0))]);
+  for (let c = 0; c < 3; c++) {
+    let piv = c;
+    for (let r = c + 1; r < 3; r++) if (Math.abs(a[r][c]) > Math.abs(a[piv][c])) piv = r;
+    [a[c], a[piv]] = [a[piv], a[c]];
+    const d = a[c][c];
+    for (let k = 0; k < 6; k++) a[c][k] /= d;
+    for (let r = 0; r < 3; r++) if (r !== c) { const f = a[r][c]; for (let k = 0; k < 6; k++) a[r][k] -= f * a[c][k]; }
+  }
+  return a.map(r => r.slice(3));
+}
+
+// inp: new values, applied from period 51 onwards. Arrays are indexed 1..nPeriods (element 0 unused);
+// variables by industry are arrays of [industry 1, 2, 3] for each period.
+function simulate(inp) {
+  const fill = v => new Array(nPeriods + 1).fill(v);
+  const fill3 = v => Array.from({ length: nPeriods + 1 }, () => [v, v, v]);
+  const x = fill3(0), d = fill3(0), beta_c = fill3(0), beta_g = fill3(0), p = fill3(1), dc = fill3(0), emis_by_ind = fill3(1);
+  const alpha1 = fill(alpha10 - 8 * 0.025);
+  const b_cb = fill(0), b_h = fill(0), b_s = fill(0), h_h = fill(0), h_s = fill(0), r = fill(0.025), t = fill(0), v = fill(0);
+  const yd = fill(0), cons = fill(0), g = fill(0), y = fill(0), p_c = fill(1), p_g = fill(1), infl = fill(1);
+  const x_mat = fill(0), x_dur = fill(0), mat = fill(0), rec = fill(0), dis = fill(0), kh = fill(0), en = fill(0), ren = fill(0);
+  const nen = fill(0), co2_cum = fill(0), wa = fill(0), temp = fill(0), k_m = fill(6000), conv_m = fill(0), res_m = fill(388889);
+  const k_e = fill(37000), conv_e = fill(0), res_e = fill(542000), emis = fill(0), cen = fill(0), o2 = fill(0), beta_e = fill(0.07);
+
+  const A = AM;
+  const L = inv3(A.map((row, i) => row.map((a, j) => (i === j ? 1 : 0) - a)));   // solve(I - A)
+
+  for (let i = 2; i <= nPeriods; i++) {
+    let alpha11, alpha12, r_bar, pr1, pr2, pr3, theta, lambda0, g0;
+    if (i >= 51) ({ alpha11, alpha12, r_bar, pr1, pr2, pr3, theta, lambda0, g0 } = inp);
+    else {
+      alpha11 = alpha11_initial; alpha12 = alpha12_initial; r_bar = r_bar_initial; pr1 = pr1_initial; pr2 = pr2_initial;
+      pr3 = pr3_initial; theta = theta_initial; lambda0 = lambda0_initial; g0 = g0_initial;
+    }
+    for (let it = 1; it <= nIterations; it++) {
+      // B) Consumption shares
+      beta_c[i] = [...beta_c_bar];
+      beta_g[i] = [...beta_g_bar];
+      // C) Input-output structure
+      d[i] = [0, 1, 2].map(k => beta_c[i][k] * cons[i] + beta_g[i][k] * g[i]);   // Real final demand by industry - eq. 15
+      x[i] = [0, 1, 2].map(k => dot(L[k], d[i]));                                 // Real gross output by industry - eq. 16
+      y[i] = dot(p[i], d[i]);                                                     // Value of net output (GDP) - eq. 1.A
+      // D) Price setting - eq. 17
+      p[i][0] = (w / pr1) + (p[i][0] * A[0][0] + p[i][1] * A[1][0] + p[i][2] * A[2][0]) * (1 + mu);
+      p[i][1] = (w / pr2) + (p[i][0] * A[0][1] + p[i][1] * A[1][1] + p[i][2] * A[2][1]) * (1 + mu);
+      p[i][2] = (w / pr3) + (p[i][0] * A[0][2] + p[i][1] * A[1][2] + p[i][2] * A[2][2]) * (1 + mu);
+      p_c[i] = dot(p[i], beta_c[i]);                                              // Average price for the consumers - eq. 18
+      p_g[i] = dot(p[i], beta_g[i]);                                              // Average price for the government - eq. 19
+      // E) Households' behaviour
+      yd[i] = y[i] - t[i] + r[i - 1] * b_h[i - 1];                                // Disposable income - eq. 2
+      v[i] = v[i - 1] + (yd[i] - p_c[i] * cons[i]);                               // Wealth accumulation - eq. 4
+      cons[i] = alpha1[i] * ((yd[i] / p_c[i]) - infl[i]) + alpha2 * v[i - 1] / p_c[i];   // Real consumption - eq. 5.A.1
+      infl[i] = ((p_c[i] - p_c[i - 1]) / p_c[i - 1]) * (v[i - 1] / p_c[i]);       // Inflation tax for households - eq. 5.A.1
+      // F) Portfolio equations
+      h_h[i] = v[i] - b_h[i];                                                     // Demand for cash money - eq. 6
+      b_h[i] = v[i] * (lambda0 + lambda1 * r[i] - lambda2 * (yd[i] / v[i]));      // Demand for government bills - eq. 7
+      // G) Government
+      t[i] = theta * (y[i] + r[i - 1] * b_h[i - 1]);                              // Tax payments - eq. 3
+      b_s[i] = b_s[i - 1] + (p_g[i] * g[i] + r[i - 1] * b_s[i - 1]) - (t[i] + r[i - 1] * b_cb[i - 1]);   // Supply of bills - eq. 8
+      g[i] = g0;                                                                  // Real government spending
+      // H) Central bank
+      h_s[i] = h_s[i - 1] + b_cb[i] - b_cb[i - 1];                                // Supply of cash - eq. 9
+      b_cb[i] = b_s[i] - b_h[i];                                                  // Bills held by the central bank - eq. 10
+      r[i] = r_bar;                                                               // Interest rate as policy instrument - eq. 11
+      // I) Ecosystem: extraction of matter and waste
+      x_mat[i] = dot(mu_mat, x[i]);                                               // Production of material goods
+      mat[i] = x_mat[i] - rec[i];                                                 // Extraction of matter
+      rec[i] = rho_dis * dis[i];                                                  // Recycled matter
+      dis[i] = dot(mu_mat, [0, 1, 2].map(k => zeta_dc[k] * dc[i - 1][k]));        // Discarded socioeconomic stock
+      dc[i] = [0, 1, 2].map(k => dc[i - 1][k] + xi_dc[k] * beta_c[i][k] * cons[i] - zeta_dc[k] * dc[i - 1][k]);   // Durable goods
+      x_dur[i] = dot(mu_mat, [0, 1, 2].map(k => xi_dc[k] * beta_c[i][k] * cons[i]));   // Material content of durable goods
+      kh[i] = kh[i - 1] + x_dur[i] - dis[i];                                      // Socioeconomic stock
+      wa[i] = mat[i] - (kh[i] - kh[i - 1]);                                       // Wasted socio-economic stock
+      // Use of energy, emissions and temperature
+      en[i] = dot(eps_en, x[i]);                                                  // Energy required for production
+      ren[i] = dot(eps_en, [0, 1, 2].map(k => eta_en[k] * x[i][k]));              // Renewable energy
+      nen[i] = en[i] - ren[i];                                                    // Non-renewable energy
+      emis[i] = beta_e[i] * nen[i];                                               // Annual CO2 emissions
+      emis_by_ind[i] = [0, 1, 2].map(k => eps_en[k] * ((1 - eta_en[k]) * x[i][k]) * beta_e[i]);   // Emissions by industry
+      beta_e[i] = beta_e[i - 1] * (1 - g_beta_e);                                 // CO2 emission rate
+      co2_cum[i] = co2_cum[i - 1] + emis[i];                                      // Cumulative emissions
+      temp[i] = (1 / (1 - fnc)) * tcre * (co2_cum[i] / car);                      // Atmospheric temperature
+      // Resources and reserves
+      k_m[i] = k_m[i - 1] + conv_m[i] - mat[i];                                   // Stock of material reserves
+      conv_m[i] = sigma_m * res_m[i];                                             // Material resources converted to reserves
+      res_m[i] = res_m[i - 1] - conv_m[i];                                        // Stock of material resources
+      cen[i] = emis[i] / car;                                                     // Carbon mass of non-renewable energy
+      o2[i] = emis[i] - cen[i];                                                   // Mass of oxygen
+      k_e[i] = k_e[i - 1] + conv_e[i] - nen[i];                                   // Stock of energy reserves
+      conv_e[i] = sigma_e * res_e[i];                                             // Energy resources converted to reserves
+      res_e[i] = res_e[i - 1] - conv_e[i];                                        // Stock of energy resources
+      // Climate related impacts: endogenous propensity to consume out of income
+      alpha1[i] = alpha10 - alpha11 * r[i - 1] - alpha12 * (temp[i] - temp[i - 1]);
+    }
+  }
+  // variables by industry, also flattened in R's array order (period fastest), for the numerical checks
+  const flat = a => [0, 1, 2].flatMap(k => a.slice(1).map(row => row[k]));
+  return { x, d, p, dc, emis_by_ind, beta_c, beta_g, alpha1, b_cb, b_h, b_s, h_h, h_s, r, t, v, yd, cons, g, y, p_c, p_g, infl,
+    x_mat, x_dur, mat, rec, dis, kh, en, ren, nen, co2_cum, wa, temp, k_m, conv_m, res_m, k_e, conv_e, res_e, emis, cen, o2, beta_e,
+    flat3: { x: flat(x), d: flat(d), p: flat(p), dc: flat(dc), emis_by_ind: flat(emis_by_ind), beta_c: flat(beta_c), beta_g: flat(beta_g) } };
+}
+// MODEL-END ======================================================================
+
+const SLIDERS = [
+  { id: "r_bar", label: "Policy rate (r)", min: 0, max: 0.05, step: 0.0005, value: 0.025, dec: 4 },
+  { id: "theta", label: "Tax rate (&theta;)", min: 0.1, max: 0.5, step: 0.005, value: 0.2, dec: 3 },
+  { id: "g0", label: "Real government spending (g<sub>0</sub>)", min: 5, max: 35, step: 1, value: 20, dec: 0 },
+  { id: "pr1", label: "Labour productivity in agriculture (pr<sub>1</sub>)", min: 2.5, max: 4.5, step: 0.02, value: 3.5, dec: 2 },
+  { id: "pr2", label: "Labour productivity in manufacturing (pr<sub>2</sub>)", min: 4, max: 6, step: 1, value: 5, dec: 0 },
+  { id: "pr3", label: "Labour productivity in services (pr<sub>3</sub>)", min: 1.2, max: 3.2, step: 0.02, value: 2.2, dec: 2 },
+  { id: "lambda0", label: "Autonomous share of bills (&lambda;<sub>0</sub>)", min: 0.335, max: 0.935, step: 0.005, value: 0.635, dec: 3 },
+  { id: "alpha11", label: "Interest rate elasticity of consumption (-&alpha;<sub>11</sub>)", min: 4, max: 12, step: 1, value: 8, dec: 0 },
+  { id: "alpha12", label: "Temperature elasticity of consumption (-&alpha;<sub>12</sub>)", min: 0, max: 4, step: 1, value: 0, dec: 0 },
+];
+
+const IND = [["Agriculture", "#008B45"], ["Manufacturing", "#FF4500"], ["Services", "#1874CD"]];
+const SUB2 = "<tspan font-size='10' dy='4'>2</tspan><tspan dy='-4'></tspan>";
+
+function draw() {
+  const inp = readControls(SLIDERS);
+  const m = simulate(inp);
+  const idx = seq(49, nPeriods), sel = a => idx.map(i => a[i]);
+  const sel3 = (a, k) => idx.map(i => a[i][k]);
+  const xlim = [49, nPeriods];
+  const box = document.getElementById("charts");
+  box.innerHTML = "";
+  const P = (title, ylab, ylim, extra = {}) => Panel(box, { title, xlim, ylim, ylab, mar: { l: 58, r: 10 }, ...extra });
+  const lg = { size: 15 };
+  const byInd = (title, ylab, a, pos) => {
+    const all = [0, 1, 2].flatMap(k => sel3(a, k));
+    const Pn = P(title, ylab, [0.95 * min(all), max(all) * 1.05], { titleHtml: title.includes("CO2") ? title.replace("CO2", "CO" + SUB2) : undefined });
+    IND.forEach(([, col], k) => Pn.line(idx, sel3(a, k), { col, lwd: 2 }));
+    Pn.legend(IND.map(([text, col]) => ({ text, col, lwd: 2 })), pos, lg);
+  };
+
+  // Disposable income and consumption
+  const ydr = idx.map(i => m.yd[i] / m.p_c[i]), cons = sel(m.cons);
+  P("Disposable income and consumption (real)", "£ (deflated)", [0.95 * Math.min(min(cons), min(ydr)), 1.05 * Math.max(max(cons), max(ydr))])
+    .line(idx, ydr, { col: "#DF536B", lwd: 2 }).line(idx, cons, { col: "#9B30FF", lwd: 2 })
+    .legend([{ text: "Disposable income", col: "#DF536B", lwd: 2 }, { text: "Real consumption", col: "#9B30FF", lwd: 2 }], "bottomright", lg)
+    .hline(m.yd[49] / m.p_c[49], { col: "#000000", lty: 3 });
+
+  // Final demand, gross output and unit prices by industry
+  byInd("Final demand by industry (real)", "Index", m.d, "bottomright");
+  byInd("Gross output by industry (real)", "Index", m.x, "bottomright");
+  byInd("Unit prices by industry", "£", m.p, "right");
+
+  // Reserves depletion rates
+  const dm = idx.map(i => 100 * (m.mat[i] / m.k_m[i - 1])), de = idx.map(i => 100 * (m.nen[i] / m.k_e[i - 1]));
+  P("Reserves depletion rates", "Index (%)", range(dm, de))
+    .line(idx, dm, { col: "#CD5B45", lwd: 3 }).line(idx, de, { col: "#008B8B", lwd: 3 })
+    .legend([{ text: "Matter", col: "#CD5B45", lwd: 3 }, { text: "Energy", col: "#008B8B", lwd: 3 }], "topright", lg);
+
+  // Annual CO2 emissions by industry
+  byInd("Annual CO2 emissions by industry", "GtCO₂", m.emis_by_ind, "topright");
+
+  // Total emissions (annual, left axis; cumulative, right axis)
+  const em = sel(m.emis), cum = sel(m.co2_cum);
+  const Pt = P("Total CO2 emissions", "GtCO₂", [0.95 * min(em), max(em) * 1.05], { titleHtml: "Total CO" + SUB2 + " emissions", mar: { l: 58, r: 32 } });
+  Pt.line(idx, em, { col: "#CDCD00", lwd: 2 });
+  Pt.secondary([0.95 * min(cum), max(cum) * 1.05]).line(idx, cum, { col: "#FA8072", lwd: 2 });
+  Pt.legend([{ text: "Annual", col: "#CDCD00", lwd: 2 }, { text: "Cumulative (right axis)", col: "#FA8072", lwd: 2 }], "right", lg);
+
+  // Atmospheric temperature
+  const tp = sel(m.temp);
+  P("Atmospheric temperature", "°C", dataLim(tp)).line(idx, tp, { col: "#6495ED", lwd: 3 });
+}
+
+buildControls(SLIDERS, [], draw);
+draw();
+</script>
+</body>
+</html>
