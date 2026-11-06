@@ -788,13 +788,14 @@ The essential `R` code for this model is [`IO_PC.R`](https://github.com/marcover
 >
 > Not only can these models be made interactive, but they can also be conveniently extended to include a variety of variables. Here you can explore an ecosystem-extended version of Model IO-PC.
 >  
-> [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/eco_3io_sfc_model/)
-> 
+> [![Open interactive model](https://img.shields.io/badge/Launch-Interactive_Model-blue?style=for-the-badge)](https://marcoverpas.github.io/Leeds_lectures_2026/eco_3io_sfc_model.html)
+> <div align="center">
 > <figure>
-> <a href="https://x52gnt-marco-passarella.shinyapps.io/eco_3io_sfc_model/" target="_blank">
-> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/laboratory.png" width="1000">
+> <a href="https://marcoverpas.github.io/Leeds_lectures_2026/eco_3io_sfc_model.html" target="_blank">
+> <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="400">
 > </a>
 > </figure>
+> </div>
 > <br><br>
 >
 > Click the link above (or the figure) to open the simulation laboratory for *Model ECO-3IO-PC*. Please wait a few moments while the simulation loads. :hourglass_flowing_sand:
