@@ -469,10 +469,10 @@ Obviously, Model PC can also be used to perform several experiments, such as cha
 >
 > Click the link below to open the simulation laboratory for *Model PC*. 
 >  
-> [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/int_pc/)
+> [![Open interactive model](https://img.shields.io/badge/Launch-Interactive_Model-blue?style=for-the-badge)](https://marcoverpas.github.io/Leeds_lectures_2026/int_pc.html)
 > <div align="center">
 > <figure>
-> <a href="https://x52gnt-marco-passarella.shinyapps.io/int_pc/" target="_blank">
+> <a href="https://marcoverpas.github.io/Leeds_lectures_2026/int_pc.html" target="_blank">
 > <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="400">
 > </a>
 > </figure>
@@ -604,10 +604,10 @@ As usual, Model BMW can also be used to perform several experiments, such as cha
 >
 > Click the link below to open the simulation laboratory for *Model BMW*. 
 >  
-> [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/int_bmw/)
+> [![Open interactive model](https://img.shields.io/badge/Launch-Interactive_Model-blue?style=for-the-badge)](https://marcoverpas.github.io/Leeds_lectures_2026/int_bmw.html)
 > <div align="center">
 > <figure>
-> <a href="https://x52gnt-marco-passarella.shinyapps.io/int_bmw/" target="_blank">
+> <a href="https://marcoverpas.github.io/Leeds_lectures_2026/int_bmw.html" target="_blank">
 > <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="400">
 > </a>
 > </figure>
