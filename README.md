@@ -340,10 +340,10 @@ par(op)
 >
 > One of the advantages of creating formal models using `R` is that they can be conveniently converted into online interactive models using the `Shiny` package. 
 >
-> [![Open Shiny App](https://img.shields.io/badge/Launch-Shiny_App-blue?style=for-the-badge&logo=r)](https://x52gnt-marco-passarella.shinyapps.io/int_sim/)
+> [![Open interactive model](https://img.shields.io/badge/Launch-Interactive_Model-blue?style=for-the-badge)](https://marcoverpas.github.io/Leeds_lectures_2026/int_sim.html)
 > <div align="center">
 > <figure>
-> <a href="https://x52gnt-marco-passarella.shinyapps.io/int_sim/" target="_blank">
+> <a href="https://marcoverpas.github.io/Leeds_lectures_2026/int_sim.html" target="_blank">
 > <img src="https://raw.githubusercontent.com/marcoverpas/figures/main/Playing.png" width="400">
 > </a>
 > </figure>
